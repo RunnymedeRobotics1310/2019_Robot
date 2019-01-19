@@ -23,7 +23,6 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
     private static final boolean HIGH_GEAR    = true;
 
     private Solenoid             shifter      = new Solenoid(RobotMap.SHIFTER_PNEUMATIC_PORT);
-    private boolean              turboEnabled = false;
 
     public CanDriveSubsystem() {
 
@@ -76,30 +75,12 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
         setDefaultCommand(new DefaultDriveCommand());
     }
 
-    // ********************************************************************************************************************
-    // Turbo routines
-    // ********************************************************************************************************************
-    public void enableTurbo() {
-        turboEnabled = true;
-        setMaxEncoderSpeed(RobotConst.MAX_HIGH_GEAR_SPEED);
-        shifter.set(HIGH_GEAR);
-    }
 
-    public void disableTurbo() {
-        turboEnabled = false;
-        setMaxEncoderSpeed(RobotConst.MAX_LOW_GEAR_SPEED);
-        shifter.set(LOW_GEAR);
-    }
-
-    public boolean isTurboEnabled() {
-        return turboEnabled;
-    }
 
     @Override
     public void updatePeriodic() {
         super.updatePeriodic();
-
-        SmartDashboard.putBoolean("Turbo Enabled", isTurboEnabled());
+        
     }
 
 }
