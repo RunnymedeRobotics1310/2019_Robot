@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.commands.AutonomousCommand;
 import robot.oi.AutoSelector;
 import robot.oi.OI;
+import robot.subsystems.ArmSubsystem;
 import robot.subsystems.CameraSubsystem;
 import robot.subsystems.CanDriveSubsystem;
 import robot.subsystems.PneumaticsSubsystem;
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
     public static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
     public static final PowerSubsystem      powerSubsystem      = new PowerSubsystem();
     public static final CameraSubsystem     cameraSubsystem     = new CameraSubsystem();
+    public static final ArmSubsystem        armSubsystem       = new ArmSubsystem();
 
     public static OI                        oi;
 
@@ -43,6 +45,7 @@ public class Robot extends IterativeRobot {
         subsystemLs.add(pneumaticsSubsystem);
         subsystemLs.add(powerSubsystem);
         subsystemLs.add(cameraSubsystem);
+        subsystemLs.add(armSubsystem);
     }
 
     /**

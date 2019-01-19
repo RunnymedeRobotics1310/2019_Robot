@@ -1,10 +1,12 @@
 package robot.subsystems;
 
+import com.torontocodingcollective.speedcontroller.TCanSpeedController;
+import com.torontocodingcollective.speedcontroller.TSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.commands.pneumatics.DefaultPneumaticsCommand;
+import robot.RobotMap;
+import robot.commands.arm.DefaultArmCommand;
 
 /**
  *
@@ -12,43 +14,28 @@ import robot.commands.pneumatics.DefaultPneumaticsCommand;
 public class ArmSubsystem extends TSubsystem {
 
     // uncomment the compressor to enable pneumatics control
-    Compressor compressor = new Compressor();
+    TSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS);
 
     @Override
     public void init() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
     };
-
-    public void disableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(false);
-        }
-    }
-
-    public void enableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
-    }
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultPneumaticsCommand());
+        setDefaultCommand(new DefaultArmCommand());
+    }
+
+    public void setArmSpeed (double armSpeed){
+        armMotor.set(armSpeed);
     }
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
     public void updatePeriodic() {
 
-        if (compressor != null) {
-            SmartDashboard.putBoolean("Compressor", compressor.enabled());
-            SmartDashboard.putBoolean("Compressor Enabled", compressor.getClosedLoopControl());
-        } else {
-            SmartDashboard.putBoolean("Compressor", false);
-            SmartDashboard.putBoolean("Compressor Enabled", false);
-        }
+         SmartDashboard.putNumber("Arm Motor", armMotor.get());
+           
+        
     }
 
 }
