@@ -25,6 +25,7 @@ public class RobotMap {
     public static final TCanSpeedControllerType LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE;
     public static final boolean                 LEFT_DRIVE_CAN_MOTOR_ISINVERTED;
 
+    
     public static final int                     RIGHT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType RIGHT_DRIVE_CAN_SPEED_CONTROLLER_TYPE;
     public static final int                     RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS;
@@ -33,6 +34,10 @@ public class RobotMap {
 
     public static final boolean                 LEFT_DRIVE_CAN_ENCODER_ISINVERTED;
     public static final boolean                 RIGHT_DRIVE_CAN_ENCODER_ISINVERTED;
+
+    public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
+    public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
+    public static final boolean                 ARM_CAN_MOTOR_ISINVERTED;
 
     // ******************************************
     // PWM addresses
@@ -89,6 +94,10 @@ public class RobotMap {
             RIGHT_DRIVE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             RIGHT_DRIVE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
+            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 10;
+            ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
+            ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
+    
             // PWM Constants
             // Talon and Victors connected through Pwm
             LEFT_DRIVE_PWM_SPEED_CONTROLLER_ADDRESS           = 0;
