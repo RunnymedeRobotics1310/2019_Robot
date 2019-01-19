@@ -7,48 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.commands.pneumatics.DefaultPneumaticsCommand;
 
 /**
- *
+ * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing mechanisim.
  */
-public class HatchSubsystem extends TSubsystem {
-
-    // uncomment the compressor to enable pneumatics control
-    Compressor compressor = new Compressor();
-
-    @Override
-    public void init() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
-    };
-
-    public void disableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(false);
-        }
-    }
-
-    public void enableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultPneumaticsCommand());
-    }
-
-    // Periodically update the dashboard and any PIDs or sensors
-    @Override
-    public void updatePeriodic() {
-
-        if (compressor != null) {
-            SmartDashboard.putBoolean("Compressor", compressor.enabled());
-            SmartDashboard.putBoolean("Compressor Enabled", compressor.getClosedLoopControl());
-        } else {
-            SmartDashboard.putBoolean("Compressor", false);
-            SmartDashboard.putBoolean("Compressor Enabled", false);
-        }
-    }
+public class HatchSubsystem extends PneumaticsSubsystem {
 
 }
