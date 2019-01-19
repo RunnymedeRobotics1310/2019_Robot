@@ -50,5 +50,4 @@ public class PneumaticsSubsystem extends TSubsystem {
             SmartDashboard.putBoolean("Compressor Enabled", false);
         }
     }
-
 }
