@@ -8,6 +8,7 @@ import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
 import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.oi.TToggle;
+import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -100,6 +101,10 @@ public class OI extends TOi {
 
     public void setSpeedPidEnabled(boolean state) {
         speedPidToggle.set(state);
+    }
+
+    public double getArmUp(){
+        return driverController.getTrigger(TTrigger.RIGHT);
     }
 
     @Override
