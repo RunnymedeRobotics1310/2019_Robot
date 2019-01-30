@@ -60,6 +60,12 @@ public class RobotMap {
     public static final boolean                 RIGHT_DRIVE_DIO_ENCODER_ISINVERTED;
 
     // ******************************************
+    // DIO Port
+    // ******************************************
+    public static final int                     ARM_DOWN_LIMIT_SWITCH;
+    public static final int                     ARM_UP_LIMIT_SWITCH;
+
+    // ******************************************
     // Gyro Ports
     // ******************************************
     public static final int                     GYRO_PORT;
@@ -118,6 +124,9 @@ public class RobotMap {
 
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
+            
+            ARM_DOWN_LIMIT_SWITCH                             = 0;
+            ARM_UP_LIMIT_SWITCH                               = 0;
         }
     }
 }

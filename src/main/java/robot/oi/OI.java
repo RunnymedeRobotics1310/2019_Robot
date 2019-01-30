@@ -103,8 +103,15 @@ public class OI extends TOi {
         speedPidToggle.set(state);
     }
 
+    /* *************************************************
+     * Cargo Subsystem buttons
+    /* *************************************************/
     public double getArmUp(){
         return driverController.getTrigger(TTrigger.RIGHT);
+    }
+
+    public double getArmDown(){
+        return driverController.getTrigger(TTrigger.LEFT);
     }
 
     @Override
