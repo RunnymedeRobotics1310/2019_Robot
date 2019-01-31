@@ -10,6 +10,8 @@ import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.sensors.encoder.TCanEncoder;
 import com.torontocodingcollective.sensors.encoder.TCanSparkEncoder;
 import com.torontocodingcollective.sensors.encoder.TEncoder;
+import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch;
+import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitchType;
 
 /**
  * TCanSpeedController controls one or more speed controllers connected to the
@@ -221,6 +223,26 @@ public class TCanSpeedController extends TSpeedController {
      */
     @Override
     public TEncoder getEncoder() {
+
+        if (this.canCtreSpeedController != null) {
+            if (this.canCtreSpeedController instanceof TalonSRX) {
+                return new TCanEncoder((TalonSRX) canCtreSpeedController, getInverted());
+            }
+        }
+        if (this.canSparkSpeedController != null) {
+            return new TCanSparkEncoder(canSparkSpeedController, getInverted());
+        }
+        return null;
+    }
+
+    /**
+     * Return an encoder with the same inversion setting as the motor
+     * 
+     * @return TEncoder attached to this TalonSRX, or {@code null} if this is not a
+     *         TalonSRX device. The encoder is assumed to be a quadrature encoder.
+     */
+    @Override
+    public TLimitSwitch getLimitSwitch(TLimitSwitchType limitSwitchType) {
 
         if (this.canCtreSpeedController != null) {
             if (this.canCtreSpeedController instanceof TalonSRX) {
