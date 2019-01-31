@@ -18,7 +18,7 @@ public class ArmSubsystem extends TSubsystem {
 
     TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS);
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
-    //TEncoder encoder = new TCanSparkEncoder(armMotor, false);
+    TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
     
     @Override
@@ -47,7 +47,9 @@ public class ArmSubsystem extends TSubsystem {
     public void updatePeriodic() {
 
          SmartDashboard.putNumber("Arm Motor", armMotor.get());
-         SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());  
+         SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());
+         SmartDashboard.putBoolean("Arm Up", armUpLimit.atLimit());
+         SmartDashboard.putNumber("Arm Encoder",armEncoder.get());
     }
 
 }

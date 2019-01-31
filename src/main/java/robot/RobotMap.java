@@ -41,6 +41,9 @@ public class RobotMap {
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 ARM_CAN_MOTOR_ISINVERTED;
+    
+    public static final int                 ARM_DOWN_LIMIT_SWITCH;
+    public static final int                 ARM_UP_LIMIT_SWITCH;
 
     // ******************************************
     // Gyro Ports
@@ -86,8 +89,14 @@ public class RobotMap {
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
+            ARM_DOWN_LIMIT_SWITCH                             = 1;
+            ARM_UP_LIMIT_SWITCH                               = 0;
+            
+            
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
+            
+       
         }
     }
 }

@@ -44,11 +44,10 @@ public class DefaultArmCommand extends TSafeCommand {
     protected void execute() {
 
         if (Robot.oi.getArmUp() > 0) {
-            Robot.armSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
             if (Robot.armSubsystem.armUpLimitDetected()) {
         		Robot.armSubsystem.setArmSpeed(0);
         	} else {
-        		Robot.armSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
+        		Robot.armSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
         	}
             
         } else if (Robot.oi.getArmDown() > 0) {
