@@ -14,9 +14,11 @@ public class CargoSubsystem extends TSubsystem {
 
     @Override
     protected void initDefaultCommand() {
-        
+        setDefaultCommand(new DefaultCargoCommand());
     }
 
+    public void
+    
     public void updatePeriodic() {
 
     }

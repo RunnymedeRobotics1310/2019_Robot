@@ -13,6 +13,10 @@ import robot.commands.arm.DefaultArmCommand;
 
 /**
  * Subsystem for arm mechanism.
+ * 64 encoder counts per revolution
+ * 60 revolutions = 1 full 360 degree arm turn, 1 revolution = 6 degrees
+ * max arm thing = ~ 0.6 arm turn / ~ 216 degrees / ~ 36 revolutions / ~ 2304 encoder counts
+ * Level 0 = 0 enc ; Level 1 = ? ; Level 2 = ? ; Level 3 = ? ; Level 4 = ? ; Level 5 = ~ 2304 enc
  */
 public class ArmSubsystem extends TSubsystem {
 
@@ -40,6 +44,10 @@ public class ArmSubsystem extends TSubsystem {
     
     public boolean armUpLimitDetected() {
     	return armUpLimit.atLimit();
+    }
+    
+    public double getCurrentLevel() {
+    	return armMotor.get();
     }
 
     // Periodically update the dashboard and any PIDs or sensors

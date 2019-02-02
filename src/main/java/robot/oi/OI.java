@@ -45,7 +45,9 @@ public class OI extends TOi {
     private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
     private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
     
-    private int 			armLevelSetPoint = 0;        
+    private int 			armLevelSetPoint = 0;   
+    
+    private TToggle         cargoToggle      = new TToggle(driverController, TButton.A);
 
     @Override
     public boolean getCancelCommand() {
@@ -125,7 +127,7 @@ public class OI extends TOi {
     }
 
      public boolean cargoIntake() {
-    	 return driverController.getButton(TButton.A);
+    	 return cargoToggle.get();
      }
      
      public boolean cargoEject() {
