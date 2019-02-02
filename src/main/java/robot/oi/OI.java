@@ -90,7 +90,7 @@ public class OI extends TOi {
         return speedPidToggle.get();
     }
 
-    public boolean getTurboOn() {
+    public boolean getSlideOn() {
         return driverController.getButton(TButton.LEFT_BUMPER);
     }
 
