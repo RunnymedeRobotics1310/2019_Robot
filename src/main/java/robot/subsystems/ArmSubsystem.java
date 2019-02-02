@@ -12,7 +12,7 @@ import robot.RobotMap;
 import robot.commands.arm.DefaultArmCommand;
 
 /**
- * hello
+ * Subsystem for arm mechanism.
  */
 public class ArmSubsystem extends TSubsystem {
 

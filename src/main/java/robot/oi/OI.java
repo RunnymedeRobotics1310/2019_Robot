@@ -114,7 +114,7 @@ public class OI extends TOi {
     }
 
     /* *************************************************
-     * Cargo Subsystem buttons
+     * Arm / Cargo Subsystem buttons
     /* *************************************************/
     public double getArmUp(){
         return driverController.getTrigger(TTrigger.RIGHT);
@@ -124,6 +124,14 @@ public class OI extends TOi {
         return driverController.getTrigger(TTrigger.LEFT);
     }
 
+     public boolean cargoIntake() {
+    	 return driverController.getButton(TButton.A);
+     }
+     
+     public boolean cargoEject() {
+    	 return driverController.getButton(TButton.Y);
+     }
+    
     
     
     @Override
