@@ -1,5 +1,6 @@
 package com.torontocodingcollective.sensors.limitSwitch;
 
+import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANSparkMax;
@@ -104,10 +105,14 @@ public class TLimitSwitch {
     	}
     	
     	if (talonSRX != null) {
+    		
+    		SensorCollection talonSensorCollection = talonSRX.getSensorCollection();
+    		talonSensorCollection.isFwdLimitSwitchClosed();
     		switch (limitSwitchType) {
     		case REVERSE:
     			if (defaultState == true) {
-	        		return talonSRX.limsparkMax.getReverseLimitSwitch(
+    				
+	        		return talonSRX.getlimitlimsparkMax.getReverseLimitSwitch(
 	        				CANDigitalInput.LimitSwitchPolarity.kNormallyOpen)
 	        				.get();
     			}
