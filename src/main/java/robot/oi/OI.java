@@ -47,6 +47,14 @@ public class OI extends TOi {
     
     private int 			armLevelSetPoint = 0;        
 
+    /* *************************************************
+     * Initializers and General Controls
+    /* *************************************************/
+    public void init() {
+        compressorToggle.set(true);
+        speedPidToggle.set(false);
+    }
+
     @Override
     public boolean getCancelCommand() {
         return driverController.getButton(TButton.BACK);
@@ -57,13 +65,16 @@ public class OI extends TOi {
     }
 
     @Override
-    public TStickPosition getDriveStickPosition(TStick stick) {
-        return driverController.getStickPosition(stick);
-    }
-
-    @Override
     public boolean getReset() {
         return driverController.getButton(TButton.START);
+    }
+
+    /* *************************************************
+     * Drive Subsystem buttons
+    /* *************************************************/
+    @Override
+    public TStickPosition getDriveStickPosition(TStick stick) {
+        return driverController.getStickPosition(stick);
     }
 
     @Override
@@ -100,15 +111,6 @@ public class OI extends TOi {
         return speedPidToggle.get();
     }
 
-    public boolean getTurboOn() {
-        return driverController.getButton(TButton.LEFT_BUMPER);
-    }
-
-    public void init() {
-        compressorToggle.set(true);
-        speedPidToggle.set(false);
-    }
-
     public void setSpeedPidEnabled(boolean state) {
         speedPidToggle.set(state);
     }
@@ -116,16 +118,28 @@ public class OI extends TOi {
     /* *************************************************
      * Cargo Subsystem buttons
     /* *************************************************/
-    public double getArmUp(){
+    public double getArmUp() {
         return driverController.getTrigger(TTrigger.RIGHT);
     }
 
-    public double getArmDown(){
+    public double getArmDown() {
         return driverController.getTrigger(TTrigger.LEFT);
     }
-
+    
+    /* *************************************************
+     * Lift Subsystem buttons
+    /* *************************************************/
+    public double getLiftFrontMotorSpeed() {
+    	
+    	// Put some code here
+    	return 0;
+    	
+    }
     
     
+    /* *************************************************
+     * Update and SmartDashboard
+    /* *************************************************/
     @Override
     public void updatePeriodic() {
 
