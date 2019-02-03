@@ -1,6 +1,7 @@
 package robot.oi;
 
 import com.torontocodingcollective.oi.TButton;
+import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
 import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TOi;
@@ -40,6 +41,11 @@ public class OI extends TOi {
     private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
 
     private DriveSelector   driveSelector    = new DriveSelector();
+    
+    private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
+    private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
+    
+    private int 			armLevelSetPoint = 0;        
 
     @Override
     public boolean getCancelCommand() {
@@ -63,6 +69,10 @@ public class OI extends TOi {
     @Override
     public int getRotateToHeading() {
         return driverController.getPOV();
+    }
+    
+    public int getArmLevel() {
+    	return armLevelSetPoint;
     }
 
     /**
@@ -90,7 +100,7 @@ public class OI extends TOi {
         return speedPidToggle.get();
     }
 
-    public boolean getSlideOn() {
+    public boolean getTurboOn() {
         return driverController.getButton(TButton.LEFT_BUMPER);
     }
 
@@ -103,10 +113,19 @@ public class OI extends TOi {
         speedPidToggle.set(state);
     }
 
+    /* *************************************************
+     * Cargo Subsystem buttons
+    /* *************************************************/
     public double getArmUp(){
         return driverController.getTrigger(TTrigger.RIGHT);
     }
 
+    public double getArmDown(){
+        return driverController.getTrigger(TTrigger.LEFT);
+    }
+
+    
+    
     @Override
     public void updatePeriodic() {
 
@@ -114,10 +133,25 @@ public class OI extends TOi {
         compressorToggle.updatePeriodic();
         speedPidToggle.updatePeriodic();
         driverRumble.updatePeriodic();
+       
+        if (armUpDetector.get()) {
+        	armLevelSetPoint ++;
+        	if (armLevelSetPoint > 5) {
+        		armLevelSetPoint = 5;
+        	}
+        }
+        if (armDownDetector.get()) {
+        	armLevelSetPoint = armLevelSetPoint - 1;
+        	if (armLevelSetPoint < 0) {
+        		armLevelSetPoint = 0;
+        	}
+        }
+        
 
         // Update all SmartDashboard values
         SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
         SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
         SmartDashboard.putString("Driver Controller", driverController.toString());
+        SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
     }
 }

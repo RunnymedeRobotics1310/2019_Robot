@@ -2,7 +2,6 @@ package robot;
 
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.speedcontroller.TCanSpeedController.TCanSpeedControllerType;
-import com.torontocodingcollective.speedcontroller.TPwmSpeedController.TPwmSpeedControllerType;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -25,7 +24,6 @@ public class RobotMap {
     public static final TCanSpeedControllerType LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE;
     public static final boolean                 LEFT_DRIVE_CAN_MOTOR_ISINVERTED;
 
-    
     public static final int                     RIGHT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType RIGHT_DRIVE_CAN_SPEED_CONTROLLER_TYPE;
     public static final int                     RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS;
@@ -43,26 +41,9 @@ public class RobotMap {
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 ARM_CAN_MOTOR_ISINVERTED;
-
-    // ******************************************
-    // PWM addresses
-    // ******************************************
-    public static final int                     LEFT_DRIVE_PWM_SPEED_CONTROLLER_ADDRESS;
-    public static final TPwmSpeedControllerType LEFT_DRIVE_PWM_SPEED_CONTROLLER_TYPE;
-    public static final int                     LEFT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_ADDRESS;
-    public static final TPwmSpeedControllerType LEFT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_TYPE;
-    public static final boolean                 LEFT_DRIVE_PWM_MOTOR_ISINVERTED;
-
-    public static final int                     RIGHT_DRIVE_PWM_SPEED_CONTROLLER_ADDRESS;
-    public static final TPwmSpeedControllerType RIGHT_DRIVE_PWM_SPEED_CONTROLLER_TYPE;
-    public static final int                     RIGHT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_ADDRESS;
-    public static final TPwmSpeedControllerType RIGHT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_TYPE;
-    public static final boolean                 RIGHT_DRIVE_PWM_MOTOR_ISINVERTED;
-
-    public static final int                     LEFT_DRIVE_DIO_ENCODER_PORT1;
-    public static final boolean                 LEFT_DRIVE_DIO_ENCODER_ISINVERTED;
-    public static final int                     RIGHT_DRIVE_DIO_ENCODER_PORT1;
-    public static final boolean                 RIGHT_DRIVE_DIO_ENCODER_ISINVERTED;
+    
+    public static final int                 ARM_DOWN_LIMIT_SWITCH;
+    public static final int                 ARM_UP_LIMIT_SWITCH;
 
     // ******************************************
     // Gyro Ports
@@ -104,30 +85,18 @@ public class RobotMap {
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED               = TConst.NOT_INVERTED;
 
-            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 11;
+            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 10;
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
-            // PWM Constants
-            // Talon and Victors connected through Pwm
-            LEFT_DRIVE_PWM_SPEED_CONTROLLER_ADDRESS           = 0;
-            LEFT_DRIVE_PWM_SPEED_CONTROLLER_TYPE              = TPwmSpeedControllerType.TALON_SRX;
-            LEFT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_ADDRESS  = 1;
-            LEFT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_TYPE     = TPwmSpeedControllerType.TALON_SRX;
-            LEFT_DRIVE_PWM_MOTOR_ISINVERTED                   = TConst.INVERTED;
-            LEFT_DRIVE_DIO_ENCODER_PORT1                      = 0;
-            LEFT_DRIVE_DIO_ENCODER_ISINVERTED                 = TConst.INVERTED;
-
-            RIGHT_DRIVE_PWM_SPEED_CONTROLLER_ADDRESS          = 2;
-            RIGHT_DRIVE_PWM_SPEED_CONTROLLER_TYPE             = TPwmSpeedControllerType.TALON_SRX;
-            RIGHT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_ADDRESS = 3;
-            RIGHT_DRIVE_PWM_FOLLOWER_SPEED_CONTROLLER_TYPE    = TPwmSpeedControllerType.VICTOR_SPX;
-            RIGHT_DRIVE_PWM_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
-            RIGHT_DRIVE_DIO_ENCODER_PORT1                     = 2;
-            RIGHT_DRIVE_DIO_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
-
+            ARM_DOWN_LIMIT_SWITCH                             = 1;
+            ARM_UP_LIMIT_SWITCH                               = 0;
+            
+            
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
+            
+       
         }
     }
 }

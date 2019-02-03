@@ -5,8 +5,6 @@ import com.torontocodingcollective.sensors.gyro.TAnalogGyro;
 import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.subsystem.TGyroDriveSubsystem;
 
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotConst;
 import robot.RobotMap;
 import robot.commands.drive.DefaultDriveCommand;
@@ -18,11 +16,6 @@ import robot.commands.drive.DefaultDriveCommand;
  * drive subsystem.
  */
 public class CanDriveSubsystem extends TGyroDriveSubsystem {
-
-    private static final boolean LOW_GEAR     = false;
-    private static final boolean HIGH_GEAR    = true;
-
-    private Solenoid             shifter      = new Solenoid(RobotMap.SHIFTER_PNEUMATIC_PORT);
 
     public CanDriveSubsystem() {
 
@@ -64,23 +57,15 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
                 RobotConst.MAX_LOW_GEAR_SPEED);
     }
 
-    @Override
-    public void init() {
-        shifter.set(LOW_GEAR);
-    }
-
+	@Override
+	public void init() {
+		// Put any subsystem initialization code here.
+	}
+	
     // Initialize the default command for the Chassis subsystem.
     @Override
     public void initDefaultCommand() {
         setDefaultCommand(new DefaultDriveCommand());
-    }
-
-
-
-    @Override
-    public void updatePeriodic() {
-        super.updatePeriodic();
-        
     }
 
 }
