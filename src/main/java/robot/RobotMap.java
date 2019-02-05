@@ -37,6 +37,9 @@ public class RobotMap {
     public static final TCanSpeedControllerType HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 HATCH_SLIDE_CAN_MOTOR_ISINVERTED;                   
     public static final boolean                 HATCH_SLIDE_CAN_ENCODER_ISINVERTED;
+    
+    public static final int					HATCH_LEFT_LIMIT_SWITCH;
+    public static final int					HATCH_RIGHT_LIMIT_SWITCH;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -101,9 +104,13 @@ public class RobotMap {
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS          = 20;
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
-            HATCH_SLIDE_CAN_ENCODER_ISINVERTED               = TConst.NOT_INVERTED;
+            HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
+            HATCH_LEFT_LIMIT_SWITCH							  = 0;
+            HATCH_RIGHT_LIMIT_SWITCH						  = 0;
+            
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
+
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
@@ -120,14 +127,13 @@ public class RobotMap {
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
-            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 1;
-            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 0;
+            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 0;
+            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 2;
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 3;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 4;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
-            
         }
     }
 }
