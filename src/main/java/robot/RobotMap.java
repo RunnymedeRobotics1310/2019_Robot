@@ -120,8 +120,8 @@ public class RobotMap {
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
-            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 0;
-            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 2;
+            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 1;
+            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 0;
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 3;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 4;
             

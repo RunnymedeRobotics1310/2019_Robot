@@ -36,6 +36,8 @@ public class OI extends TOi {
 
     private TGameController driverController = new TGameController_Logitech(0);
     private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
+    
+    private TGameController operatorController = new TGameController_Logitech(1);
 
     private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
     private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
@@ -51,7 +53,7 @@ public class OI extends TOi {
      * Initializers and General Controls
     /* *************************************************/
     public void init() {
-        compressorToggle.set(true);
+        compressorToggle.set(false);
         speedPidToggle.set(false);
     }
 
@@ -129,10 +131,27 @@ public class OI extends TOi {
     /* *************************************************
      * Lift Subsystem buttons
     /* *************************************************/
-    public double getLiftFrontMotorSpeed() {
+    public boolean getRetractFrontLift() {
     	
     	// Put some code here
-    	return 0;
+    	return operatorController.getButton(TButton.RIGHT_BUMPER);
+    	
+    }
+    
+    public double getExtendFrontLift() {
+		return operatorController.getTrigger(TTrigger.RIGHT);
+    	
+    }
+    
+    public boolean getRetractRearLift() {
+    	
+    	// Put some code here
+    	return operatorController.getButton(TButton.LEFT_BUMPER);
+    	
+    }
+    
+    public double getExtendRearLift() {
+		return operatorController.getTrigger(TTrigger.LEFT);
     	
     }
     
