@@ -1,4 +1,3 @@
-
 package robot;
 
 import java.util.ArrayList;
@@ -15,9 +14,10 @@ import robot.oi.OI;
 import robot.subsystems.ArmSubsystem;
 import robot.subsystems.CameraSubsystem;
 import robot.subsystems.CanDriveSubsystem;
+import robot.subsystems.LiftSubsystem;
+import robot.subsystems.HatchSubsystem;
 import robot.subsystems.PneumaticsSubsystem;
 import robot.subsystems.PowerSubsystem;
-import robot.subsystems.HatchSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,7 +35,9 @@ public class Robot extends IterativeRobot {
     public static final PowerSubsystem      powerSubsystem      = new PowerSubsystem();
     public static final CameraSubsystem     cameraSubsystem     = new CameraSubsystem();
     public static final ArmSubsystem        armSubsystem        = new ArmSubsystem();
+    public static final LiftSubsystem       liftSubsystem       = new LiftSubsystem();
     public static final HatchSubsystem      hatchSubsystem      = new HatchSubsystem();
+    
 
     public static OI                        oi;
 
@@ -48,6 +50,8 @@ public class Robot extends IterativeRobot {
         subsystemLs.add(powerSubsystem);
         subsystemLs.add(cameraSubsystem);
         subsystemLs.add(armSubsystem);
+        subsystemLs.add(liftSubsystem);
+        subsystemLs.add(hatchSubsystem);
     }
 
     /**
