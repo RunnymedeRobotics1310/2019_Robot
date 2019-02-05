@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Buttons: Start Button = Reset Encoders and Gyro Back Button = Cancel any
  * Command
  * 
- * Bumpers/Triggers: Left Bumper = Turbo shift
+ * Bumpers/Triggers:
  * 
  * POV: Any Angle = Rotate to the Pressed Angle
  * 
@@ -36,6 +36,9 @@ public class OI extends TOi {
 
     private TGameController driverController = new TGameController_Logitech(0);
     private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
+    
+    private TGameController operatorController = new TGameController_Logitech(1);
+    private TRumbleManager  operatorRumble     = new TRumbleManager("Driver", operatorController);
 
     private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
     private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
@@ -45,8 +48,21 @@ public class OI extends TOi {
     private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
     private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
     
-    private int 			armLevelSetPoint = 0;        
+    private int 			armLevelSetPoint = 0;     
 
+    public double getHatchSlideLeft() {
+    	return operatorController.getTrigger(TTrigger.LEFT);
+    }
+    
+    public double getHatchSlideRight() {
+    	return operatorController.getTrigger(TTrigger.RIGHT);
+    }
+    
+    
+    
+    
+    
+    
     @Override
     public boolean getCancelCommand() {
         return driverController.getButton(TButton.BACK);
