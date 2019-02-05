@@ -116,10 +116,6 @@ public class OI extends TOi {
         return speedPidToggle.get();
     }
 
-    public boolean getTurboOn() {
-        return driverController.getButton(TButton.LEFT_BUMPER);
-    }
-
     public void init() {
         compressorToggle.set(true);
         speedPidToggle.set(false);
