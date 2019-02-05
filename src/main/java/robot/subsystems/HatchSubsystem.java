@@ -18,8 +18,8 @@ public class HatchSubsystem extends TSubsystem {
 
 	TSpeedController slideMotor = new TCanSpeedController(
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
-	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
-	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
+//	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
+//	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
 
 	public void init() {
 
@@ -33,25 +33,21 @@ public class HatchSubsystem extends TSubsystem {
 		slideMotor.set(slideSpeed);
 	}
 
-	public boolean leftSlideLimitDeteceted() {
-		return leftSlideLimit.atLimit();
-	}
-
-	public boolean rightSlideLimitDeteceted() {
-		return rightSlideLimit.atLimit();
-	}
+//	public boolean leftSlideLimitDeteceted() {
+//		return leftSlideLimit.atLimit();
+//	}
+//
+//	public boolean rightSlideLimitDeteceted() {
+//		return rightSlideLimit.atLimit();
+//	}
 
 	public void updatePeriodic() {
 		//FIXME
 		if (Robot.oi.getHatchSlideLeft()>0) {
-			if (!leftSlideLimit.atLimit()) {
 				Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
-			}
 		}
 		else if (Robot.oi.getHatchSlideLeft()>0) {
-			if (!leftSlideLimit.atLimit()) {
 				Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
-			}
 		}
 		else {
 			Robot.hatchSubsystem.setSlideSpeed(0);
