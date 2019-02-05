@@ -16,46 +16,49 @@ import robot.commands.hatch.DefaultHatchCommand;
  */
 public class HatchSubsystem extends TSubsystem {
 
-    TSpeedController slideMotor = new TCanSpeedController(
-    		RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
-    TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
-    TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
-    
-    public void init() {
+	TSpeedController slideMotor = new TCanSpeedController(
+			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
+	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
+	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
 
-    }
+	public void init() {
 
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultHatchCommand());
-    }
+	}
 
-    public void setSlideSpeed (double slideSpeed) {
-        slideMotor.set(slideSpeed);
-    }
-    
-    public boolean leftSlideLimitDeteceted() {
-    	return leftSlideLimit.atLimit();
-    }
-    
-    public boolean rightSlideLimitDeteceted() {
-    	return rightSlideLimit.atLimit();
-    }
+	protected void initDefaultCommand() {
+		setDefaultCommand(new DefaultHatchCommand());
+	}
+
+	public void setSlideSpeed (double slideSpeed) {
+		slideMotor.set(slideSpeed);
+	}
+
+	public boolean leftSlideLimitDeteceted() {
+		return leftSlideLimit.atLimit();
+	}
+
+	public boolean rightSlideLimitDeteceted() {
+		return rightSlideLimit.atLimit();
+	}
+
+	public void updatePeriodic() {
+		//FIXME
+		if (Robot.oi.getHatchSlideLeft()>0) {
+			if (!leftSlideLimit.atLimit()) {
+				Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
+			}
+		}
+		else if (Robot.oi.getHatchSlideLeft()>0) {
+			if (!leftSlideLimit.atLimit()) {
+				Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
+			}
+		}
+		else {
+			Robot.hatchSubsystem.setSlideSpeed(0);
+		}
 
 
-    public void updatePeriodic() {
-    	//FIXME
-    	if (Robot.oi.getHatchSlideLeft()>0) {
-            Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
-        }
-        else if (Robot.oi.getHatchSlideLeft()>0) {
-        	Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
-        }
-        else {
-            Robot.hatchSubsystem.setSlideSpeed(0);
-        }
-    	
-    	
-    	
-        SmartDashboard.putNumber("Slide Motor", slideMotor.get());
-    }
+
+		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
+	}
 }
