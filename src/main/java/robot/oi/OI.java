@@ -145,10 +145,27 @@ public class OI extends TOi {
     /* *************************************************
      * Lift Subsystem buttons
     /* *************************************************/
-    public double getLiftFrontMotorSpeed() {
+   public boolean getRetractFrontLift() {
     	
     	// Put some code here
-    	return 0;
+    	return operatorController.getButton(TButton.RIGHT_BUMPER);
+    	
+    }
+    
+    public double getExtendFrontLift() {
+		return operatorController.getTrigger(TTrigger.RIGHT);
+    	
+    }
+    
+    public boolean getRetractRearLift() {
+    	
+    	// Put some code here
+    	return operatorController.getButton(TButton.LEFT_BUMPER);
+    	
+    }
+    
+    public double getExtendRearLift() {
+		return operatorController.getTrigger(TTrigger.LEFT);
     	
     }
     
