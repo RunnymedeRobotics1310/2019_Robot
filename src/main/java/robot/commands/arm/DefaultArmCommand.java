@@ -18,7 +18,7 @@ public class DefaultArmCommand extends TSafeCommand {
         super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
         
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.armSubsystem);
+        requires(Robot.cargoSubsystem);
     }
 
     @Override
@@ -44,21 +44,21 @@ public class DefaultArmCommand extends TSafeCommand {
     protected void execute() {
 
         if (Robot.oi.getArmUp() > 0) {
-            if (Robot.armSubsystem.armUpLimitDetected()) {
-        		Robot.armSubsystem.setArmSpeed(0);
+            if (Robot.cargoSubsystem.armUpLimitDetected()) {
+        		Robot.cargoSubsystem.setArmSpeed(0);
         	} else {
-        		Robot.armSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
+        		Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
         	}
             
         } else if (Robot.oi.getArmDown() > 0) {
-        	if (Robot.armSubsystem.armDownLimitDetected()) {
-        		Robot.armSubsystem.setArmSpeed(0);
+        	if (Robot.cargoSubsystem.armDownLimitDetected()) {
+        		Robot.cargoSubsystem.setArmSpeed(0);
         	} else {
-        		Robot.armSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
+        		Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
         	}
         
         } else {
-            Robot.armSubsystem.setArmSpeed(0);
+            Robot.cargoSubsystem.setArmSpeed(0);
         }
     }
 
