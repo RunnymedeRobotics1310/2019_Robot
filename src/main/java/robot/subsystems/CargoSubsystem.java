@@ -23,6 +23,8 @@ public class CargoSubsystem extends TSubsystem {
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
     
+    int currentArmLevel = 0;
+    
     @Override
     public void init() {
     };
@@ -33,7 +35,26 @@ public class CargoSubsystem extends TSubsystem {
     }
 
     public void setArmSpeed (double armSpeed){
-        armMotor.set(armSpeed);
+    	armMotor.set(armSpeed);
+    	if (armSpeed < 0) {
+    		if (armUpLimit.atLimit()) {
+    			armMotor.set(0);
+    		}
+    		else {
+    			armMotor.set(armSpeed);
+    		}
+    	}
+    	else if (armSpeed > 0) {
+    		if (armDownLimit.atLimit()) {
+    			armMotor.set(0);
+    		}
+    		else {
+    			armMotor.set(armSpeed);
+    		}
+    	}
+    	else {
+    		armMotor.set(0);
+    	}
     }
     
     public boolean armDownLimitDetected() {
@@ -47,11 +68,22 @@ public class CargoSubsystem extends TSubsystem {
     public double getCurrentLevel() {
     	return armMotor.get();
     }
-
+ 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
     public void updatePeriodic() {
 
+    	// Monitor for limits
+    	// This is done in case a command starts the motor and 
+    	// does not update the motor speed at the end of the command
+    	double armSpeed = armMotor.get();
+    	if (armSpeed < 0 && armUpLimit.atLimit()) {
+    		armMotor.set(0);
+    	}
+    	if (armSpeed > 0 && armDownLimit.atLimit()) {
+    		armMotor.set(0);
+    	}
+    	
          SmartDashboard.putNumber("Arm Motor", armMotor.get());
          SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());
          SmartDashboard.putBoolean("Arm Up", armUpLimit.atLimit());
