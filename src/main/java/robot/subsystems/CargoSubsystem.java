@@ -3,7 +3,7 @@ package robot.subsystems;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
 /**
- * Subsystem for cargo intake / ejecting cargo.
+ * Subsystem for cargo in-take / ejecting cargo.
  */
 public class CargoSubsystem extends TSubsystem {
 
@@ -14,10 +14,7 @@ public class CargoSubsystem extends TSubsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultCargoCommand());
     }
-
-    public void
     
     public void updatePeriodic() {
 

@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
     public static final PowerSubsystem      powerSubsystem      = new PowerSubsystem();
     public static final CameraSubsystem     cameraSubsystem     = new CameraSubsystem();
     public static final ArmSubsystem        armSubsystem       = new ArmSubsystem();
-
+    public static final CargoSubsystem      cargoSubsystem     = new CargoSubsystem();
+    
     public static OI                        oi;
 
     private Command                         autoCommand;
@@ -46,6 +47,7 @@ public class Robot extends IterativeRobot {
         subsystemLs.add(powerSubsystem);
         subsystemLs.add(cameraSubsystem);
         subsystemLs.add(armSubsystem);
+        subsystemLs.add(cargoSubsystem);
     }
 
     /**
