@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.torontocodingcollective.subsystem.TSubsystem;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.commands.AutonomousCommand;
@@ -14,8 +14,8 @@ import robot.oi.OI;
 import robot.subsystems.ArmSubsystem;
 import robot.subsystems.CameraSubsystem;
 import robot.subsystems.CanDriveSubsystem;
-import robot.subsystems.LiftSubsystem;
 import robot.subsystems.HatchSubsystem;
+import robot.subsystems.LiftSubsystem;
 import robot.subsystems.PneumaticsSubsystem;
 import robot.subsystems.PowerSubsystem;
 
@@ -26,7 +26,7 @@ import robot.subsystems.PowerSubsystem;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
     public static final List<TSubsystem>    subsystemLs         = new ArrayList<TSubsystem>();
 
