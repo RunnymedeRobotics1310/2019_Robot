@@ -43,6 +43,23 @@ public class DefaultCargoCommand extends TSafeCommand {
     @Override
     protected void execute() {
 
+        if (Robot.oi.getArmUp() > 0) {
+            if (Robot.cargoSubsystem.armUpLimitDetected()) {
+        		Robot.cargoSubsystem.setArmSpeed(0);
+        	} else {
+        		Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
+        	}
+            
+        } else if (Robot.oi.getArmDown() > 0) {
+        	if (Robot.cargoSubsystem.armDownLimitDetected()) {
+        		Robot.cargoSubsystem.setArmSpeed(0);
+        	} else {
+        		Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
+        	}
+        
+        } else {
+            Robot.cargoSubsystem.setArmSpeed(0);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

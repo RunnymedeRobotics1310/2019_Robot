@@ -9,7 +9,7 @@ import com.torontocodingcollective.subsystem.TSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotMap;
-import robot.commands.arm.DefaultArmCommand;
+import robot.commands.cargo.DefaultCargoCommand;
 
 /**
  * Subsystem for arm mechanism.
@@ -31,7 +31,7 @@ public class CargoSubsystem extends TSubsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultArmCommand());
+        setDefaultCommand(new DefaultCargoCommand());
     }
 
     public void setArmSpeed (double armSpeed){
