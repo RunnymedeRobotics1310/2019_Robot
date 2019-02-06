@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Buttons: Start Button = Reset Encoders and Gyro Back Button = Cancel any
  * Command
  * 
- * Bumpers/Triggers: Left Bumper = Turbo shift
+ * Bumpers/Triggers:
  * 
  * POV: Any Angle = Rotate to the Pressed Angle
  * 
@@ -36,6 +36,9 @@ public class OI extends TOi {
 
     private TGameController driverController = new TGameController_Logitech(0);
     private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
+    
+    private TGameController operatorController = new TGameController_Logitech(1);
+    private TRumbleManager  operatorRumble     = new TRumbleManager("Driver", operatorController);
 
     private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
     private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
@@ -45,7 +48,15 @@ public class OI extends TOi {
     private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
     private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
     
-    private int 			armLevelSetPoint = 0;        
+    private int 			armLevelSetPoint = 0;
+
+    /* *************************************************
+     * Initializers and General Controls
+    /* *************************************************/
+    public void init() {
+        compressorToggle.set(true);
+        speedPidToggle.set(false);
+    }
 
     @Override
     public boolean getCancelCommand() {
@@ -57,13 +68,16 @@ public class OI extends TOi {
     }
 
     @Override
-    public TStickPosition getDriveStickPosition(TStick stick) {
-        return driverController.getStickPosition(stick);
-    }
-
-    @Override
     public boolean getReset() {
         return driverController.getButton(TButton.START);
+    }
+
+    /* *************************************************
+     * Drive Subsystem buttons
+    /* *************************************************/
+    @Override
+    public TStickPosition getDriveStickPosition(TStick stick) {
+        return driverController.getStickPosition(stick);
     }
 
     @Override
@@ -100,32 +114,58 @@ public class OI extends TOi {
         return speedPidToggle.get();
     }
 
-    public boolean getTurboOn() {
-        return driverController.getButton(TButton.LEFT_BUMPER);
-    }
-
-    public void init() {
-        compressorToggle.set(true);
-        speedPidToggle.set(false);
-    }
-
     public void setSpeedPidEnabled(boolean state) {
         speedPidToggle.set(state);
     }
 
     /* *************************************************
+     * Hatch Subsystem buttons
+    /* *************************************************/
+    public double getHatchSlideLeft() {
+    	return operatorController.getTrigger(TTrigger.LEFT);
+    }
+    
+    public double getHatchSlideRight() {
+    	return operatorController.getTrigger(TTrigger.RIGHT);
+    }
+    
+    /* *************************************************
      * Cargo Subsystem buttons
     /* *************************************************/
-    public double getArmUp(){
+    public double getArmUp() {
         return driverController.getTrigger(TTrigger.RIGHT);
     }
 
-    public double getArmDown(){
+    public double getArmDown() {
         return driverController.getTrigger(TTrigger.LEFT);
     }
-
+    
+    /* *************************************************
+     * Lift Subsystem buttons
+    /* *************************************************/
+   public boolean getRetractFrontLift() {
+    	return operatorController.getButton(TButton.RIGHT_BUMPER);
+    	
+    }
+    
+    public double getExtendFrontLift() {
+		return operatorController.getTrigger(TTrigger.RIGHT);
+    	
+    }
+    
+    public boolean getRetractRearLift() {
+    	return operatorController.getButton(TButton.LEFT_BUMPER);
+    	
+    }
+    
+    public double getExtendRearLift() {
+		return operatorController.getTrigger(TTrigger.LEFT);
+    }
     
     
+    /* *************************************************
+     * Update and SmartDashboard
+    /* *************************************************/
     @Override
     public void updatePeriodic() {
 
@@ -146,7 +186,6 @@ public class OI extends TOi {
         		armLevelSetPoint = 0;
         	}
         }
-        
 
         // Update all SmartDashboard values
         SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
