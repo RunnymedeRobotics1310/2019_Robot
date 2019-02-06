@@ -42,18 +42,6 @@ public class HatchSubsystem extends TSubsystem {
 
 	public void updatePeriodic() {
 		//FIXME
-		// if (Robot.oi.getHatchSlideLeft()>0) {
-		// 		Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
-		// }
-		// else if (Robot.oi.getHatchSlideLeft()>0) {
-		// 		Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
-		// }
-		// else {
-		// 	Robot.hatchSubsystem.setSlideSpeed(0);
-		// }
-
-
-
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 	}
 }
