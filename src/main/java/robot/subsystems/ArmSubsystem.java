@@ -21,6 +21,8 @@ public class ArmSubsystem extends TSubsystem {
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
     
+    int currentArmLevel = 0;
+    
     @Override
     public void init() {
     };

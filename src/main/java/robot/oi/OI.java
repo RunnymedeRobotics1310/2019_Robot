@@ -45,7 +45,9 @@ public class OI extends TOi {
     private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
     private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
     
-    private int 			armLevelSetPoint = 0;        
+    public int 			armLevelSetPoint = 0;   
+    
+    private TToggle         cargoToggle      = new TToggle(driverController, TButton.A);
 
     @Override
     public boolean getCancelCommand() {
@@ -114,7 +116,7 @@ public class OI extends TOi {
     }
 
     /* *************************************************
-     * Cargo Subsystem buttons
+     * Arm / Cargo Subsystem buttons
     /* *************************************************/
     public double getArmUp(){
         return driverController.getTrigger(TTrigger.RIGHT);
@@ -124,6 +126,14 @@ public class OI extends TOi {
         return driverController.getTrigger(TTrigger.LEFT);
     }
 
+     public boolean cargoIntake() {
+    	 return cargoToggle.get();
+     }
+     
+     public boolean cargoEject() {
+    	 return driverController.getButton(TButton.Y);
+     }
+    
     
     
     @Override
@@ -148,6 +158,8 @@ public class OI extends TOi {
         }
         
 
+        
+        
         // Update all SmartDashboard values
         SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
         SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
