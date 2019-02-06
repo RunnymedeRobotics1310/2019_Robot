@@ -38,8 +38,8 @@ public class RobotMap {
     public static final boolean                 HATCH_SLIDE_CAN_MOTOR_ISINVERTED;                   
     public static final boolean                 HATCH_SLIDE_CAN_ENCODER_ISINVERTED;
     
-    public static final int					HATCH_LEFT_LIMIT_SWITCH;
-    public static final int					HATCH_RIGHT_LIMIT_SWITCH;
+    public static final int					    HATCH_LEFT_LIMIT_SWITCH;
+    public static final int					    HATCH_RIGHT_LIMIT_SWITCH;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -106,8 +106,8 @@ public class RobotMap {
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
-            HATCH_LEFT_LIMIT_SWITCH							  = 0;
-            HATCH_RIGHT_LIMIT_SWITCH						  = 0;
+            HATCH_LEFT_LIMIT_SWITCH							  = 7;
+            HATCH_RIGHT_LIMIT_SWITCH						  = 6;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 

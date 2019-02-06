@@ -50,19 +50,6 @@ public class OI extends TOi {
     
     private int 			armLevelSetPoint = 0;
 
-    public double getHatchSlideLeft() {
-    	return operatorController.getTrigger(TTrigger.LEFT);
-    }
-    
-    public double getHatchSlideRight() {
-    	return operatorController.getTrigger(TTrigger.RIGHT);
-    }
-    
-    
-    
-    
-    
-    
     /* *************************************************
      * Initializers and General Controls
     /* *************************************************/
@@ -132,6 +119,17 @@ public class OI extends TOi {
     }
 
     /* *************************************************
+     * Hatch Subsystem buttons
+    /* *************************************************/
+    public double getHatchSlideLeft() {
+    	return operatorController.getTrigger(TTrigger.LEFT);
+    }
+    
+    public double getHatchSlideRight() {
+    	return operatorController.getTrigger(TTrigger.RIGHT);
+    }
+    
+    /* *************************************************
      * Cargo Subsystem buttons
     /* *************************************************/
     public double getArmUp() {
@@ -146,8 +144,6 @@ public class OI extends TOi {
      * Lift Subsystem buttons
     /* *************************************************/
    public boolean getRetractFrontLift() {
-    	
-    	// Put some code here
     	return operatorController.getButton(TButton.RIGHT_BUMPER);
     	
     }
@@ -158,15 +154,12 @@ public class OI extends TOi {
     }
     
     public boolean getRetractRearLift() {
-    	
-    	// Put some code here
     	return operatorController.getButton(TButton.LEFT_BUMPER);
     	
     }
     
     public double getExtendRearLift() {
 		return operatorController.getTrigger(TTrigger.LEFT);
-    	
     }
     
     
@@ -193,7 +186,6 @@ public class OI extends TOi {
         		armLevelSetPoint = 0;
         	}
         }
-        
 
         // Update all SmartDashboard values
         SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());

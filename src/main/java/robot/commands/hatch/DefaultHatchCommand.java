@@ -43,10 +43,17 @@ public class DefaultHatchCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 		//FIXME left will ovveride right for now.
-		if (Robot.oi.getHatchSlideLeft()>0) {
+		
+		//FIXME:  RM
+		//        Since the Hatch control buttons are on triggers,
+		//        and the triggers will both return a positive number,
+		//        the setSlideSpeed should be passed a negative
+		//        for one of the sides in order to make the slider
+		//        go in the opposite direction.
+		if (Robot.oi.getHatchSlideLeft() > 0) {
 			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
 		}
-		else if (Robot.oi.getHatchSlideRight()>0) {
+		else if (Robot.oi.getHatchSlideRight() > 0) {
 			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideRight());
 		}
 
