@@ -54,7 +54,7 @@ public class OI extends TOi {
      * Initializers and General Controls
     /* *************************************************/
     public void init() {
-        compressorToggle.set(true);
+        compressorToggle.set(false);
         speedPidToggle.set(false);
     }
 
