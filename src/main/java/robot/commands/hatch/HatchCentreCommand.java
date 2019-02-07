@@ -58,11 +58,11 @@ public class HatchCentreCommand extends TSafeCommand {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (isLeftOfCentre&&Robot.hatchSubsystem.getSlideMotorEncoderCount()<10) {
+		if (isLeftOfCentre&&Robot.hatchSubsystem.getSlideMotorEncoderCount()<70) {
 			end();
 			return true;
 		}
-		if (isLeftOfCentre==false&&Robot.hatchSubsystem.getSlideMotorEncoderCount()>-10) {
+		if (isLeftOfCentre==false&&Robot.hatchSubsystem.getSlideMotorEncoderCount()>-70) {
 			end();
 			return true;
 		}

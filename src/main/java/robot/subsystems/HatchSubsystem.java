@@ -49,7 +49,7 @@ public class HatchSubsystem extends TSubsystem {
 	public void updatePeriodic() {
 		//FIXME
 		
-		if (Robot.oi.getHatchCentre()) {
+		if (Robot.oi.getHatchSlideCentre()) {
 			Scheduler.getInstance().add(new HatchCentreCommand());
 			return;
 		}
