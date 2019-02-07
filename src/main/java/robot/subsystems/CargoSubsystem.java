@@ -1,6 +1,5 @@
 package robot.subsystems;
 
-import com.torontocodingcollective.sensors.encoder.TCanSparkEncoder;
 import com.torontocodingcollective.sensors.encoder.TEncoder;
 import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch;
 import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState;
@@ -8,6 +7,7 @@ import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.RobotConst;
 import robot.RobotMap;
 import robot.commands.cargo.DefaultCargoCommand;
 
@@ -32,6 +32,21 @@ public class CargoSubsystem extends TSubsystem {
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new DefaultCargoCommand());
+    }
+    
+    public double getCurrentLevel() {
+    	
+    	double encoderCounts = armEncoder.get();
+    	
+    	for (int i=0; i<RobotConst.ARM_LEVELS.length; i++) {
+    		if (encoderCounts < RobotConst.ARM_LEVELS[i] - RobotConst.ARM_TOLERANCE) {
+    			return i - 0.5;
+    		}
+    		if (encoderCounts < RobotConst.ARM_LEVELS[i] + RobotConst.ARM_TOLERANCE) {
+    			return i;
+    		}
+    	}
+    	return RobotConst.ARM_LEVELS.length + 0.5;
     }
 
     public void setArmSpeed (double armSpeed){
@@ -65,10 +80,6 @@ public class CargoSubsystem extends TSubsystem {
     	return armUpLimit.atLimit();
     }
     
-    public double getCurrentLevel() {
-    	return armMotor.get();
-    }
- 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
     public void updatePeriodic() {
