@@ -59,7 +59,6 @@ public class DefaultHatchCommand extends TSafeCommand {
 		else {
 			Robot.hatchSubsystem.setSlideSpeed(0);
 		}
-		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
