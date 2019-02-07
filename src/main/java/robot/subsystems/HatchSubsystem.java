@@ -6,10 +6,12 @@ import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.speedcontroller.TSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.RobotMap;
 import robot.commands.hatch.DefaultHatchCommand;
+import robot.commands.hatch.HatchCentreCommand;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing mechanisim.
@@ -40,14 +42,17 @@ public class HatchSubsystem extends TSubsystem {
 		return rightSlideLimit.atLimit();
 	}
 	
-	public int getSlideMotorEncoder() {
+	public int getSlideMotorEncoderCount() {
 		return slideMotor.getEncoder().get();
 	}
 
 	public void updatePeriodic() {
 		//FIXME
 		
-		
+		if (Robot.oi.getHatchCentre()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
+			return;
+		}
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 	}
 }

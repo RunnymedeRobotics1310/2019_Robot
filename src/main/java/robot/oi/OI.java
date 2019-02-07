@@ -129,6 +129,10 @@ public class OI extends TOi {
     	return operatorController.getTrigger(TTrigger.RIGHT);
     }
     
+    public boolean getHatchCentre() {
+    	return operatorController.getButton(TButton.X);
+    }
+    
     /* *************************************************
      * Cargo Subsystem buttons
     /* *************************************************/
