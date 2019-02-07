@@ -54,5 +54,6 @@ public class HatchSubsystem extends TSubsystem {
 			return;
 		}
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
+		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 	}
 }
