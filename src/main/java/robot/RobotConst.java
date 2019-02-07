@@ -21,6 +21,9 @@ public class RobotConst {
     public static final double  DRIVE_SPEED_PID_KI;
     
     public static final double  ENCODER_COUNTS_PER_INCH;
+    
+    public static final double[]  ARM_LEVELS = { 0, 100, 200, 300, 400, 500 };
+    public static final double  ARM_TOLERANCE = 10;
 
     // *********************************************************
     // For Ultrasonic Calibration
