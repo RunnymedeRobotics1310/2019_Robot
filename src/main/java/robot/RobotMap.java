@@ -89,8 +89,8 @@ public class RobotMap {
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
-            ARM_DOWN_LIMIT_SWITCH                             = 3;
-            ARM_UP_LIMIT_SWITCH                               = 0;
+            ARM_DOWN_LIMIT_SWITCH                             = 0;
+            ARM_UP_LIMIT_SWITCH                               = 3;
             
             
             GYRO_PORT       = 0;

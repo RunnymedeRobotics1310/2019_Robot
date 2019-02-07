@@ -77,10 +77,10 @@ public class CargoSubsystem extends TSubsystem {
     	// This is done in case a command starts the motor and 
     	// does not update the motor speed at the end of the command
     	double armSpeed = armMotor.get();
-    	if (armSpeed < 0 && armUpLimit.atLimit()) {
+    	if (armSpeed > 0 && armUpLimit.atLimit()) {
     		armMotor.set(0);
     	}
-    	if (armSpeed > 0 && armDownLimit.atLimit()) {
+    	if (armSpeed < 0 && armDownLimit.atLimit()) {
     		armMotor.set(0);
     	}
     	
