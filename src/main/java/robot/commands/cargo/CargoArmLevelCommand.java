@@ -13,6 +13,8 @@ public class CargoArmLevelCommand extends TSafeCommand {
 	private static final String COMMAND_NAME = 
 			CargoArmLevelCommand.class.getSimpleName();
 
+	private boolean armUp;
+	
 	public CargoArmLevelCommand() {
 
 		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
@@ -37,27 +39,52 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
+		
+		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
+		double targetLevel = 1;
+		
+		if (currentLevel < targetLevel) {
+			Robot.cargoSubsystem.setArmSpeed(0.2);
+			armUp = true;
+		}
+		
+		if (currentLevel > targetLevel) {
+			Robot.cargoSubsystem.setArmSpeed(-0.2);
+			armUp = false;
+		}
+		
+		
 	}
-
+	
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 
-		if (Robot.oi.getArmUp() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
-
-		} else if (Robot.oi.getArmDown() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
-
-		} else {
-			Robot.cargoSubsystem.setArmSpeed(0);
-		}
+		
+	
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
+		
+		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
+		double targetLevel = 1;
+		
+		if (armUp == true && currentLevel >= targetLevel) {
+			return true;
+		}
+		
+		if (armUp == false && currentLevel <= targetLevel) {
+			return true;
+		}
+		
 		return false;
+	}
+	
+	@Override
+	protected void end() {
+		Robot.cargoSubsystem.setArmSpeed(0);
 	}
 
 }

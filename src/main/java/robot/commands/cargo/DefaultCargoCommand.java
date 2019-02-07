@@ -3,6 +3,7 @@ package robot.commands.cargo;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
@@ -42,6 +43,11 @@ public class DefaultCargoCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		
+		if (Robot.oi.getArmLevel() == 1) {
+			Scheduler.getInstance().add(new CargoArmLevelCommand());
+			return;
+		}
 
 		if (Robot.oi.getArmUp() > 0) {
 			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;

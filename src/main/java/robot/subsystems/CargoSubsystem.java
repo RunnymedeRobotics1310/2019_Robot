@@ -99,6 +99,7 @@ public class CargoSubsystem extends TSubsystem {
          SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());
          SmartDashboard.putBoolean("Arm Up", armUpLimit.atLimit());
          SmartDashboard.putNumber("Arm Encoder",armEncoder.get());
+         SmartDashboard.putNumber("Current Arm Level", getCurrentLevel());
     }
 
 }
