@@ -128,9 +128,9 @@ public class OI extends TOi {
     public double getHatchSlideRight() {
     	return operatorController.getTrigger(TTrigger.RIGHT);
     }
-    
-    public boolean getHatchCentre() {
-    	return operatorController.getButton(TButton.X);
+
+    public boolean getHatchSlideCentre(){
+        return operatorController.getButton(TButton.X);
     }
     
     /* *************************************************
