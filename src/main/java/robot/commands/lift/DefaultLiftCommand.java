@@ -42,9 +42,9 @@ public class DefaultLiftCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if(Robot.oi.getRetractFrontLift() && Robot.oi.getExtendFrontLift() > 0) {
+//		if(Robot.oi.getRetractFrontLift() && Robot.oi.getExtendFrontLift() > 0) {
 
-		}else {
+//		}else {
 			if (Robot.oi.getRetractFrontLift()) {
 				Robot.liftSubsystem.setFrontMotorSpeed(-0.2);
 			}
@@ -57,10 +57,10 @@ public class DefaultLiftCommand extends TSafeCommand {
 			else {
 				Robot.liftSubsystem.setFrontMotorSpeed(0);
 			}
-		}
-		if(Robot.oi.getRetractRearLift() && Robot.oi.getExtendRearLift() > 0) {
+//		}
+//		if(Robot.oi.getRetractRearLift() && Robot.oi.getExtendRearLift() > 0) {
 
-		}else {
+//		}else {
 			if (Robot.oi.getRetractRearLift()) {
 				Robot.liftSubsystem.setRearMotorSpeed(-0.2);
 			}
@@ -73,7 +73,7 @@ public class DefaultLiftCommand extends TSafeCommand {
 			else {
 				Robot.liftSubsystem.setRearMotorSpeed(0);
 			}
-		}
+//		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
