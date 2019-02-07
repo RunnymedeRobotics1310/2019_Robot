@@ -35,8 +35,8 @@ public class CargoSubsystem extends TSubsystem {
     }
 
     public void setArmSpeed (double armSpeed){
-    	armMotor.set(armSpeed);
-    	if (armSpeed < 0) {
+
+    	if (armSpeed > 0) {
     		if (armUpLimit.atLimit()) {
     			armMotor.set(0);
     		}
@@ -44,7 +44,7 @@ public class CargoSubsystem extends TSubsystem {
     			armMotor.set(armSpeed);
     		}
     	}
-    	else if (armSpeed > 0) {
+    	else if (armSpeed < 0) {
     		if (armDownLimit.atLimit()) {
     			armMotor.set(0);
     		}
