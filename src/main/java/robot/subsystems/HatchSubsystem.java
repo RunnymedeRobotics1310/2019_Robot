@@ -39,9 +39,15 @@ public class HatchSubsystem extends TSubsystem {
 	public boolean rightSlideLimitDeteceted() {
 		return rightSlideLimit.atLimit();
 	}
+	
+	public int getSlideMotorEncoder() {
+		return slideMotor.getEncoder().get();
+	}
 
 	public void updatePeriodic() {
 		//FIXME
+		
+		
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 	}
 }
