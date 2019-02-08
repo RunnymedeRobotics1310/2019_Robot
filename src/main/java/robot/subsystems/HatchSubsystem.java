@@ -6,10 +6,12 @@ import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.speedcontroller.TSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 import robot.RobotMap;
 import robot.commands.hatch.DefaultHatchCommand;
+import robot.commands.hatch.HatchCentreCommand;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing mechanisim.
@@ -39,21 +41,19 @@ public class HatchSubsystem extends TSubsystem {
 	public boolean rightSlideLimitDeteceted() {
 		return rightSlideLimit.atLimit();
 	}
+	
+	public int getSlideMotorEncoderCount() {
+		return slideMotor.getEncoder().get();
+	}
 
 	public void updatePeriodic() {
 		//FIXME
-		if (Robot.oi.getHatchSlideLeft()>0) {
-				Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
+		
+		if (Robot.oi.getHatchSlideCentre()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
+			return;
 		}
-		else if (Robot.oi.getHatchSlideLeft()>0) {
-				Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
-		}
-		else {
-			Robot.hatchSubsystem.setSlideSpeed(0);
-		}
-
-
-
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
+		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 	}
 }

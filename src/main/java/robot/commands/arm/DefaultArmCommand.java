@@ -43,23 +43,23 @@ public class DefaultArmCommand extends TSafeCommand {
     @Override
     protected void execute() {
 
-        if (Robot.oi.getArmUp() > 0) {
-            if (Robot.armSubsystem.armUpLimitDetected()) {
-        		Robot.armSubsystem.setArmSpeed(0);
-        	} else {
-        		Robot.armSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
-        	}
+         if (Robot.oi.getArmUp() > 0) {
+             if (Robot.armSubsystem.armUpLimitDetected()) {
+         		Robot.armSubsystem.setArmSpeed(0);
+         	} else {
+         		Robot.armSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
+         	}
             
-        } else if (Robot.oi.getArmDown() > 0) {
-        	if (Robot.armSubsystem.armDownLimitDetected()) {
-        		Robot.armSubsystem.setArmSpeed(0);
-        	} else {
-        		Robot.armSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
-        	}
+         } else if (Robot.oi.getArmDown() > 0) {
+         	if (Robot.armSubsystem.armDownLimitDetected()) {
+         		Robot.armSubsystem.setArmSpeed(0);
+         	} else {
+         		Robot.armSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
+         	}
         
-        } else {
-            Robot.armSubsystem.setArmSpeed(0);
-        }
+         } else {
+             Robot.armSubsystem.setArmSpeed(0);
+         }
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -42,7 +42,7 @@ public class DefaultHatchCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//FIXME left will ovveride right for now.
+		//FIXME left will overide right for now.
 		
 		//FIXME:  RM
 		//        Since the Hatch control buttons are on triggers,
@@ -50,13 +50,15 @@ public class DefaultHatchCommand extends TSafeCommand {
 		//        the setSlideSpeed should be passed a negative
 		//        for one of the sides in order to make the slider
 		//        go in the opposite direction.
-		if (Robot.oi.getHatchSlideLeft() > 0) {
+		if (Robot.oi.getHatchSlideLeft() > 0) {	
 			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
 		}
 		else if (Robot.oi.getHatchSlideRight() > 0) {
-			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideRight());
+			Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
 		}
-
+		else {
+			Robot.hatchSubsystem.setSlideSpeed(0);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -64,5 +66,4 @@ public class DefaultHatchCommand extends TSafeCommand {
 	protected boolean isFinished() {
 		return false;
 	}
-
 }

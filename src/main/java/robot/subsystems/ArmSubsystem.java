@@ -30,9 +30,9 @@ public class ArmSubsystem extends TSubsystem {
         setDefaultCommand(new DefaultArmCommand());
     }
 
-    public void setArmSpeed (double armSpeed){
-        armMotor.set(armSpeed);
-    }
+     public void setArmSpeed (double armSpeed){
+         armMotor.set(armSpeed);
+     }
     
     public boolean armDownLimitDetected() {
     	return armDownLimit.atLimit();

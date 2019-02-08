@@ -117,20 +117,20 @@ public class RobotMap {
             ARM_DOWN_LIMIT_SWITCH                             = 9;
             ARM_UP_LIMIT_SWITCH                               = 8;
             
-            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
+            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 11;
             LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
-            LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 11;
+            LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 12;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
-            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 12;
+            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
-            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 0;
-            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 2;
-            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 3;
-            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 4;
+            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 2;
+            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 3;
+            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 4;
+            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 0;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
