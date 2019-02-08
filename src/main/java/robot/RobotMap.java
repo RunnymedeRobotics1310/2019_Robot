@@ -101,7 +101,7 @@ public class RobotMap {
             RIGHT_DRIVE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             RIGHT_DRIVE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
-            HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS          = 10;
+            HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS          = 19;
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
@@ -117,7 +117,7 @@ public class RobotMap {
             ARM_DOWN_LIMIT_SWITCH                             = 9;
             ARM_UP_LIMIT_SWITCH                               = 8;
             
-             LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 19;
+             LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
              LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
              LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
              LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 11;
