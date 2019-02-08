@@ -59,7 +59,7 @@ public class LiftSubsystem extends TSubsystem {
 			} else {
 				frontLiftMotor.set(speed);
 			}
-		} else {
+		}else {
 			frontLiftMotor.set(0);
 		}
 	}
@@ -85,6 +85,18 @@ public class LiftSubsystem extends TSubsystem {
 			rearLiftMotor.set(0);
 		}
 	}
+	
+	public void setDriveMotorSpeed(double speed) {
+		
+		// Ignore speeds < .01
+		if (speed < 0) {
+		liftDriveMotor.set(speed);
+		} else if (speed > 0) {
+		liftDriveMotor.set(speed);
+		} else {
+		liftDriveMotor.set(0);
+		}
+	}
 
 	// Periodically update the dashboard and any PIDs or sensors
 	@Override
@@ -93,21 +105,21 @@ public class LiftSubsystem extends TSubsystem {
 		// Monitor for limits
 		// This is done in case a command starts the motor and 
 		// does not update the motor speed at the end of the command
-		double frontLiftMotorSpeed = frontLiftMotor.get();
-		if (frontLiftMotorSpeed < 0 && frontLiftLowerLimit.atLimit()) {
-			frontLiftMotor.set(0);
-		}
-		if (frontLiftMotorSpeed > 0 && frontLiftUpperLimit.atLimit()) {
-			frontLiftMotor.set(0);
-		}
-
-		double rearLiftMotorSpeed = rearLiftMotor.get();
-		if (rearLiftMotorSpeed < 0 && rearLiftLowerLimit.atLimit()) {
-			rearLiftMotor.set(0);
-		}
-		if (rearLiftMotorSpeed > 0 && rearLiftUpperLimit.atLimit()) {
-			rearLiftMotor.set(0);
-		}
+//		double frontLiftMotorSpeed = frontLiftMotor.get();
+//		if (frontLiftMotorSpeed < 0 && frontLiftLowerLimit.atLimit()) {
+//			frontLiftMotor.set(0);
+//		}
+//		if (frontLiftMotorSpeed > 0 && frontLiftUpperLimit.atLimit()) {
+//			frontLiftMotor.set(0);
+//		}
+//
+//		double rearLiftMotorSpeed = rearLiftMotor.get();
+//		if (rearLiftMotorSpeed < 0 && rearLiftLowerLimit.atLimit()) {
+//			rearLiftMotor.set(0);
+//		}
+//		if (rearLiftMotorSpeed > 0 && rearLiftUpperLimit.atLimit()) {
+//			rearLiftMotor.set(0);
+//		}
 
 		// Put data on the SmartDashboard
 		

@@ -162,7 +162,6 @@ public class OI extends TOi {
 		return operatorController.getTrigger(TTrigger.LEFT);
     }
     
-    
     /* *************************************************
      * Update and SmartDashboard
     /* *************************************************/
