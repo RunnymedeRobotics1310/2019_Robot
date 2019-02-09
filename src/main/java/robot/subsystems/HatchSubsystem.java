@@ -22,6 +22,7 @@ public class HatchSubsystem extends TSubsystem {
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
+	GhostSolenoid topLeftSolenoid = RobotMap.HATCH_TOP_LEFT_SOLENOID;//Testing
 
 	public void init() {
 	}
