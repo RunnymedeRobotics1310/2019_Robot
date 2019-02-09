@@ -23,7 +23,11 @@ public class HatchSubsystem extends TSubsystem {
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
 	GhostSolenoid topLeftSolenoid = RobotMap.HATCH_TOP_LEFT_SOLENOID;//Testing
-
+	GhostSolenoid bottomLeftSolenoid = RobotMap.HATCH_BOTTOM_LEFT_SOLENOID;
+	GhostSolenoid topRightSolenoid = RobotMap.HATCH_TOP_RIGHT_SOLENOID;
+	GhostSolenoid bottomRightSolenoid = RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID;
+	
+	
 	public void init() {
 	}
 
@@ -54,7 +58,26 @@ public class HatchSubsystem extends TSubsystem {
 			Scheduler.getInstance().add(new HatchCentreCommand());
 			return;
 		}
+		
+		// Updates and sets the Solenoids for the hatch mech
+		if (Robot.oi.getHatchMechExtend()) {
+			topLeftSolenoid.set(true);
+			bottomLeftSolenoid.set(true);
+			topRightSolenoid.set(true);
+			bottomRightSolenoid.set(true);
+		}
+		else if (Robot.oi.getHatchMechRetract()) {
+			topLeftSolenoid.set(false);
+			bottomLeftSolenoid.set(false);
+			topRightSolenoid.set(false);
+			bottomRightSolenoid.set(false);
+		}
+		
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
+		SmartDashboard.putBoolean("Top left Solenoid Extended", topLeftSolenoid.get());
+		SmartDashboard.putBoolean("Bottom left Solenoid Extended", bottomLeftSolenoid.get());
+		SmartDashboard.putBoolean("Top Right Solenoid Extended", topRightSolenoid.get());
+		SmartDashboard.putBoolean("bottom Right Solenoid Extended", bottomRightSolenoid.get());
 	}
 }

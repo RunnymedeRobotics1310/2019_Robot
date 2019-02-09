@@ -51,6 +51,7 @@ public class OI extends TOi {
 	private int 			armLevelSetPoint = 0;
 
 	private boolean liftModeEnabled;
+	private boolean hatchMechExtended;
 
 	/* *************************************************
 	 * Initializers and General Controls
@@ -157,6 +158,24 @@ public class OI extends TOi {
 			return false;
 		}
 	}
+	
+	public boolean getHatchMechExtend() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.Y);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean getHatchMechRetract() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.A);
+		}
+		else {
+			return false;
+		}
+	}
 
 	/* *************************************************
 	 * Cargo Subsystem buttons
@@ -241,11 +260,21 @@ public class OI extends TOi {
 			}
 		}
 
+		// Updates and sets the Solenoids for the hatch mech
+		if (getHatchMechExtend()) {
+			hatchMechExtended=true;
+		}
+		else if (getHatchMechRetract()) {
+			hatchMechExtended=false;
+		}
+		
 		// Update all SmartDashboard values
 		SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
 		SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
 		SmartDashboard.putString("Driver Controller", driverController.toString());
 		SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
 		SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
+		
+		
 	}
 }
