@@ -46,6 +46,8 @@ public class RobotMap {
     public static final GhostSolenoid			HATCH_BOTTOM_LEFT_SOLENOID;
     public static final GhostSolenoid			HATCH_TOP_RIGHT_SOLENOID;
     public static final GhostSolenoid			HATCH_BOTTOM_RIGHT_SOLENOID;
+    public static final GhostSolenoid			HATCH_PUNCH_SOLENOID_1;
+    public static final GhostSolenoid			HATCH_PUNCH_SOLENOID_2;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -118,6 +120,8 @@ public class RobotMap {
             HATCH_BOTTOM_LEFT_SOLENOID						  = new GhostSolenoid(51);
             HATCH_TOP_RIGHT_SOLENOID						  = new GhostSolenoid(52);
             HATCH_BOTTOM_RIGHT_SOLENOID						  = new GhostSolenoid(53);
+            HATCH_PUNCH_SOLENOID_1							  = new GhostSolenoid(54);
+            HATCH_PUNCH_SOLENOID_2							  = new GhostSolenoid(55);
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 

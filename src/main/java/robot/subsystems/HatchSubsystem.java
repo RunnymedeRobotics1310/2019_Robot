@@ -26,7 +26,8 @@ public class HatchSubsystem extends TSubsystem {
 	GhostSolenoid bottomLeftSolenoid = RobotMap.HATCH_BOTTOM_LEFT_SOLENOID;
 	GhostSolenoid topRightSolenoid = RobotMap.HATCH_TOP_RIGHT_SOLENOID;
 	GhostSolenoid bottomRightSolenoid = RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID;
-	
+	GhostSolenoid punchSolenoid1 =  RobotMap.HATCH_PUNCH_SOLENOID_1;
+	GhostSolenoid punchSolenoid2 = RobotMap.HATCH_PUNCH_SOLENOID_2;
 	
 	public void init() {
 	}

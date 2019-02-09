@@ -51,7 +51,6 @@ public class OI extends TOi {
 	private int 			armLevelSetPoint = 0;
 
 	private boolean liftModeEnabled;
-	private boolean hatchMechExtended;
 
 	/* *************************************************
 	 * Initializers and General Controls
@@ -176,6 +175,10 @@ public class OI extends TOi {
 			return false;
 		}
 	}
+	
+	public boolean getHatchPunch() {
+		
+	}
 
 	/* *************************************************
 	 * Cargo Subsystem buttons
@@ -258,14 +261,6 @@ public class OI extends TOi {
 			if (armLevelSetPoint < 0) {
 				armLevelSetPoint = 0;
 			}
-		}
-
-		// Updates and sets the Solenoids for the hatch mech
-		if (getHatchMechExtend()) {
-			hatchMechExtended=true;
-		}
-		else if (getHatchMechRetract()) {
-			hatchMechExtended=false;
 		}
 		
 		// Update all SmartDashboard values
