@@ -93,22 +93,22 @@ public class RobotMap {
         default:
             // CAN Constants
             // Talon and Victor connected through the CAN Bus
-            LEFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 3;
-            LEFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.TALON_SRX;
-            LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS  = 4;
-            LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE     = TCanSpeedControllerType.VICTOR_SPX;
+            LEFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
+            LEFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
+            LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS  = 11;
+            LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LEFT_DRIVE_CAN_MOTOR_ISINVERTED                   = TConst.INVERTED;
             LEFT_DRIVE_CAN_ENCODER_ISINVERTED                 = TConst.INVERTED;
 
-            RIGHT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS          = 1;
-            RIGHT_DRIVE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.TALON_SRX;
-            RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS = 2;
-            RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE    = TCanSpeedControllerType.TALON_SRX;
+            RIGHT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS          = 20;
+            RIGHT_DRIVE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
+            RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS = 21;
+            RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE    = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             RIGHT_DRIVE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             RIGHT_DRIVE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
 
-            HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS          = 20;
-            HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
+            HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS          = 15;
+            HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.TALON_SRX;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
             HATCH_LEFT_LIMIT_SWITCH							  = 7;
@@ -127,13 +127,13 @@ public class RobotMap {
             ARM_DOWN_LIMIT_SWITCH                             = 9;
             ARM_UP_LIMIT_SWITCH                               = 8;
             
-            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
+            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 16;
             LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
             LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 12;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
-            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 11;
+            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 17;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
