@@ -45,7 +45,7 @@ public class OI extends TOi {
     private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
     private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
     
-    private int 			armLevelSetPoint = 0;   
+    private double 			armLevelSetPoint = 0;   
     
     private TToggle         cargoToggle      = new TToggle(driverController, TButton.A);
 
@@ -73,7 +73,7 @@ public class OI extends TOi {
         return driverController.getPOV();
     }
     
-    public int getArmLevel() {
+    public double getArmLevel() {
     	return armLevelSetPoint;
     }
 
@@ -134,6 +134,9 @@ public class OI extends TOi {
     	 return driverController.getButton(TButton.Y);
      }
     
+     public void setArmLevel(double level) {
+    	 armLevelSetPoint = level;
+     }
     
     
     @Override

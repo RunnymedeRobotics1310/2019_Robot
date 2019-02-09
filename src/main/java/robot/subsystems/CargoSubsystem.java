@@ -13,7 +13,7 @@ import robot.commands.cargo.DefaultCargoCommand;
 
 /**
  * Subsystem for arm mechanism.
- * 64 encoder counts per revolution
+ * 64 encoder counts per revolution, approx. 10 counts / degree
  * 60 revolutions = 1 full 360 degree arm turn, 1 revolution = 6 degrees
  */
 public class CargoSubsystem extends TSubsystem {
@@ -22,8 +22,7 @@ public class CargoSubsystem extends TSubsystem {
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
-    
-    int currentArmLevel = 0;
+
     
     @Override
     public void init() {

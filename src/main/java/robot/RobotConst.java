@@ -22,8 +22,8 @@ public class RobotConst {
     
     public static final double  ENCODER_COUNTS_PER_INCH;
     
-    public static final double[]  ARM_LEVELS = { 0, 100, 200, 300, 400, 500 };
-    public static final double  ARM_TOLERANCE = 10;
+    public static final double[]  ARM_LEVELS = { 0, 418, 583 , 1001, 1837, 2057 };
+    public static final double  ARM_TOLERANCE = 40;
 
     // *********************************************************
     // For Ultrasonic Calibration
