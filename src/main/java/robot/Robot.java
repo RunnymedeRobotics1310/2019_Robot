@@ -16,6 +16,7 @@ import robot.subsystems.CameraSubsystem;
 import robot.subsystems.CanDriveSubsystem;
 import robot.subsystems.HatchSubsystem;
 import robot.subsystems.LiftSubsystem;
+import robot.subsystems.LightingSubsystem;
 import robot.subsystems.PneumaticsSubsystem;
 import robot.subsystems.PowerSubsystem;
 
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
     public static final ArmSubsystem        armSubsystem        = new ArmSubsystem();
     public static final LiftSubsystem       liftSubsystem       = new LiftSubsystem();
     public static final HatchSubsystem      hatchSubsystem      = new HatchSubsystem();
+    public static final LightingSubsystem   lightingSubsystem   = new LightingSubsystem();
     
 
     public static OI                        oi;
@@ -52,6 +54,7 @@ public class Robot extends TimedRobot {
         subsystemLs.add(armSubsystem);
         subsystemLs.add(liftSubsystem);
         subsystemLs.add(hatchSubsystem);
+        subsystemLs.add(lightingSubsystem);
     }
 
     /**

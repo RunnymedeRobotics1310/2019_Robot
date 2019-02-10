@@ -82,6 +82,11 @@ public class RobotMap {
     // Pneumatics Ports
     // ******************************************
     public static final int                     SHIFTER_PNEUMATIC_PORT = 0;
+    
+    // ******************************************
+    // Canlight Address
+    // ******************************************
+    public static final int                    CANLIGHT_CAN_ADDRESS = 20;
 
     // Initializers if this code will be deployed to more than one
     // robot with different mappings
