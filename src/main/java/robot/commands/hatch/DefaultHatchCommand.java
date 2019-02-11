@@ -51,10 +51,10 @@ public class DefaultHatchCommand extends TSafeCommand {
 		//        for one of the sides in order to make the slider
 		//        go in the opposite direction.
 		if (Robot.oi.getHatchSlideLeft() > 0) {	
-			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
+			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft()/5);
 		}
 		else if (Robot.oi.getHatchSlideRight() > 0) {
-			Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
+			Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight()/5);
 		}
 		else {
 			Robot.hatchSubsystem.setSlideSpeed(0);

@@ -38,7 +38,7 @@ public class OI extends TOi {
 	private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
 
 	private TGameController operatorController = new TGameController_Logitech(1);
-	private TRumbleManager  operatorRumble     = new TRumbleManager("Driver", operatorController);
+	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
 	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
@@ -174,10 +174,6 @@ public class OI extends TOi {
 		else {
 			return false;
 		}
-	}
-	
-	public boolean getHatchPunch() {
-		
 	}
 
 	/* *************************************************
