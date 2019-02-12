@@ -12,6 +12,7 @@ import robot.Robot;
 import robot.RobotMap;
 import robot.commands.hatch.DefaultHatchCommand;
 import robot.commands.hatch.HatchCentreCommand;
+import robot.commands.hatch.HatchEjectCommand;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing mechanisim.
@@ -38,6 +39,16 @@ public class HatchSubsystem extends TSubsystem {
 
 	public void setSlideSpeed (double slideSpeed) {
 		slideMotor.set(slideSpeed);
+	}
+	
+	public void ejectHatch () {
+		punchSolenoid1.set(true);
+		punchSolenoid2.set(true);
+	}
+	
+	public void retractPunchMech () {
+		punchSolenoid1.set(false);
+		punchSolenoid2.set(false);
 	}
 
 	public boolean leftSlideLimitDeteceted() {
@@ -74,11 +85,19 @@ public class HatchSubsystem extends TSubsystem {
 			bottomRightSolenoid.set(false);
 		}
 		
+		if (Robot.oi.getHatchMechEject()) {
+			Scheduler.getInstance().add(new HatchEjectCommand());
+		}
+		
+		
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 		SmartDashboard.putBoolean("Top left Solenoid Extended", topLeftSolenoid.get());
 		SmartDashboard.putBoolean("Bottom left Solenoid Extended", bottomLeftSolenoid.get());
 		SmartDashboard.putBoolean("Top Right Solenoid Extended", topRightSolenoid.get());
 		SmartDashboard.putBoolean("bottom Right Solenoid Extended", bottomRightSolenoid.get());
+		SmartDashboard.putBoolean("Punch Solenoid 1 Extended", punchSolenoid1.get());
+		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid2.get());
+		
 	}
 }

@@ -6,15 +6,15 @@ import com.torontocodingcollective.commands.TSafeCommand;
 import robot.Robot;
 import robot.RobotMap;
 
-public class HatchPunchCommand extends TSafeCommand{
+public class HatchEjectCommand extends TSafeCommand{
 
 	private static final String COMMAND_NAME = 
 			DefaultHatchCommand.class.getSimpleName();
+	private static int counter;
 
-	public HatchPunchCommand() {
+	public HatchEjectCommand() {
 
 		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
-
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.hatchSubsystem);
 	}
@@ -35,36 +35,27 @@ public class HatchPunchCommand extends TSafeCommand{
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
-		
-		if (RobotMap.HATCH_TOP_LEFT_SOLENOID.get()) {
-			RobotMap.HATCH_TOP_LEFT_SOLENOID.set(false);
-		}
-		if (RobotMap.HATCH_BOTTOM_LEFT_SOLENOID.get()) {
-			RobotMap.HATCH_BOTTOM_LEFT_SOLENOID.set(false);
-		}
-		if (RobotMap.HATCH_TOP_RIGHT_SOLENOID.get()) {
-			RobotMap.HATCH_TOP_RIGHT_SOLENOID.set(false);
-		}
-		if (RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID.get()) {
-			RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID.set(false);
-		}
-		
+		Robot.hatchSubsystem.ejectHatch();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {	
+	protected void execute() {
+		counter++;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
+		if (counter>=10) {
+			return true;
+		}
 		return false;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.hatchSubsystem.setSlideSpeed(0);
+		Robot.hatchSubsystem.retractPunchMech();
 	}
 
 }

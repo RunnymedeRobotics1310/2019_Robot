@@ -175,6 +175,15 @@ public class OI extends TOi {
 			return false;
 		}
 	}
+	
+	public boolean getHatchMechEject() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.B);
+		}
+		else {
+			return false;
+		}
+	}
 
 	/* *************************************************
 	 * Cargo Subsystem buttons
