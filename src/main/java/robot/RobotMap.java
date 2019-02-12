@@ -42,12 +42,12 @@ public class RobotMap {
     public static final int					    HATCH_LEFT_LIMIT_SWITCH;
     public static final int					    HATCH_RIGHT_LIMIT_SWITCH;
     
-    public static final GhostSolenoid			HATCH_TOP_LEFT_SOLENOID;
-    public static final GhostSolenoid			HATCH_BOTTOM_LEFT_SOLENOID;
-    public static final GhostSolenoid			HATCH_TOP_RIGHT_SOLENOID;
-    public static final GhostSolenoid			HATCH_BOTTOM_RIGHT_SOLENOID;
-    public static final GhostSolenoid			HATCH_PUNCH_SOLENOID_1;
-    public static final GhostSolenoid			HATCH_PUNCH_SOLENOID_2;
+    public static final int						HATCH_TOP_LEFT_SOLENOID;
+    public static final int						HATCH_BOTTOM_LEFT_SOLENOID;
+    public static final int						HATCH_TOP_RIGHT_SOLENOID;
+    public static final int						HATCH_BOTTOM_RIGHT_SOLENOID;
+    public static final int						HATCH_PUNCH_SOLENOID_1;
+    public static final int						HATCH_PUNCH_SOLENOID_2;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -116,12 +116,12 @@ public class RobotMap {
             HATCH_LEFT_LIMIT_SWITCH							  = 7;
             HATCH_RIGHT_LIMIT_SWITCH						  = 6;
             
-            HATCH_TOP_LEFT_SOLENOID							  = new GhostSolenoid(50);
-            HATCH_BOTTOM_LEFT_SOLENOID						  = new GhostSolenoid(51);
-            HATCH_TOP_RIGHT_SOLENOID						  = new GhostSolenoid(52);
-            HATCH_BOTTOM_RIGHT_SOLENOID						  = new GhostSolenoid(53);
-            HATCH_PUNCH_SOLENOID_1							  = new GhostSolenoid(54);
-            HATCH_PUNCH_SOLENOID_2							  = new GhostSolenoid(55);
+            HATCH_TOP_LEFT_SOLENOID							  = 50;
+            HATCH_BOTTOM_LEFT_SOLENOID						  = 51;
+            HATCH_TOP_RIGHT_SOLENOID						  = 52;
+            HATCH_BOTTOM_RIGHT_SOLENOID						  = 53;
+            HATCH_PUNCH_SOLENOID_1							  = 54;
+            HATCH_PUNCH_SOLENOID_2							  = 55;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 

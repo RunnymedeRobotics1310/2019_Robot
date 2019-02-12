@@ -22,12 +22,12 @@ public class HatchSubsystem extends TSubsystem {
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
-	GhostSolenoid topLeftSolenoid = RobotMap.HATCH_TOP_LEFT_SOLENOID;//Testing
-	GhostSolenoid bottomLeftSolenoid = RobotMap.HATCH_BOTTOM_LEFT_SOLENOID;
-	GhostSolenoid topRightSolenoid = RobotMap.HATCH_TOP_RIGHT_SOLENOID;
-	GhostSolenoid bottomRightSolenoid = RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID;
-	GhostSolenoid punchSolenoid1 =  RobotMap.HATCH_PUNCH_SOLENOID_1;
-	GhostSolenoid punchSolenoid2 = RobotMap.HATCH_PUNCH_SOLENOID_2;
+	GhostSolenoid topLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_LEFT_SOLENOID);//Testing
+	GhostSolenoid bottomLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_BOTTOM_LEFT_SOLENOID);
+	GhostSolenoid topRightSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_RIGHT_SOLENOID);
+	GhostSolenoid bottomRightSolenoid = new GhostSolenoid(RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID);
+	GhostSolenoid punchSolenoid1 =  new GhostSolenoid(RobotMap.HATCH_PUNCH_SOLENOID_1);
+	GhostSolenoid punchSolenoid2 =new GhostSolenoid( RobotMap.HATCH_PUNCH_SOLENOID_2);
 	
 	public void init() {
 	}
