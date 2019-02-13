@@ -16,6 +16,7 @@ import robot.commands.cargo.DefaultCargoCommand;
  * 64 encoder counts per revolution, approx. 10 counts / degree
  * 60 revolutions = 1 full 360 degree arm turn, 1 revolution = 6 degrees
  */
+
 public class CargoSubsystem extends TSubsystem {
 
     TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS);

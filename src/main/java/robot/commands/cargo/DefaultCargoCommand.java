@@ -59,6 +59,7 @@ public class DefaultCargoCommand extends TSafeCommand {
 
 		} else {
 			Robot.cargoSubsystem.setArmSpeed(0);
+			
 		}
 		
 	}
