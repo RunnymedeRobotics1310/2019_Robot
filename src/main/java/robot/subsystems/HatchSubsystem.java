@@ -21,8 +21,8 @@ public class HatchSubsystem extends TSubsystem {
 
 	TSpeedController slideMotor = new TCanSpeedController(
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
-	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH, DefaultState.TRUE);
-	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH, DefaultState.TRUE);
+	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
+	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	GhostSolenoid topLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_LEFT_SOLENOID);//Testing
 	GhostSolenoid bottomLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_BOTTOM_LEFT_SOLENOID);
 	GhostSolenoid topRightSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_RIGHT_SOLENOID);
@@ -38,7 +38,15 @@ public class HatchSubsystem extends TSubsystem {
 	}
 
 	public void setSlideSpeed (double slideSpeed) {
-		slideMotor.set(slideSpeed);
+		if (slideSpeed>0&&(!leftSlideLimitDetected())) {
+			slideMotor.set(slideSpeed);
+		}
+		else if (slideSpeed<0&&(!rightSlideLimitDetected())) {
+			slideMotor.set(slideSpeed);
+		}
+		else {
+			slideMotor.set(0);
+		}
 	}
 	
 	public void ejectHatch () {
@@ -51,11 +59,11 @@ public class HatchSubsystem extends TSubsystem {
 		punchSolenoid2.set(false);
 	}
 
-	public boolean leftSlideLimitDeteceted() {
+	public boolean leftSlideLimitDetected() {
 		return leftSlideLimit.atLimit();
 	}
 
-	public boolean rightSlideLimitDeteceted() {
+	public boolean rightSlideLimitDetected() {
 		return rightSlideLimit.atLimit();
 	}
 	
@@ -64,8 +72,9 @@ public class HatchSubsystem extends TSubsystem {
 	}
 
 	public void updatePeriodic() {
-		//FIXME
 		
+		setSlideSpeed((Robot.oi.getHatchSlideLeft()/5)-(Robot.oi.getHatchSlideRight()/5));
+
 		if (Robot.oi.getHatchSlideCentre()) {
 			Scheduler.getInstance().add(new HatchCentreCommand());
 			return;

@@ -39,8 +39,8 @@ public class RobotMap {
     public static final TCanSpeedControllerType HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 HATCH_SLIDE_CAN_MOTOR_ISINVERTED;                   
     public static final boolean                 HATCH_SLIDE_CAN_ENCODER_ISINVERTED;
-    public static final int					    HATCH_LEFT_LIMIT_SWITCH;
-    public static final int					    HATCH_RIGHT_LIMIT_SWITCH;
+    public static final int					    HATCH_LEFT_LIMIT_SWITCH_DIO_PORT;
+    public static final int					    HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT;
     
     public static final int						HATCH_TOP_LEFT_SOLENOID;
     public static final int						HATCH_BOTTOM_LEFT_SOLENOID;
@@ -113,8 +113,8 @@ public class RobotMap {
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.TALON_SRX;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
-            HATCH_LEFT_LIMIT_SWITCH							  = 7;
-            HATCH_RIGHT_LIMIT_SWITCH						  = 6;
+            HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 7;
+            HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 6;
             
             HATCH_TOP_LEFT_SOLENOID							  = 50;
             HATCH_BOTTOM_LEFT_SOLENOID						  = 51;

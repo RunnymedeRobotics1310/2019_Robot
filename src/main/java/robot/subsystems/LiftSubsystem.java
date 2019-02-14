@@ -65,7 +65,7 @@ public class LiftSubsystem extends TSubsystem {
 	}
 
 	public void setRearMotorSpeed(double speed) {
-		
+
 		// Ignore speeds < .01
 
 		// A negative speed drives the lifters down
@@ -85,16 +85,16 @@ public class LiftSubsystem extends TSubsystem {
 			rearLiftMotor.set(0);
 		}
 	}
-	
+
 	public void setDriveMotorSpeed(double speed) {
-		
+
 		// Ignore speeds < .01
 		if (speed < 0) {
-		liftDriveMotor.set(speed);
+			liftDriveMotor.set(speed);
 		} else if (speed > 0) {
-		liftDriveMotor.set(speed);
+			liftDriveMotor.set(speed);
 		} else {
-		liftDriveMotor.set(0);
+			liftDriveMotor.set(0);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class LiftSubsystem extends TSubsystem {
 		// does not update the motor speed at the end of the command
 
 		// Put data on the SmartDashboard
-		
+
 		SmartDashboard.putNumber ("Front Lift Motor", frontLiftMotor.get());
 		SmartDashboard.putNumber ("Rear  Lift Motor", rearLiftMotor.get());
 		SmartDashboard.putNumber ("Lift Drive Motor", liftDriveMotor.get());
