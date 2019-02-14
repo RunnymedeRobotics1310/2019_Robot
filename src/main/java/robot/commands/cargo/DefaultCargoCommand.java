@@ -44,9 +44,11 @@ public class DefaultCargoCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 		
-		if (Robot.oi.getArmLevel() == 1) {
-			Scheduler.getInstance().add(new CargoArmLevelCommand());
-			return;
+		if (Robot.oi.getArmDriveMode() == false ) {
+			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
+				Scheduler.getInstance().add(new CargoArmLevelCommand());
+				return;
+			}
 		}
 
 		if (Robot.oi.getArmUp() > 0) {

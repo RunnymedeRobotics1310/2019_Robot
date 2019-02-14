@@ -46,7 +46,7 @@ public class CargoSubsystem extends TSubsystem {
     			return i;
     		}
     	}
-    	return RobotConst.ARM_LEVELS.length + 0.5;
+    	return RobotConst.ARM_LEVELS.length -1 + 0.5;
     }
 
     public void setArmSpeed (double armSpeed){

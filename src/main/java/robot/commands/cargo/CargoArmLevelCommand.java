@@ -15,6 +15,8 @@ public class CargoArmLevelCommand extends TSafeCommand {
 
 	private boolean armUp;
 	
+	private double targetLevel;
+	
 	public CargoArmLevelCommand() {
 
 		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
@@ -41,7 +43,7 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		}
 		
 		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
-		double targetLevel = 1;
+		targetLevel = Robot.oi.getArmLevel();
 		
 		if (currentLevel < targetLevel) {
 			Robot.cargoSubsystem.setArmSpeed(0.1);
@@ -68,8 +70,18 @@ public class CargoArmLevelCommand extends TSafeCommand {
 	@Override
 	protected boolean isFinished() {
 		
+		if (super.isFinished()) {
+			return true;
+		}
+		
+		if (Robot.oi.getArmDriveMode() == true) {
+			return true;
+		}
+		if (Robot.oi.getArmLevel() != targetLevel) {
+			return true;
+		}
+		
 		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
-		double targetLevel = 1;
 		
 		if (armUp == true && currentLevel >= targetLevel) {
 			return true;
