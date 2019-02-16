@@ -3,8 +3,6 @@ package robot;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.speedcontroller.TCanSpeedController.TCanSpeedControllerType;
 
-import robot.subsystems.GhostSolenoid;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -48,6 +46,8 @@ public class RobotMap {
     public static final int						HATCH_BOTTOM_LEFT_SOLENOID;
     public static final int						HATCH_TOP_RIGHT_SOLENOID;
     public static final int						HATCH_BOTTOM_RIGHT_SOLENOID;
+    public static final int						HATCH_PUNCH_SOLENOID_1;
+    public static final int						HATCH_PUNCH_SOLENOID_2;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -123,11 +123,12 @@ public class RobotMap {
             HATCH_LEFT_SENSOR_DIO_PORT						  = 0;
             HATCH_RIGHT_SENSOR_DIO_PORT						  = 2;
 
-            
             HATCH_TOP_LEFT_SOLENOID							  = 50;
             HATCH_BOTTOM_LEFT_SOLENOID						  = 51;
             HATCH_TOP_RIGHT_SOLENOID						  = 52;
             HATCH_BOTTOM_RIGHT_SOLENOID						  = 53;
+            HATCH_PUNCH_SOLENOID_1							  = 54;
+            HATCH_PUNCH_SOLENOID_2							  = 55;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 
@@ -193,6 +194,8 @@ public class RobotMap {
             HATCH_BOTTOM_LEFT_SOLENOID						  = 51;
             HATCH_TOP_RIGHT_SOLENOID						  = 52;
             HATCH_BOTTOM_RIGHT_SOLENOID						  = 53;
+            HATCH_PUNCH_SOLENOID_1							  = 54;
+            HATCH_PUNCH_SOLENOID_2							  = 55;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 
