@@ -85,6 +85,22 @@ public class OI extends TOi {
 		return operatorController.getButton(TButton.BACK);
 	}
 
+	public void startDriverRumble() {
+		driverRumble.rumbleOn();
+	}
+	
+	public void endDriverRumble() {
+		driverRumble.rumbleOff();
+	}
+	
+	public void startOperatorRumble() {
+		operatorRumble.rumbleOn();
+	}
+
+	public void endOperatorRumble() {
+		operatorRumble.rumbleOn();
+	}
+	
 	/* *************************************************
 	 * Drive Subsystem buttons
     /* *************************************************/

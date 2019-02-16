@@ -23,7 +23,10 @@ public class CargoSubsystem extends TSubsystem {
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
-
+    
+    TCanSpeedController intakeMotor = new TCanSpeedController(
+    		RobotMap.INTAKE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_CAN_MOTOR_ISINVERTED);
+    TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
     
     @Override
     public void init() {
@@ -80,6 +83,18 @@ public class CargoSubsystem extends TSubsystem {
     	return armUpLimit.atLimit();
     }
     
+    public void startIntake() {
+    	intakeMotor.set(RobotConst.INTAKE_SPEED);
+    }
+    
+    public void stopIntake() {
+    	intakeMotor.set(0);
+    }
+    
+    public boolean isCargoDetected() {
+    	return cargoDetectLimitSwitch.atLimit();
+    }
+
     // Periodically update the dashboard and any PIDs or sensors
     @Override
     public void updatePeriodic() {
