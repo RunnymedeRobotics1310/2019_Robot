@@ -25,8 +25,6 @@ public class HatchSubsystem extends TSubsystem {
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	GhostSolenoid pickupSolenoid = new GhostSolenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
 	GhostSolenoid punchSolenoid =new GhostSolenoid( RobotMap.HATCH_PUNCH_SOLENOID);
-	TLimitSwitch hatchSensor1 = new TLimitSwitch(RobotMap.HATCH_LEFT_SENSOR_DIO_PORT, DefaultState.TRUE);
-	TLimitSwitch hatchSensor2 = new TLimitSwitch(RobotMap.HATCH_LEFT_SENSOR_DIO_PORT, DefaultState.TRUE);
 	
 	public void init() {
 	}
@@ -93,7 +91,6 @@ public class HatchSubsystem extends TSubsystem {
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 		SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
 		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid.get());
-		SmartDashboard.putBoolean("Hatch Sensor 1: ", hatchSensor1.atLimit());
 		
 	}
 }

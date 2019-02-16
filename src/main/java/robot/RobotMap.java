@@ -69,8 +69,6 @@ public class RobotMap {
 	
     public static final int					    HATCH_LEFT_LIMIT_SWITCH_DIO_PORT;
     public static final int					    HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT;
-    public static final int						HATCH_LEFT_SENSOR_DIO_PORT;
-    public static final int						HATCH_RIGHT_SENSOR_DIO_PORT;
 
     public static final int                     LIFT_FRONT_UPPER_LIMIT_DIO_PORT;
     public static final int                     LIFT_FRONT_LOWER_LIMIT_DIO_PORT;
@@ -116,31 +114,29 @@ public class RobotMap {
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.TALON_SRX;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
-            HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 7;
-            HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 6;
-            HATCH_LEFT_SENSOR_DIO_PORT						  = 0;
-            HATCH_RIGHT_SENSOR_DIO_PORT						  = 2;
+            HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 1;
+            HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 3;
 
             HATCH_PICKUP_SOLENOID							  = 50;
             HATCH_PUNCH_SOLENOID							  = 51;
             
-            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
+            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
 
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
-            ARM_DOWN_LIMIT_SWITCH                             = 9;
-            ARM_UP_LIMIT_SWITCH                               = 8;
+            ARM_DOWN_LIMIT_SWITCH                             = 4;
+            ARM_UP_LIMIT_SWITCH                               = 5;
             
             INTAKE_CAN_SPEED_CONTROLLER_ADDRESS               = 30;
             INTAKE_CAN_SPEED_CONTROLLER_TYPE                  = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             INTAKE_CAN_MOTOR_ISINVERTED                       = TConst.NOT_INVERTED;
             CARGO_DETECT_LIMIT_DIO_PORT                       = 11;
     
-            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
+            LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 14;
             LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
-            LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 12;
+            LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 13;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 11;
@@ -148,9 +144,9 @@ public class RobotMap {
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
             LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 6;
-            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 3;
-            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 4;
-            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 5;
+            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 7;
+            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 8;
+            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 9;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
@@ -179,10 +175,8 @@ public class RobotMap {
             HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE             = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             HATCH_SLIDE_CAN_MOTOR_ISINVERTED                  = TConst.NOT_INVERTED;
             HATCH_SLIDE_CAN_ENCODER_ISINVERTED                = TConst.NOT_INVERTED;
-            HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 7;
-            HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 6;
-            HATCH_LEFT_SENSOR_DIO_PORT						  = 0;
-            HATCH_RIGHT_SENSOR_DIO_PORT						  = 2;
+            HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 1;
+            HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 3;
             
             // Solenoid ports
             HATCH_PICKUP_SOLENOID							  = 50;
@@ -193,8 +187,8 @@ public class RobotMap {
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
     
-            ARM_DOWN_LIMIT_SWITCH                             = 9;
-            ARM_UP_LIMIT_SWITCH                               = 8;
+            ARM_DOWN_LIMIT_SWITCH                             = 4;
+            ARM_UP_LIMIT_SWITCH                               = 5;
             
             INTAKE_CAN_SPEED_CONTROLLER_ADDRESS               = 30;
             INTAKE_CAN_SPEED_CONTROLLER_TYPE                  = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
@@ -211,10 +205,10 @@ public class RobotMap {
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
-            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 5;
-            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 3;
-            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 4;
-            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 6;
+            LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 6;
+            LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 7;
+            LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 8;
+            LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 9;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
