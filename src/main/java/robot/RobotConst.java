@@ -22,6 +22,15 @@ public class RobotConst {
     
     public static final double  ENCODER_COUNTS_PER_INCH;
 
+    
+    // *********************************************************
+    // Cargo System Constants
+    // *********************************************************
+    public static final double[]  ARM_LEVELS = { 0, 418, 583 , 1001, 1837, 2057 };
+    public static final double    ARM_TOLERANCE = 40;
+
+	public static final double    INTAKE_SPEED = 0;
+
     // *********************************************************
     // For Ultrasonic Calibration
     // *********************************************************
@@ -40,28 +49,10 @@ public class RobotConst {
     static {
 
         switch (robot) {
-
-        case TEST_ROBOT:
-        	// The low gear speed should be set just below the 
-            // maximum loaded speed of the robot
-            MAX_LOW_GEAR_SPEED = 320.0; // Encoder counts/sec
-            MAX_HIGH_GEAR_SPEED = 900.0;
-
-            // Typically set the integral gain at 1/20 of the 
-            // proportional gain.  The gain can often be increased
-            // above this value, but typically gives good 
-            // stability and acceptable performance
-            DRIVE_GYRO_PID_KP = .07;
-            DRIVE_GYRO_PID_KI = DRIVE_GYRO_PID_KP / 20.0;
-
-            DRIVE_SPEED_PID_KP = 0.4;
-            DRIVE_SPEED_PID_KI = DRIVE_SPEED_PID_KP / 20.0;
- 
-            ENCODER_COUNTS_PER_INCH = 55.6;
-
-            break;
+        
         case PROD_ROBOT:
-        	// The low gear speed should be set just below the 
+
+            // The low gear speed should be set just below the 
             // maximum loaded speed of the robot
             MAX_LOW_GEAR_SPEED = 320.0; // Encoder counts/sec
             MAX_HIGH_GEAR_SPEED = 900.0;
@@ -78,9 +69,12 @@ public class RobotConst {
  
             ENCODER_COUNTS_PER_INCH = 55.6;
 
-            break;
+        	break;
+        	
+        case TEST_ROBOT:
         default:
-        	// The low gear speed should be set just below the 
+
+            // The low gear speed should be set just below the 
             // maximum loaded speed of the robot
             MAX_LOW_GEAR_SPEED = 320.0; // Encoder counts/sec
             MAX_HIGH_GEAR_SPEED = 900.0;
@@ -98,7 +92,6 @@ public class RobotConst {
             ENCODER_COUNTS_PER_INCH = 55.6;
 
             break;
-            
         }
 
     }

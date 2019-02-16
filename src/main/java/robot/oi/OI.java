@@ -12,6 +12,7 @@ import com.torontocodingcollective.oi.TToggle;
 import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.Robot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -48,9 +49,11 @@ public class OI extends TOi {
 	private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
 	private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
 
-	private int 			armLevelSetPoint = 0;
+	private boolean         armManualDriveMode = true;
+	private double 			armLevelSetPoint   = 0;   
+	private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
 
-	private boolean liftModeEnabled;
+	private boolean         liftModeEnabled;
 
 	/* *************************************************
 	 * Initializers and General Controls
@@ -82,6 +85,22 @@ public class OI extends TOi {
 		return operatorController.getButton(TButton.BACK);
 	}
 
+	public void startDriverRumble() {
+		driverRumble.rumbleOn();
+	}
+	
+	public void endDriverRumble() {
+		driverRumble.rumbleOff();
+	}
+	
+	public void startOperatorRumble() {
+		operatorRumble.rumbleOn();
+	}
+
+	public void endOperatorRumble() {
+		operatorRumble.rumbleOn();
+	}
+	
 	/* *************************************************
 	 * Drive Subsystem buttons
     /* *************************************************/
@@ -93,10 +112,6 @@ public class OI extends TOi {
 	@Override
 	public int getRotateToHeading() {
 		return driverController.getPOV();
-	}
-
-	public int getArmLevel() {
-		return armLevelSetPoint;
 	}
 
 	/**
@@ -186,15 +201,36 @@ public class OI extends TOi {
 	}
 
 	/* *************************************************
-	 * Cargo Subsystem buttons
+	 * Arm / Cargo Subsystem buttons
     /* *************************************************/
-	public double getArmUp() {
+	public boolean getArmDriveMode() {
+		return armManualDriveMode;
+	}
+
+	public double getArmUp(){
 		return driverController.getTrigger(TTrigger.RIGHT);
 	}
 
-	public double getArmDown() {
+	public double getArmDown(){
 		return driverController.getTrigger(TTrigger.LEFT);
 	}
+
+	public boolean cargoIntake() {
+		return cargoToggle.get();
+	}
+
+	public boolean cargoEject() {
+		return driverController.getButton(TButton.Y);
+	}
+
+	public void setArmLevel(double level) {
+		armLevelSetPoint = level;
+	}
+	
+	public double getArmLevel() {
+		return armLevelSetPoint;
+	}
+
 
 	/* *************************************************
 	 * Lift Subsystem buttons
@@ -243,6 +279,41 @@ public class OI extends TOi {
 	@Override
 	public void updatePeriodic() {
 
+		// Set the arm manual mode
+		if (armUpDetector.get()) {
+			// If we were previously using a manual
+			// drive, then the arm set point can
+			// be incorrect. 
+			if (armManualDriveMode) {
+				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
+				armLevelSetPoint = Math.floor(currentArmLevel);
+			}
+			armLevelSetPoint ++;
+			if (armLevelSetPoint > 5) {
+				armLevelSetPoint = 5;
+			}
+			armManualDriveMode = false;
+		}
+		if (armDownDetector.get()) {
+			if (armManualDriveMode) {
+				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
+				armLevelSetPoint = Math.ceil(currentArmLevel);
+			}
+			armLevelSetPoint = armLevelSetPoint - 1;
+			if (armLevelSetPoint < 0) {
+				armLevelSetPoint = 0;
+			}
+			armManualDriveMode = false;
+		}
+		if (getArmUp() > 0) {
+			armManualDriveMode = true;
+		}
+		else if (getArmDown() > 0) {
+			armManualDriveMode = true;
+		}
+
+
+		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
 			liftModeEnabled=true;
 		}
@@ -255,24 +326,12 @@ public class OI extends TOi {
 		speedPidToggle.updatePeriodic();
 		driverRumble.updatePeriodic();
 
-		if (armUpDetector.get()) {
-			armLevelSetPoint ++;
-			if (armLevelSetPoint > 5) {
-				armLevelSetPoint = 5;
-			}
-		}
-		if (armDownDetector.get()) {
-			armLevelSetPoint = armLevelSetPoint - 1;
-			if (armLevelSetPoint < 0) {
-				armLevelSetPoint = 0;
-			}
-		}
-		
 		// Update all SmartDashboard values
 		SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
 		SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
 		SmartDashboard.putString("Driver Controller", driverController.toString());
 		SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
+		SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
 		SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
 		
 		
