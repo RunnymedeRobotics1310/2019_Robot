@@ -4,6 +4,7 @@ import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
 import com.torontocodingcollective.oi.TGameController_Logitech;
+import com.torontocodingcollective.oi.TGameController_Xbox;
 import com.torontocodingcollective.oi.TOi;
 import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
@@ -35,10 +36,10 @@ import robot.Robot;
  */
 public class OI extends TOi {
 
-	private TGameController driverController = new TGameController_Logitech(0);
+	private TGameController driverController = new TGameController_Xbox(0);
 	private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
 
-	private TGameController operatorController = new TGameController_Logitech(1);
+	private TGameController operatorController = new TGameController_Xbox(1);
 	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
