@@ -64,14 +64,14 @@ public class RobotMap {
     // ******************************************
     // DIO Ports
     // ******************************************
-    public static final int                    ARM_DOWN_LIMIT_SWITCH;
-    public static final int                    ARM_UP_LIMIT_SWITCH;
+    public static final int                     ARM_DOWN_LIMIT_SWITCH;
+    public static final int                     ARM_UP_LIMIT_SWITCH;
 
-    public static final int                    LIFT_FRONT_UPPER_LIMIT_DIO_PORT;
-    public static final int                    LIFT_FRONT_LOWER_LIMIT_DIO_PORT;
-    public static final int                    LIFT_REAR_UPPER_LIMIT_DIO_PORT;
-    public static final int                    LIFT_REAR_LOWER_LIMIT_DIO_PORT;
-    
+    public static final int                     LIFT_FRONT_UPPER_LIMIT_DIO_PORT;
+    public static final int                     LIFT_FRONT_LOWER_LIMIT_DIO_PORT;
+    public static final int                     LIFT_REAR_UPPER_LIMIT_DIO_PORT;
+    public static final int                     LIFT_REAR_LOWER_LIMIT_DIO_PORT;
+
     // ******************************************
     // Gyro Ports
     // ******************************************

@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.commands.AutonomousCommand;
 import robot.oi.AutoSelector;
 import robot.oi.OI;
-import robot.subsystems.ArmSubsystem;
 import robot.subsystems.CameraSubsystem;
 import robot.subsystems.CanDriveSubsystem;
+import robot.subsystems.CargoSubsystem;
 import robot.subsystems.HatchSubsystem;
 import robot.subsystems.LiftSubsystem;
 import robot.subsystems.PneumaticsSubsystem;
@@ -34,11 +34,10 @@ public class Robot extends TimedRobot {
     public static final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
     public static final PowerSubsystem      powerSubsystem      = new PowerSubsystem();
     public static final CameraSubsystem     cameraSubsystem     = new CameraSubsystem();
-    public static final ArmSubsystem        armSubsystem        = new ArmSubsystem();
     public static final LiftSubsystem       liftSubsystem       = new LiftSubsystem();
     public static final HatchSubsystem      hatchSubsystem      = new HatchSubsystem();
-    
-
+    public static final CargoSubsystem      cargoSubsystem      = new CargoSubsystem();
+ 
     public static OI                        oi;
 
     private Command                         autoCommand;
@@ -49,9 +48,9 @@ public class Robot extends TimedRobot {
         subsystemLs.add(pneumaticsSubsystem);
         subsystemLs.add(powerSubsystem);
         subsystemLs.add(cameraSubsystem);
-        subsystemLs.add(armSubsystem);
         subsystemLs.add(liftSubsystem);
         subsystemLs.add(hatchSubsystem);
+        subsystemLs.add(cargoSubsystem);
     }
 
     /**
