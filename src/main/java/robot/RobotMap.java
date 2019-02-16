@@ -37,17 +37,10 @@ public class RobotMap {
     public static final TCanSpeedControllerType HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 HATCH_SLIDE_CAN_MOTOR_ISINVERTED;                   
     public static final boolean                 HATCH_SLIDE_CAN_ENCODER_ISINVERTED;
-    public static final int					    HATCH_LEFT_LIMIT_SWITCH_DIO_PORT;
-    public static final int					    HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT;
-    public static final int						HATCH_LEFT_SENSOR_DIO_PORT;
-    public static final int						HATCH_RIGHT_SENSOR_DIO_PORT;
-    
-    public static final int						HATCH_TOP_LEFT_SOLENOID;
-    public static final int						HATCH_BOTTOM_LEFT_SOLENOID;
-    public static final int						HATCH_TOP_RIGHT_SOLENOID;
-    public static final int						HATCH_BOTTOM_RIGHT_SOLENOID;
-    public static final int						HATCH_PUNCH_SOLENOID_1;
-    public static final int						HATCH_PUNCH_SOLENOID_2;
+
+    // Solenoid ports
+    public static final int						HATCH_PICKUP_SOLENOID;
+    public static final int						HATCH_PUNCH_SOLENOID;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final TCanSpeedControllerType ARM_CAN_SPEED_CONTROLLER_TYPE;
@@ -73,6 +66,11 @@ public class RobotMap {
     public static final int                     ARM_DOWN_LIMIT_SWITCH;
     public static final int                     ARM_UP_LIMIT_SWITCH;
 	public static final int                     CARGO_DETECT_LIMIT_DIO_PORT;
+	
+    public static final int					    HATCH_LEFT_LIMIT_SWITCH_DIO_PORT;
+    public static final int					    HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT;
+    public static final int						HATCH_LEFT_SENSOR_DIO_PORT;
+    public static final int						HATCH_RIGHT_SENSOR_DIO_PORT;
 
     public static final int                     LIFT_FRONT_UPPER_LIMIT_DIO_PORT;
     public static final int                     LIFT_FRONT_LOWER_LIMIT_DIO_PORT;
@@ -123,12 +121,8 @@ public class RobotMap {
             HATCH_LEFT_SENSOR_DIO_PORT						  = 0;
             HATCH_RIGHT_SENSOR_DIO_PORT						  = 2;
 
-            HATCH_TOP_LEFT_SOLENOID							  = 50;
-            HATCH_BOTTOM_LEFT_SOLENOID						  = 51;
-            HATCH_TOP_RIGHT_SOLENOID						  = 52;
-            HATCH_BOTTOM_RIGHT_SOLENOID						  = 53;
-            HATCH_PUNCH_SOLENOID_1							  = 54;
-            HATCH_PUNCH_SOLENOID_2							  = 55;
+            HATCH_PICKUP_SOLENOID							  = 50;
+            HATCH_PUNCH_SOLENOID							  = 51;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 
@@ -190,12 +184,9 @@ public class RobotMap {
             HATCH_LEFT_SENSOR_DIO_PORT						  = 0;
             HATCH_RIGHT_SENSOR_DIO_PORT						  = 2;
             
-            HATCH_TOP_LEFT_SOLENOID							  = 50;
-            HATCH_BOTTOM_LEFT_SOLENOID						  = 51;
-            HATCH_TOP_RIGHT_SOLENOID						  = 52;
-            HATCH_BOTTOM_RIGHT_SOLENOID						  = 53;
-            HATCH_PUNCH_SOLENOID_1							  = 54;
-            HATCH_PUNCH_SOLENOID_2							  = 55;
+            // Solenoid ports
+            HATCH_PICKUP_SOLENOID							  = 50;
+            HATCH_PUNCH_SOLENOID							  = 51;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 

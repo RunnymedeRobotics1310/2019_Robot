@@ -23,12 +23,10 @@ public class HatchSubsystem extends TSubsystem {
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
-	GhostSolenoid topLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_LEFT_SOLENOID);//Testing
-	GhostSolenoid bottomLeftSolenoid = new GhostSolenoid(RobotMap.HATCH_BOTTOM_LEFT_SOLENOID);
-	GhostSolenoid topRightSolenoid = new GhostSolenoid(RobotMap.HATCH_TOP_RIGHT_SOLENOID);
-	GhostSolenoid bottomRightSolenoid = new GhostSolenoid(RobotMap.HATCH_BOTTOM_RIGHT_SOLENOID);
-	GhostSolenoid punchSolenoid1 =  new GhostSolenoid(RobotMap.HATCH_PUNCH_SOLENOID_1);
-	GhostSolenoid punchSolenoid2 =new GhostSolenoid( RobotMap.HATCH_PUNCH_SOLENOID_2);
+	GhostSolenoid pickupSolenoid = new GhostSolenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
+	GhostSolenoid punchSolenoid =new GhostSolenoid( RobotMap.HATCH_PUNCH_SOLENOID);
+	TLimitSwitch hatchSensor1 = new TLimitSwitch(RobotMap.HATCH_LEFT_SENSOR_DIO_PORT, DefaultState.TRUE);
+	TLimitSwitch hatchSensor2 = new TLimitSwitch(RobotMap.HATCH_LEFT_SENSOR_DIO_PORT, DefaultState.TRUE);
 	
 	public void init() {
 	}
@@ -50,13 +48,11 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void ejectHatch () {
-		punchSolenoid1.set(true);
-		punchSolenoid2.set(true);
+		punchSolenoid.set(true);
 	}
 	
 	public void retractPunchMech () {
-		punchSolenoid1.set(false);
-		punchSolenoid2.set(false);
+		punchSolenoid.set(false);
 	}
 
 	public boolean leftSlideLimitDetected() {
@@ -82,16 +78,10 @@ public class HatchSubsystem extends TSubsystem {
 		
 		// Updates and sets the Solenoids for the hatch mech
 		if (Robot.oi.getHatchMechExtend()) {
-			topLeftSolenoid.set(true);
-			bottomLeftSolenoid.set(true);
-			topRightSolenoid.set(true);
-			bottomRightSolenoid.set(true);
+			pickupSolenoid.set(true);
 		}
 		else if (Robot.oi.getHatchMechRetract()) {
-			topLeftSolenoid.set(false);
-			bottomLeftSolenoid.set(false);
-			topRightSolenoid.set(false);
-			bottomRightSolenoid.set(false);
+			pickupSolenoid.set(false);
 		}
 		
 		if (Robot.oi.getHatchMechEject()) {
@@ -101,12 +91,9 @@ public class HatchSubsystem extends TSubsystem {
 		
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
-		SmartDashboard.putBoolean("Top left Solenoid Extended", topLeftSolenoid.get());
-		SmartDashboard.putBoolean("Bottom left Solenoid Extended", bottomLeftSolenoid.get());
-		SmartDashboard.putBoolean("Top Right Solenoid Extended", topRightSolenoid.get());
-		SmartDashboard.putBoolean("bottom Right Solenoid Extended", bottomRightSolenoid.get());
-		SmartDashboard.putBoolean("Punch Solenoid 1 Extended", punchSolenoid1.get());
-		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid2.get());
+		SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
+		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid.get());
+		SmartDashboard.putBoolean("Hatch Sensor 1: ", hatchSensor1.atLimit());
 		
 	}
 }
