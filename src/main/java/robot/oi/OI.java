@@ -54,7 +54,7 @@ public class OI extends TOi {
 
 	private boolean         armManualDriveMode = true;
 	private double 			armLevelSetPoint   = 0;   
-	private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
+	//private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
 
 	private boolean         liftModeEnabled;
 
@@ -219,11 +219,15 @@ public class OI extends TOi {
 	}
 
 	public boolean cargoIntake() {
-		return cargoToggle.get();
+		return driverController.getButton(TButton.A);
 	}
 
 	public boolean cargoEject() {
 		return driverController.getButton(TButton.Y);
+	}
+
+	public boolean intakeOff(){
+		return  driverController.getButton(TButton.B);
 	}
 
 	public void setArmLevel(double level) {
@@ -318,10 +322,10 @@ public class OI extends TOi {
 
 		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
-			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=true;
 		}
 		if (getHatchModeEnabled()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=false;
 		}
 
