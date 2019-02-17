@@ -84,9 +84,12 @@ public class HatchSubsystem extends TSubsystem {
 		}
 		
 		if (Robot.oi.getHatchMechEject()) {
-			Scheduler.getInstance().add(new HatchEjectCommand());
+			punchSolenoid.set(true);
 		}
-		
+		else
+		{
+			punchSolenoid.set(false);
+		}
 		
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());

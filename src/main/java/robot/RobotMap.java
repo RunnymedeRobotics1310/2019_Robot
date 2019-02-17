@@ -209,10 +209,10 @@ public class RobotMap {
     
             LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;
             LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
+            LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = true;
             LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 12;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
+            LIFT_REAR_CAN_MOTOR_ISINVERTED                    = true;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 11;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
