@@ -90,7 +90,7 @@ public class CargoSubsystem extends TSubsystem {
     
     public void startIntake() {
     	leftIntakeMotor.set(RobotConst.INTAKE_SPEED);
-    	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
+    	rightIntakeMotor.set(-RobotConst.INTAKE_SPEED);
     }
     
     public void stopIntake() {
@@ -122,9 +122,9 @@ public class CargoSubsystem extends TSubsystem {
     	}
     	if (Robot.oi.cargoEject()) {
         	leftIntakeMotor.set(-RobotConst.INTAKE_SPEED);
-        	rightIntakeMotor.set(-RobotConst.INTAKE_SPEED);
-    	}
-    	if (!Robot.oi.cargoIntake()) {
+        	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
+		}
+		if (Robot.oi.intakeOff()) {
     		stopIntake();
     	}
     	
