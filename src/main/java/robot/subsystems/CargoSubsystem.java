@@ -6,9 +6,12 @@ import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState
 import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.Robot;
 import robot.RobotConst;
 import robot.RobotMap;
+import robot.commands.cargo.CargoIntakeCommand;
 import robot.commands.cargo.DefaultCargoCommand;
 
 /**
@@ -24,8 +27,10 @@ public class CargoSubsystem extends TSubsystem {
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
     
-    TCanSpeedController intakeMotor = new TCanSpeedController(
-    		RobotMap.INTAKE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_CAN_MOTOR_ISINVERTED);
+    TCanSpeedController leftIntakeMotor = new TCanSpeedController(
+    		RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_L_CAN_MOTOR_ISINVERTED);
+    TCanSpeedController rightIntakeMotor = new TCanSpeedController(
+    		RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_R_CAN_MOTOR_ISINVERTED);
     TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
     
     @Override
@@ -84,11 +89,13 @@ public class CargoSubsystem extends TSubsystem {
     }
     
     public void startIntake() {
-    	intakeMotor.set(RobotConst.INTAKE_SPEED);
+    	leftIntakeMotor.set(RobotConst.INTAKE_SPEED);
+    	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
     }
     
     public void stopIntake() {
-    	intakeMotor.set(0);
+    	leftIntakeMotor.set(0);
+    	rightIntakeMotor.set(0);
     }
     
     public boolean isCargoDetected() {
@@ -108,6 +115,17 @@ public class CargoSubsystem extends TSubsystem {
     	}
     	if (armSpeed < 0 && armDownLimit.atLimit()) {
     		armMotor.set(0);
+    	}
+    	
+    	if (Robot.oi.cargoIntake()) {
+    		startIntake();
+    	}
+    	if (Robot.oi.cargoEject()) {
+        	leftIntakeMotor.set(-RobotConst.INTAKE_SPEED);
+        	rightIntakeMotor.set(-RobotConst.INTAKE_SPEED);
+    	}
+    	if (!Robot.oi.cargoIntake()) {
+    		stopIntake();
     	}
     	
          SmartDashboard.putNumber("Arm Motor", armMotor.get());
