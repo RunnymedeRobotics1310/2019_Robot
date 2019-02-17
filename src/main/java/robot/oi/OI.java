@@ -321,13 +321,13 @@ public class OI extends TOi {
 
 
 		// Update the Lift Mode
-		if (getLiftModeEnabled()) {
-			liftModeEnabled=true;
-		}
-		if (getHatchModeEnabled()) {
-			Scheduler.getInstance().add(new HatchCentreCommand());
-			liftModeEnabled=false;
-		}
+//		if (getLiftModeEnabled()) {
+//			liftModeEnabled=true;
+//		}
+//		if (getHatchModeEnabled()) {
+//			Scheduler.getInstance().add(new HatchCentreCommand());
+//			liftModeEnabled=false;
+//		}
 
 		// Update all Toggles
 		compressorToggle.updatePeriodic();

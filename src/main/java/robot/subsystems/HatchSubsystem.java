@@ -68,12 +68,12 @@ public class HatchSubsystem extends TSubsystem {
 
 	public void updatePeriodic() {
 		
-		setSlideSpeed((Robot.oi.getHatchSlideLeft()/5)-(Robot.oi.getHatchSlideRight()/5));
-
-		if (Robot.oi.getHatchSlideCentre()) {
-			Scheduler.getInstance().add(new HatchCentreCommand());
-			return;
-		}
+//		setSlideSpeed((Robot.oi.getHatchSlideLeft()/5)-(Robot.oi.getHatchSlideRight()/5));
+//
+//		if (Robot.oi.getHatchSlideCentre()) {
+//			Scheduler.getInstance().add(new HatchCentreCommand());
+//			return;
+//		}
 		
 		// Updates and sets the Solenoids for the hatch mech
 		if (Robot.oi.getHatchMechExtend()) {
