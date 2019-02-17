@@ -12,8 +12,10 @@ import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.oi.TToggle;
 import com.torontocodingcollective.oi.TTrigger;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
+import robot.commands.hatch.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -316,6 +318,7 @@ public class OI extends TOi {
 
 		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=true;
 		}
 		if (getHatchModeEnabled()) {

@@ -117,8 +117,8 @@ public class RobotMap {
             HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 1;
             HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 3;
 
-            HATCH_PICKUP_SOLENOID							  = 50;
-            HATCH_PUNCH_SOLENOID							  = 51;
+            HATCH_PICKUP_SOLENOID							  = 0;
+            HATCH_PUNCH_SOLENOID							  = 1;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
 
@@ -139,7 +139,7 @@ public class RobotMap {
             LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 13;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
-            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 11;
+            LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 5;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
@@ -179,8 +179,8 @@ public class RobotMap {
             HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 3;
             
             // Solenoid ports
-            HATCH_PICKUP_SOLENOID							  = 50;
-            HATCH_PUNCH_SOLENOID							  = 51;
+            HATCH_PICKUP_SOLENOID							  = 0;
+            HATCH_PUNCH_SOLENOID							  = 1;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
 

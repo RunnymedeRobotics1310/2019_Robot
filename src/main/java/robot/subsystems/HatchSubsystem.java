@@ -6,6 +6,7 @@ import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.speedcontroller.TSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
@@ -23,8 +24,8 @@ public class HatchSubsystem extends TSubsystem {
 			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
-	GhostSolenoid pickupSolenoid = new GhostSolenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
-	GhostSolenoid punchSolenoid =new GhostSolenoid( RobotMap.HATCH_PUNCH_SOLENOID);
+	Solenoid pickupSolenoid = new Solenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
+	Solenoid punchSolenoid =new Solenoid( RobotMap.HATCH_PUNCH_SOLENOID);
 	
 	public void init() {
 	}
@@ -46,11 +47,11 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void ejectHatch () {
-		punchSolenoid.set(true);
+		punchSolenoid.set(false);
 	}
 	
 	public void retractPunchMech () {
-		punchSolenoid.set(false);
+		punchSolenoid.set(true);
 	}
 
 	public boolean leftSlideLimitDetected() {
@@ -76,10 +77,10 @@ public class HatchSubsystem extends TSubsystem {
 		
 		// Updates and sets the Solenoids for the hatch mech
 		if (Robot.oi.getHatchMechExtend()) {
-			pickupSolenoid.set(true);
+			pickupSolenoid.set(false);
 		}
 		else if (Robot.oi.getHatchMechRetract()) {
-			pickupSolenoid.set(false);
+			pickupSolenoid.set(true);
 		}
 		
 		if (Robot.oi.getHatchMechEject()) {
