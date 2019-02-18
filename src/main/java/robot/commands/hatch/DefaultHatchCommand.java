@@ -3,6 +3,7 @@ package robot.commands.hatch;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
@@ -41,7 +42,29 @@ public class DefaultHatchCommand extends TSafeCommand {
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {}
+	protected void execute() {
+
+		Robot.hatchSubsystem.setSlideSpeed((Robot.oi.getHatchSlideLeft()/5)-(Robot.oi.getHatchSlideRight()/5));
+
+		if (Robot.oi.getHatchSlideCentre()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
+			return;
+		}
+		
+		// Updates and sets the Solenoids for the hatch mech
+		if (Robot.oi.getHatchMechExtend()) {
+			Robot.hatchSubsystem.extendHatchMech();
+		}
+		else if (Robot.oi.getHatchMechRetract()) {
+			Robot.hatchSubsystem.retractHatchMech();
+		}
+		
+		if (Robot.oi.getHatchMechEject()) {
+			Robot.hatchSubsystem.ejectHatch();
+		}
+		
+
+	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override

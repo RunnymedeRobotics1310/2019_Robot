@@ -31,7 +31,11 @@ public class CargoSubsystem extends TSubsystem {
     		RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_L_CAN_MOTOR_ISINVERTED);
     TCanSpeedController rightIntakeMotor = new TCanSpeedController(
     		RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_R_CAN_MOTOR_ISINVERTED);
-    TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
+	TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
+	
+	TCanSpeedController rollerMotor = new TCanSpeedController(
+    		RobotMap.ROLLER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ROLLER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.ROLLER_CAN_MOTOR_ISINVERTED);
+
     
     @Override
     public void init() {
@@ -98,9 +102,22 @@ public class CargoSubsystem extends TSubsystem {
     	rightIntakeMotor.set(0);
     }
     
+    public void ejectCargo() {
+    	leftIntakeMotor.set(-RobotConst.INTAKE_SPEED);
+    	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
+    }
+    
     public boolean isCargoDetected() {
     	return cargoDetectLimitSwitch.atLimit();
-    }
+	}
+	
+	public void rollerActive(){
+		rollerMotor.set(0.5);
+	}
+
+	public void rollerInactive(){
+		rollerMotor.set(0);
+	}
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
@@ -117,16 +134,7 @@ public class CargoSubsystem extends TSubsystem {
     		armMotor.set(0);
     	}
     	
-    	if (Robot.oi.cargoIntake()) {
-    		startIntake();
-    	}
-    	if (Robot.oi.cargoEject()) {
-        	leftIntakeMotor.set(-RobotConst.INTAKE_SPEED);
-        	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
-		}
-		if (Robot.oi.intakeOff()) {
-    		stopIntake();
-    	}
+
     	
          SmartDashboard.putNumber("Arm Motor", armMotor.get());
          SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());

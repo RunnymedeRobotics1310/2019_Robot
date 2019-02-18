@@ -5,6 +5,7 @@ import com.torontocodingcollective.commands.TSafeCommand;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.RobotConst;
 
 /**
  *
@@ -44,25 +45,41 @@ public class DefaultCargoCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 		
-//		if (Robot.oi.getArmDriveMode() == false ) {
-//			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
-//				Scheduler.getInstance().add(new CargoArmLevelCommand());
-//				return;
-//			}
-//		}
-//
-//		if (Robot.oi.getArmUp() >= 0.80) {
-//			Robot.cargoSubsystem.setArmSpeed(-0.25);
-//			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-//
-//		} else if (Robot.oi.getArmDown() >= 0.80) {
-//			Robot.cargoSubsystem.setArmSpeed(0.15);
-//			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-//
-//		} else {
-//			Robot.cargoSubsystem.setArmSpeed(0);
-//			
-//		}
+		if (Robot.oi.getArmDriveMode() == false ) {
+			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
+				Scheduler.getInstance().add(new CargoArmLevelCommand());
+				return;
+			}
+		}
+
+		if (Robot.oi.getArmUp() >= 0.80) {
+			Robot.cargoSubsystem.setArmSpeed(-0.25);
+			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+
+		} else if (Robot.oi.getArmDown() >= 0.80) {
+			Robot.cargoSubsystem.setArmSpeed(0.15);
+			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+
+		} else {
+			Robot.cargoSubsystem.setArmSpeed(0);
+			System.out.println("STOP!");
+		}
+		
+    	if (Robot.oi.cargoIntake()) {
+    		Robot.cargoSubsystem.startIntake();
+    	}
+    	if (Robot.oi.cargoEject()) {
+    		Robot.cargoSubsystem.ejectCargo();
+		}
+		if (Robot.oi.intakeOff()) {
+			Robot.cargoSubsystem.stopIntake();
+		}
+		if(Robot.oi.rollOn()) {
+			Robot.cargoSubsystem.rollerActive();
+		}
+		if (Robot.oi.intakeOff()) {
+			Robot.cargoSubsystem.rollerInactive();
+		}
 		
 	}
 

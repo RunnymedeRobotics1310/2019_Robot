@@ -42,24 +42,31 @@ public class DefaultLiftCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-//			if (Robot.oi.getRetractFrontLift()) {
-//				Robot.liftSubsystem.setFrontMotorSpeed(-0.4);
-//			}
-//			else if (Robot.oi.getExtendFrontLift() > 0) {
-//				Robot.liftSubsystem.setFrontMotorSpeed(Robot.oi.getExtendFrontLift());
-//			}
-//			else {
-//				Robot.liftSubsystem.setFrontMotorSpeed(0);
-//			}
-//			if (Robot.oi.getRetractRearLift()) {
-//				Robot.liftSubsystem.setRearMotorSpeed(-0.4);
-//			}
-//			else if (Robot.oi.getExtendRearLift() > 0) {
-//				Robot.liftSubsystem.setRearMotorSpeed(Robot.oi.getExtendRearLift());
-//			}
-//			else {
-//				Robot.liftSubsystem.setRearMotorSpeed(0);
-//			}
+			if (Robot.oi.up()) {
+				Robot.liftSubsystem.setFrontMotorSpeed(0.4);
+				Robot.liftSubsystem.setRearMotorSpeed(0.4);
+			}
+			if (Robot.oi.getRetractFrontLift()) {
+				Robot.liftSubsystem.setFrontMotorSpeed(-0.6);
+			}
+			else if (Robot.oi.getExtendFrontLift() > 0) {
+				Robot.liftSubsystem.setFrontMotorSpeed(Robot.oi.getExtendFrontLift());
+			}
+			else {
+				Robot.liftSubsystem.setFrontMotorSpeed(0);
+			}
+			if (Robot.oi.getRetractRearLift()) {
+				Robot.liftSubsystem.setRearMotorSpeed(-0.6);
+			}
+			else if (Robot.oi.getExtendRearLift() > 0) {
+				Robot.liftSubsystem.setRearMotorSpeed(Robot.oi.getExtendRearLift());
+			}
+			else {
+				Robot.liftSubsystem.setRearMotorSpeed(0);
+			}
+			
+			
+			
 		
 	}
 

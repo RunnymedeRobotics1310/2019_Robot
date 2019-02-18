@@ -53,6 +53,10 @@ public class RobotMap {
 	public static final int                     INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS;
 	public static final TCanSpeedControllerType INTAKE_R_CAN_SPEED_CONTROLLER_TYPE;
     public static final boolean                 INTAKE_R_CAN_MOTOR_ISINVERTED;
+
+    public static final int                     ROLLER_CAN_SPEED_CONTROLLER_ADDRESS;
+    public static final TCanSpeedControllerType ROLLER_CAN_SPEED_CONTROLLER_TYPE;
+    public static final boolean                 ROLLER_CAN_MOTOR_ISINVERTED;
     
     
 
@@ -140,14 +144,17 @@ public class RobotMap {
             INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS             = 15;
             INTAKE_R_CAN_SPEED_CONTROLLER_TYPE                = TCanSpeedControllerType.VICTOR_SPX;
             INTAKE_R_CAN_MOTOR_ISINVERTED                     = TConst.NOT_INVERTED;
+            ROLLER_CAN_SPEED_CONTROLLER_ADDRESS               = 17;
+            ROLLER_CAN_SPEED_CONTROLLER_TYPE                  = TCanSpeedControllerType.VICTOR_SPX;
+            ROLLER_CAN_MOTOR_ISINVERTED                     = TConst.NOT_INVERTED;
             CARGO_DETECT_LIMIT_DIO_PORT                       = 11;
     
             LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 14;
             LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = false;
+            LIFT_FRONT_CAN_MOTOR_ISINVERTED                   = true;
             LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS            = 13;
             LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE               = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
+            LIFT_REAR_CAN_MOTOR_ISINVERTED                    = true;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 5;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
@@ -205,6 +212,9 @@ public class RobotMap {
             INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS             = 31;
             INTAKE_R_CAN_SPEED_CONTROLLER_TYPE                = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             INTAKE_R_CAN_MOTOR_ISINVERTED                     = TConst.NOT_INVERTED;
+            ROLLER_CAN_SPEED_CONTROLLER_ADDRESS               = 17;
+            ROLLER_CAN_SPEED_CONTROLLER_TYPE                  = TCanSpeedControllerType.VICTOR_SPX;
+            ROLLER_CAN_MOTOR_ISINVERTED                     = TConst.NOT_INVERTED;
             CARGO_DETECT_LIMIT_DIO_PORT                       = 11;
     
             LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS           = 10;

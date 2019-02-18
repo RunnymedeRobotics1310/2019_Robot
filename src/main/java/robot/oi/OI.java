@@ -230,6 +230,14 @@ public class OI extends TOi {
 		return  driverController.getButton(TButton.B);
 	}
 
+	public boolean rollOn(){
+		return driverController.getButton(TButton.X);
+	}
+
+	public boolean rollOff(){
+		return driverController.getButton(TButton.RIGHT_BUMPER);
+	}
+
 	public void setArmLevel(double level) {
 		armLevelSetPoint = level;
 	}
@@ -278,6 +286,24 @@ public class OI extends TOi {
 			return 0;
 		}
 	}
+	
+	public boolean getLiftDriveActive() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.A);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean up() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.Y);
+		}
+		else {
+			return false;
+		}
+	}
 
 
 	/* *************************************************
@@ -321,13 +347,13 @@ public class OI extends TOi {
 
 
 		// Update the Lift Mode
-//		if (getLiftModeEnabled()) {
-//			liftModeEnabled=true;
-//		}
-//		if (getHatchModeEnabled()) {
-//			Scheduler.getInstance().add(new HatchCentreCommand());
-//			liftModeEnabled=false;
-//		}
+		if (getLiftModeEnabled()) {
+			liftModeEnabled=true;
+		}
+		if (getHatchModeEnabled()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
+			liftModeEnabled=false;
+		}
 
 		// Update all Toggles
 		compressorToggle.updatePeriodic();
