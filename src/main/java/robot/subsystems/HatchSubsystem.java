@@ -77,10 +77,10 @@ public class HatchSubsystem extends TSubsystem {
 		
 		// Updates and sets the Solenoids for the hatch mech
 		if (Robot.oi.getHatchMechExtend()) {
-			pickupSolenoid.set(false);
+			pickupSolenoid.set(true);
 		}
 		else if (Robot.oi.getHatchMechRetract()) {
-			pickupSolenoid.set(true);
+			pickupSolenoid.set(false);
 		}
 		
 		if (Robot.oi.getHatchMechEject()) {
