@@ -44,25 +44,25 @@ public class DefaultCargoCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 		
-		if (Robot.oi.getArmDriveMode() == false ) {
-			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
-				Scheduler.getInstance().add(new CargoArmLevelCommand());
-				return;
-			}
-		}
-
-		if (Robot.oi.getArmUp() >= 0.80) {
-			Robot.cargoSubsystem.setArmSpeed(-0.25);
-			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-
-		} else if (Robot.oi.getArmDown() >= 0.80) {
-			Robot.cargoSubsystem.setArmSpeed(0.15);
-			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-
-		} else {
-			Robot.cargoSubsystem.setArmSpeed(0);
-			
-		}
+//		if (Robot.oi.getArmDriveMode() == false ) {
+//			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
+//				Scheduler.getInstance().add(new CargoArmLevelCommand());
+//				return;
+//			}
+//		}
+//
+//		if (Robot.oi.getArmUp() >= 0.80) {
+//			Robot.cargoSubsystem.setArmSpeed(-0.25);
+//			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+//
+//		} else if (Robot.oi.getArmDown() >= 0.80) {
+//			Robot.cargoSubsystem.setArmSpeed(0.15);
+//			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+//
+//		} else {
+//			Robot.cargoSubsystem.setArmSpeed(0);
+//			
+//		}
 		
 	}
 
