@@ -61,8 +61,8 @@ public class DefaultDriveCommand extends TDefaultDriveCommand {
 
         // Drive according to the type of drive selected in the
         // operator input.
-        TStickPosition leftStickPosition = null;//oi.getDriveStickPosition(TStick.LEFT);
-        TStickPosition rightStickPosition = null;//oi.getDriveStickPosition(TStick.RIGHT);
+        TStickPosition leftStickPosition = oi.getDriveStickPosition(TStick.LEFT);
+        TStickPosition rightStickPosition = oi.getDriveStickPosition(TStick.RIGHT);
 
         TStick singleStickSide = oi.getSelectedSingleStickSide();
 

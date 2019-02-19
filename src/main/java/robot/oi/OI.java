@@ -296,7 +296,7 @@ public class OI extends TOi {
 		}
 	}
 	
-	public boolean up() {
+	public boolean doubleExtendLift() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.Y);
 		}
