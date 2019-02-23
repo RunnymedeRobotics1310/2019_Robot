@@ -133,7 +133,7 @@ public class RobotMap {
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
 
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
-            ARM_CAN_MOTOR_ISINVERTED                          = TConst.NOT_INVERTED;
+            ARM_CAN_MOTOR_ISINVERTED                          = TConst.INVERTED;
     
             ARM_DOWN_LIMIT_SWITCH                             = 4;
             ARM_UP_LIMIT_SWITCH                               = 5;

@@ -1,5 +1,6 @@
 package robot.subsystems;
 
+import com.torontocodingcollective.sensors.encoder.TEncoder;
 import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch;
 import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState;
 import com.torontocodingcollective.speedcontroller.TCanSpeedController;
@@ -29,6 +30,9 @@ public class LiftSubsystem extends TSubsystem {
 			RobotMap.LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS,
 			RobotMap.LIFT_DRIVE_CAN_MOTOR_ISINVERTED);
 
+	 TEncoder frontLiftEncoder = frontLiftMotor.getEncoder();
+	 TEncoder rearLiftEncoder = rearLiftMotor.getEncoder();
+	
 	TLimitSwitch frontLiftUpperLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch frontLiftLowerLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
 
@@ -111,6 +115,9 @@ public class LiftSubsystem extends TSubsystem {
 		SmartDashboard.putNumber ("Front Lift Motor", frontLiftMotor.get());
 		SmartDashboard.putNumber ("Rear  Lift Motor", rearLiftMotor.get());
 		SmartDashboard.putNumber ("Lift Drive Motor", liftDriveMotor.get());
+		
+		SmartDashboard.putNumber ("Front Lift Motor Encoder Count", frontLiftMotor.get());
+		SmartDashboard.putNumber ("Rear  Lift Motor Encoder Count", rearLiftMotor.get());
 
 		SmartDashboard.putBoolean("Front Up",   frontLiftUpperLimit.atLimit());
 		SmartDashboard.putBoolean("Front Down", frontLiftLowerLimit.atLimit());

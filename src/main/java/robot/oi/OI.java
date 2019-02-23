@@ -41,7 +41,7 @@ public class OI extends TOi {
 	private TGameController driverController = new TGameController_Xbox(0);
 	private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
 
-	private TGameController operatorController = new TGameController_Xbox(1);
+	private TGameController operatorController = new TGameController_Logitech(1);
 	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
