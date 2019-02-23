@@ -49,11 +49,11 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void ejectHatch () {
-		punchSolenoid.set(false);
+		punchSolenoid.set(true);
 	}
 	
 	public void retractPunchMech () {
-		punchSolenoid.set(true);
+		punchSolenoid.set(false);
 	}
 	
 	public void extendHatchMech() {

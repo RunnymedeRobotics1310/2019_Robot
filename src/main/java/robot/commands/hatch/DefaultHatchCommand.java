@@ -44,7 +44,7 @@ public class DefaultHatchCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 
-		Robot.hatchSubsystem.setSlideSpeed((Robot.oi.getHatchSlideLeft()/5)-(Robot.oi.getHatchSlideRight()/5));
+		Robot.hatchSubsystem.setSlideSpeed((Robot.oi.getHatchSlideLeft()/3)-(Robot.oi.getHatchSlideRight()/3));
 
 		if (Robot.oi.getHatchSlideCentre()) {
 			Scheduler.getInstance().add(new HatchCentreCommand());
@@ -61,6 +61,9 @@ public class DefaultHatchCommand extends TSafeCommand {
 		
 		if (Robot.oi.getHatchMechEject()) {
 			Robot.hatchSubsystem.ejectHatch();
+		}
+		else {
+			Robot.hatchSubsystem.retractPunchMech();
 		}
 		
 

@@ -29,7 +29,7 @@ public class RobotConst {
     public static final double[]  ARM_LEVELS = { 0, 418, 583 , 1001, 1837, 2057 };
     public static final double    ARM_TOLERANCE = 40;
 
-	public static final double    INTAKE_SPEED = 0.75;
+	public static final double    INTAKE_SPEED = 0.5;
 
     // *********************************************************
     // For Ultrasonic Calibration

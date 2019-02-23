@@ -64,8 +64,16 @@ public class DefaultCargoCommand extends TSafeCommand {
 		}
 		
     	if (Robot.oi.cargoIntake()) {
-    		Robot.cargoSubsystem.startIntake();
-    	}
+			if (!Robot.cargoSubsystem.isCargoDetected()){
+				Robot.cargoSubsystem.startIntake();
+			}
+			else {
+				Robot.cargoSubsystem.stopIntake();
+			}
+		}
+		else{
+			Robot.cargoSubsystem.stopIntake();
+		}
     	if (Robot.oi.cargoEject()) {
     		Robot.cargoSubsystem.ejectCargo();
 		}

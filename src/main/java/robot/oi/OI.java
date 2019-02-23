@@ -46,6 +46,7 @@ public class OI extends TOi {
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
 	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
+	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
 
 	private DriveSelector   driveSelector    = new DriveSelector();
 
@@ -219,7 +220,7 @@ public class OI extends TOi {
 	}
 
 	public boolean cargoIntake() {
-		return driverController.getButton(TButton.A);
+		return intakeToggle.get();
 	}
 
 	public boolean cargoEject() {
@@ -367,7 +368,5 @@ public class OI extends TOi {
 		SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
 		SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
 		SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
-		
-		
 	}
 }
