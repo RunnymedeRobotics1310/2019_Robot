@@ -47,6 +47,14 @@ public class LiftSubsystem extends TSubsystem {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DefaultLiftCommand());
 	}
+	
+	public TEncoder getFrontLiftEncoder() {
+		return this.frontLiftEncoder;
+	}
+	
+	public TEncoder getRearLiftEncoder() {
+		return this.rearLiftEncoder;
+	}
 
 	public void setFrontMotorSpeed(double speed) {
 
@@ -93,10 +101,10 @@ public class LiftSubsystem extends TSubsystem {
 	public void setDriveMotorSpeed(double speed) {
 
 		// Ignore speeds < .01
-		if (speed < 0) {
+		if (speed > 0) {
 			liftDriveMotor.set(speed);
-		} else if (speed > 0) {
-			liftDriveMotor.set(speed);
+		} else if (speed < 0) {
+			liftDriveMotor.set(-speed);
 		} else {
 			liftDriveMotor.set(0);
 		}
@@ -105,6 +113,14 @@ public class LiftSubsystem extends TSubsystem {
 	// Periodically update the dashboard and any PIDs or sensors
 	@Override
 	public void updatePeriodic() {
+		
+		if (frontLiftUpperLimit.atLimit()) {
+			frontLiftEncoder.reset();
+		}
+
+		if (rearLiftUpperLimit.atLimit()) {
+			rearLiftEncoder.reset();
+		}
 
 		// Monitor for limits
 		// This is done in case a command starts the motor and 
@@ -116,8 +132,8 @@ public class LiftSubsystem extends TSubsystem {
 		SmartDashboard.putNumber ("Rear  Lift Motor", rearLiftMotor.get());
 		SmartDashboard.putNumber ("Lift Drive Motor", liftDriveMotor.get());
 		
-		SmartDashboard.putNumber ("Front Lift Motor Encoder Count", frontLiftMotor.get());
-		SmartDashboard.putNumber ("Rear  Lift Motor Encoder Count", rearLiftMotor.get());
+		SmartDashboard.putNumber ("Front Lift Motor Encoder Count", frontLiftEncoder.get());
+		SmartDashboard.putNumber ("Rear  Lift Motor Encoder Count", rearLiftEncoder.get());
 
 		SmartDashboard.putBoolean("Front Up",   frontLiftUpperLimit.atLimit());
 		SmartDashboard.putBoolean("Front Down", frontLiftLowerLimit.atLimit());

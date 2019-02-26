@@ -42,28 +42,38 @@ public class DefaultLiftCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-			if (Robot.oi.doubleExtendLift()) {
-				Robot.liftSubsystem.setFrontMotorSpeed(0.6);
-				Robot.liftSubsystem.setRearMotorSpeed(0.6);
-			}
+		if (Robot.oi.doubleExtendLift()) {
+			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
+					- Robot.liftSubsystem.getRearLiftEncoder().get();
+			Robot.liftSubsystem.setFrontMotorSpeed(-0.3 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(-0.3);
+		}
+		else {
 			if (Robot.oi.getRetractFrontLift()) {
-				Robot.liftSubsystem.setFrontMotorSpeed(-0.6);
+				Robot.liftSubsystem.setFrontMotorSpeed(0.6);
 			}
 			else if (Robot.oi.getExtendFrontLift() > 0) {
-				Robot.liftSubsystem.setFrontMotorSpeed(Robot.oi.getExtendFrontLift());
+				Robot.liftSubsystem.setFrontMotorSpeed(-Robot.oi.getExtendFrontLift());
 			}
 			else {
 				Robot.liftSubsystem.setFrontMotorSpeed(0);
 			}
 			if (Robot.oi.getRetractRearLift()) {
-				Robot.liftSubsystem.setRearMotorSpeed(-0.6);
+				Robot.liftSubsystem.setRearMotorSpeed(0.6);
 			}
 			else if (Robot.oi.getExtendRearLift() > 0) {
-				Robot.liftSubsystem.setRearMotorSpeed(Robot.oi.getExtendRearLift());
+				Robot.liftSubsystem.setRearMotorSpeed(-Robot.oi.getExtendRearLift());
 			}
 			else {
 				Robot.liftSubsystem.setRearMotorSpeed(0);
 			}
+		}
+		if (Robot.oi.getLiftDriveForward()) {
+			Robot.liftSubsystem.setDriveMotorSpeed(-0.5);
+		}
+		else {
+			Robot.liftSubsystem.setDriveMotorSpeed(0);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

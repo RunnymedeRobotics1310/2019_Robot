@@ -57,11 +57,11 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void extendHatchMech() {
-		pickupSolenoid.set(false);
+		pickupSolenoid.set(true);
 	}
 	
 	public void retractHatchMech() {
-		pickupSolenoid.set(true);
+		pickupSolenoid.set(false);
 	}
 
 	public boolean leftSlideLimitDetected() {

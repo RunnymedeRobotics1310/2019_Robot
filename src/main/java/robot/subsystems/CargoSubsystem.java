@@ -22,7 +22,7 @@ import robot.commands.cargo.DefaultCargoCommand;
 
 public class CargoSubsystem extends TSubsystem {
 
-    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS);
+    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS,RobotMap.ARM_CAN_MOTOR_ISINVERTED,RobotMap.ARM_CAN_SPEED_CONTROLLER_2_ADDRESS);
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);

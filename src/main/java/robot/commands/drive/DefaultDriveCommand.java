@@ -58,6 +58,11 @@ public class DefaultDriveCommand extends TDefaultDriveCommand {
 
         // Check the driver controller buttons
         super.execute();
+        
+        if (Robot.oi.getLiftDriveForward()) {
+        	Robot.driveSubsystem.setSpeed(0.05,0.05);
+        	return;
+        }
 
         // Drive according to the type of drive selected in the
         // operator input.

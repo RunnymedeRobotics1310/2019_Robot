@@ -288,7 +288,7 @@ public class OI extends TOi {
 		}
 	}
 	
-	public boolean getLiftDriveActive() {
+	public boolean getLiftDriveForward() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.A);
 		}
