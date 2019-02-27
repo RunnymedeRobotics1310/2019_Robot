@@ -220,7 +220,7 @@ public class OI extends TOi {
 	}
 
 	public boolean cargoIntake() {
-		return intakeToggle.get();
+		return driverController.getButton(TButton.X);
 	}
 
 	public boolean cargoEject() {

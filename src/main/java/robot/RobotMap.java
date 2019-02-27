@@ -163,7 +163,7 @@ public class RobotMap {
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 8;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.VICTOR_SPX;
-            LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
+            LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = true;
             
             LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 3;
             LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 7;
