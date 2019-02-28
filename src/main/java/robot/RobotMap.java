@@ -87,6 +87,7 @@ public class RobotMap {
     public static final int                     LIFT_FRONT_LOWER_LIMIT_DIO_PORT;
     public static final int                     LIFT_REAR_UPPER_LIMIT_DIO_PORT;
     public static final int                     LIFT_REAR_LOWER_LIMIT_DIO_PORT;
+    public static final int                     LIFT_PLATFORM_DETECT_DIO_PORT;
 
     // ******************************************
     // Gyro Ports
@@ -163,12 +164,13 @@ public class RobotMap {
             LIFT_REAR_CAN_MOTOR_ISINVERTED                    = false;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS           = 8;
             LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE              = TCanSpeedControllerType.VICTOR_SPX;
-            LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = true;
+            LIFT_DRIVE_CAN_MOTOR_ISINVERTED                   = false;
             
             LIFT_FRONT_UPPER_LIMIT_DIO_PORT                   = 3;
             LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 7;
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 6;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 5;
+            LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
@@ -240,6 +242,7 @@ public class RobotMap {
             LIFT_FRONT_LOWER_LIMIT_DIO_PORT                   = 6;
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 8;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 9;
+            LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;

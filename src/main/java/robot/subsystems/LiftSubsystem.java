@@ -99,12 +99,11 @@ public class LiftSubsystem extends TSubsystem {
 	}
 
 	public void setDriveMotorSpeed(double speed) {
-
 		// Ignore speeds < .01
 		if (speed > 0) {
 			liftDriveMotor.set(speed);
 		} else if (speed < 0) {
-			liftDriveMotor.set(-speed);
+			liftDriveMotor.set(speed);
 		} else {
 			liftDriveMotor.set(0);
 		}
@@ -139,6 +138,8 @@ public class LiftSubsystem extends TSubsystem {
 		SmartDashboard.putBoolean("Front Down", frontLiftLowerLimit.atLimit());
 		SmartDashboard.putBoolean("Rear Up",    rearLiftUpperLimit.atLimit());
 		SmartDashboard.putBoolean("Rear Down",  rearLiftLowerLimit.atLimit());
+		
+		SmartDashboard.putBoolean("Platform Detected",   frontLiftUpperLimit.atLimit());
 	}
 
 }

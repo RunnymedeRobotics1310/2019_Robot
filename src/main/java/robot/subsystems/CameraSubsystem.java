@@ -11,10 +11,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class CameraSubsystem extends TSubsystem {
 
     public CameraSubsystem() {
-
         //Uncomment this line to start a USB camera feed
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-
     }
 
     @Override

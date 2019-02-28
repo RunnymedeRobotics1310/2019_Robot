@@ -60,7 +60,7 @@ public class DefaultDriveCommand extends TDefaultDriveCommand {
         super.execute();
         
         if (Robot.oi.getLiftDriveForward()) {
-        	Robot.driveSubsystem.setSpeed(0.05,0.05);
+        	Robot.driveSubsystem.setSpeed(-0.05,-0.05);
         	return;
         }
 

@@ -297,9 +297,18 @@ public class OI extends TOi {
 		}
 	}
 	
-	public boolean doubleExtendLift() {
+	public boolean syncedExtendLift() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.Y);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean syncedRetractLift() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.B);
 		}
 		else {
 			return false;
