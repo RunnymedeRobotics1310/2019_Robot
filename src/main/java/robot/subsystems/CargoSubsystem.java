@@ -22,7 +22,7 @@ import robot.commands.cargo.DefaultCargoCommand;
 
 public class CargoSubsystem extends TSubsystem {
 
-    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS,RobotMap.ARM_CAN_MOTOR_ISINVERTED,RobotMap.ARM_CAN_SPEED_CONTROLLER_2_ADDRESS);
+    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS,RobotMap.ARM_CAN_MOTOR_ISINVERTED);
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
@@ -64,7 +64,7 @@ public class CargoSubsystem extends TSubsystem {
     public void setArmSpeed (double armSpeed){
     	double armAngle = (Math.PI*(armEncoder.get()-500)/10)/180;
 
-    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.04;
+    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.08;
     			
     			
     	if (calculatedArmSpeed > 0) {
@@ -107,8 +107,8 @@ public class CargoSubsystem extends TSubsystem {
     }
     
     public void ejectCargo() {
-    	leftIntakeMotor.set(-RobotConst.INTAKE_SPEED);
-    	rightIntakeMotor.set(RobotConst.INTAKE_SPEED);
+    	leftIntakeMotor.set(-1);
+    	rightIntakeMotor.set(1);
     }
     
     public boolean isCargoDetected() {

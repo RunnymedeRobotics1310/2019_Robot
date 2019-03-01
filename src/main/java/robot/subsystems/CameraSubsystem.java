@@ -12,7 +12,8 @@ public class CameraSubsystem extends TSubsystem {
 
     public CameraSubsystem() {
         //Uncomment this line to start a USB camera feed
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture();
+        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture();
     }
 
     @Override
