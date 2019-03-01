@@ -45,6 +45,10 @@ public class DefaultHatchCommand extends TSafeCommand {
 	protected void execute() {
 
 		Robot.hatchSubsystem.setSlideSpeed((Robot.oi.getHatchSlideLeft()/3)-(Robot.oi.getHatchSlideRight()/3));
+		
+		if (Robot.oi.getReset()) {
+			Robot.hatchSubsystem.resetEncoder();
+		}
 
 		if (Robot.oi.getHatchSlideCentre()) {
 			Scheduler.getInstance().add(new HatchCentreCommand());

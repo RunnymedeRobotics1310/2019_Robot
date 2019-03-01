@@ -12,7 +12,7 @@ public class HatchCentreCommand extends TSafeCommand {
 
 	private static final String COMMAND_NAME = 
 			DefaultHatchCommand.class.getSimpleName();
-	
+
 	private boolean isLeftOfCentre;
 
 	public HatchCentreCommand() {
@@ -39,14 +39,15 @@ public class HatchCentreCommand extends TSafeCommand {
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
-		
-		if (Robot.hatchSubsystem.getSlideMotorEncoderCount()>0) {
-			isLeftOfCentre=true;
-			Robot.hatchSubsystem.setSlideSpeed(-0.4);
-		}
-		else if (Robot.hatchSubsystem.getSlideMotorEncoderCount()<0) {
-			isLeftOfCentre=false;
-			Robot.hatchSubsystem.setSlideSpeed(0.4);
+		if (!Robot.hatchSubsystem.isCentered()) {
+			if (Robot.hatchSubsystem.getSlideMotorEncoderCount()>0) {
+				isLeftOfCentre=true;
+				Robot.hatchSubsystem.setSlideSpeed(-0.2);
+			}
+			else if (Robot.hatchSubsystem.getSlideMotorEncoderCount()<0) {
+				isLeftOfCentre=false;
+				Robot.hatchSubsystem.setSlideSpeed(0.15);
+			}
 		}
 	}
 
@@ -58,15 +59,12 @@ public class HatchCentreCommand extends TSafeCommand {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (isLeftOfCentre&&Robot.hatchSubsystem.getSlideMotorEncoderCount()<20) {
+		if (super.isFinished()) {
 			return true;
 		}
-		if (isLeftOfCentre==false&&Robot.hatchSubsystem.getSlideMotorEncoderCount()>-20) {
-			return true;
-		}
-		return false;
+		return Robot.hatchSubsystem.isCentered();
 	}
-	
+
 	@Override
 	protected void end() {
 		Robot.hatchSubsystem.setSlideSpeed(0);

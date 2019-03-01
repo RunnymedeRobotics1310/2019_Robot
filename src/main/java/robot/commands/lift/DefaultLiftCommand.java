@@ -45,8 +45,8 @@ public class DefaultLiftCommand extends TSafeCommand {
 		if (Robot.oi.syncedExtendLift()) {
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
 					- Robot.liftSubsystem.getRearLiftEncoder().get();
-			Robot.liftSubsystem.setFrontMotorSpeed(-0.3 - encoderMismatch * .001);
-			Robot.liftSubsystem.setRearMotorSpeed(-0.3);
+			Robot.liftSubsystem.setFrontMotorSpeed(-0.4 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(-0.4);
 		}
 		else if (Robot.oi.syncedRetractLift()){
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
@@ -56,7 +56,7 @@ public class DefaultLiftCommand extends TSafeCommand {
 		}
 		else {
 			if (Robot.oi.getRetractFrontLift()) {
-				Robot.liftSubsystem.setFrontMotorSpeed(0.6);
+				Robot.liftSubsystem.setFrontMotorSpeed(0.8);
 			}
 			else if (Robot.oi.getExtendFrontLift() > 0) {
 				Robot.liftSubsystem.setFrontMotorSpeed(-Robot.oi.getExtendFrontLift());
@@ -65,7 +65,7 @@ public class DefaultLiftCommand extends TSafeCommand {
 				Robot.liftSubsystem.setFrontMotorSpeed(0);
 			}
 			if (Robot.oi.getRetractRearLift()) {
-				Robot.liftSubsystem.setRearMotorSpeed(0.6);
+				Robot.liftSubsystem.setRearMotorSpeed(0.8);
 			}
 			else if (Robot.oi.getExtendRearLift() > 0) {
 				Robot.liftSubsystem.setRearMotorSpeed(-Robot.oi.getExtendRearLift());

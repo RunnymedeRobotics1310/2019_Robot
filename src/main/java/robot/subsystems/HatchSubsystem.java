@@ -48,6 +48,17 @@ public class HatchSubsystem extends TSubsystem {
 		}
 	}
 	
+	public boolean isCentered() {
+		if (Math.abs(getSlideMotorEncoderCount())<70) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void resetEncoder() {
+		slideEncoder.reset();
+	}
+	
 	public void ejectHatch () {
 		punchSolenoid.set(true);
 	}

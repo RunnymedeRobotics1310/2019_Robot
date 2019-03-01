@@ -26,8 +26,8 @@ public class RobotConst {
     // *********************************************************
     // Cargo System Constants
     // *********************************************************
-    public static final double[]  ARM_LEVELS = { 0, 418, 583 , 1001, 1837, 2057 };
-    public static final double    ARM_TOLERANCE = 40;
+    public static final double[]  ARM_LEVELS = { 0, 450, 583 , 1130, 1950, 2200 };
+    public static final double    ARM_TOLERANCE = 20;
 
 	public static final double    INTAKE_SPEED = 0.5;
 

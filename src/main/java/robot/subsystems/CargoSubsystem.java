@@ -62,21 +62,25 @@ public class CargoSubsystem extends TSubsystem {
     }
 
     public void setArmSpeed (double armSpeed){
+    	double armAngle = (Math.PI*(armEncoder.get()-500)/10)/180;
 
-    	if (armSpeed > 0) {
+    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.04;
+    			
+    			
+    	if (calculatedArmSpeed > 0) {
     		if (armUpLimit.atLimit()) {
     			armMotor.set(0);
     		}
     		else {
-    			armMotor.set(armSpeed);
+    			armMotor.set(calculatedArmSpeed);
     		}
     	}
-    	else if (armSpeed < 0) {
+    	else if (calculatedArmSpeed < 0) {
     		if (armDownLimit.atLimit()) {
     			armMotor.set(0);
     		}
     		else {
-    			armMotor.set(armSpeed);
+    			armMotor.set(calculatedArmSpeed);
     		}
     	}
     	else {
@@ -118,6 +122,10 @@ public class CargoSubsystem extends TSubsystem {
 	public void rollerInactive(){
 		rollerMotor.set(0);
 	}
+	
+	public void resetEncoder() {
+		armEncoder.reset();
+	}
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
@@ -132,6 +140,10 @@ public class CargoSubsystem extends TSubsystem {
     	}
     	if (armSpeed < 0 && armDownLimit.atLimit()) {
     		armMotor.set(0);
+    	}
+    	
+    	if (armDownLimitDetected()) {
+    		armEncoder.reset();
     	}
     	
 
