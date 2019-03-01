@@ -134,8 +134,8 @@ public class RobotMap {
             HATCH_PICKUP_SOLENOID							  = 0;
             HATCH_PUNCH_SOLENOID							  = 1;
             
-            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 18;
-            ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 12;
+            ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
+            ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 18;
 
             ARM_CAN_SPEED_CONTROLLER_TYPE                     = TCanSpeedControllerType.SPARK_MAX_BRUSHLESS;
             ARM_CAN_MOTOR_ISINVERTED                          = TConst.INVERTED;
