@@ -35,9 +35,9 @@ public class LiftSubsystem extends TSubsystem {
 	
 	TLimitSwitch frontLiftUpperLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch frontLiftLowerLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
-
 	TLimitSwitch rearLiftUpperLimit = new TLimitSwitch(RobotMap.LIFT_REAR_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rearLiftLowerLimit = new TLimitSwitch(RobotMap.LIFT_REAR_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
+	TLimitSwitch platformDetect = new TLimitSwitch(RobotMap.LIFT_PLATFORM_DETECT_DIO_PORT, DefaultState.TRUE);
 
 	@Override
 	public void init() {
@@ -141,5 +141,22 @@ public class LiftSubsystem extends TSubsystem {
 		
 		SmartDashboard.putBoolean("Platform Detected",   frontLiftUpperLimit.atLimit());
 	}
+
+	public boolean getFrontLiftUpperLimit() {
+		return frontLiftUpperLimit.atLimit();
+	}
+	public boolean getFrontLiftlowerLimit() {
+		return frontLiftLowerLimit.atLimit();
+	}
+	public boolean getRearLiftUpperLimit() {
+		return rearLiftUpperLimit.atLimit();
+	}
+	public boolean getRearLiftlowerLimit() {
+		return rearLiftLowerLimit.atLimit();
+	}
+	public boolean getPlatformDetect() {
+		return platformDetect.atLimit();
+	}
+
 
 }
