@@ -105,8 +105,13 @@ public class L3Command extends TSafeCommand {
 			Robot.driveSubsystem.setSpeed(-0.05,-0.05);
 			break;
 		case RAISE_FRONT:
+			Robot.liftSubsystem.setFrontMotorSpeed(0.8);
+			if (Robot.liftSubsystem.getFrontLiftUpperLimit()) {
+				state = State.FINISH_FORWARD;
+			}
 			break;
 		case FINISH_FORWARD:
+			
 			break;
 		case FINISH:
 		default:

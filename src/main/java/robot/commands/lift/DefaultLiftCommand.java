@@ -42,17 +42,21 @@ public class DefaultLiftCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		if (Robot.oi.startLevel3()) {
+			
+		}
+		
 		if (Robot.oi.syncedExtendLift()) {
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
 					- Robot.liftSubsystem.getRearLiftEncoder().get();
-			Robot.liftSubsystem.setFrontMotorSpeed(-0.4 - encoderMismatch * .001);
-			Robot.liftSubsystem.setRearMotorSpeed(-0.4);
+			Robot.liftSubsystem.setFrontMotorSpeed(-1.0 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(-1.0);
 		}
 		else if (Robot.oi.syncedRetractLift()){
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
 					- Robot.liftSubsystem.getRearLiftEncoder().get();
-			Robot.liftSubsystem.setFrontMotorSpeed(0.3 - encoderMismatch * .001);
-			Robot.liftSubsystem.setRearMotorSpeed(0.3);
+			Robot.liftSubsystem.setFrontMotorSpeed(0.5 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(0.5);
 		}
 		else {
 			if (Robot.oi.getRetractFrontLift()) {
