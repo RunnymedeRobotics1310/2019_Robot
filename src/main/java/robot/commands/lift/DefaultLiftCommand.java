@@ -3,6 +3,7 @@ package robot.commands.lift;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
@@ -43,7 +44,7 @@ public class DefaultLiftCommand extends TSafeCommand {
 	@Override
 	protected void execute() {
 		if (Robot.oi.startLevel3()) {
-			
+			Scheduler.getInstance().add(new L3Command());
 		}
 		
 		if (Robot.oi.syncedExtendLift()) {

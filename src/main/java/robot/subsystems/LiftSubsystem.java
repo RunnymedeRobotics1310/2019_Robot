@@ -139,7 +139,7 @@ public class LiftSubsystem extends TSubsystem {
 		SmartDashboard.putBoolean("Rear Up",    rearLiftUpperLimit.atLimit());
 		SmartDashboard.putBoolean("Rear Down",  rearLiftLowerLimit.atLimit());
 		
-		SmartDashboard.putBoolean("Platform Detected",   frontLiftUpperLimit.atLimit());
+		SmartDashboard.putBoolean("Platform Detected",   platformDetect.atLimit());
 	}
 
 	public boolean getFrontLiftUpperLimit() {
