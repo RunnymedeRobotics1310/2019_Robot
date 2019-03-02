@@ -48,12 +48,12 @@ public class LiftSubsystem extends TSubsystem {
 		setDefaultCommand(new DefaultLiftCommand());
 	}
 	
-	public TEncoder getFrontLiftEncoder() {
-		return this.frontLiftEncoder;
+	public double getFrontLiftEncoder() {
+		return frontLiftEncoder.get();
 	}
 	
-	public TEncoder getRearLiftEncoder() {
-		return this.rearLiftEncoder;
+	public double getRearLiftEncoder() {
+		return rearLiftEncoder.get();
 	}
 
 	public void setFrontMotorSpeed(double speed) {
