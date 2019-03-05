@@ -68,6 +68,10 @@ public class CargoIntakeCommand extends TSafeCommand {
 		case CARGO_DETECTED:
 			// Wait .25 seconds to make sure the ball is totally in the intake
 			if (timeSinceInitialized() > stepStartTime + .25) {
+				Robot.cargoSubsystem.setArmSpeed(0.4);
+				if(timeSinceInitialized() - stepStartTime> .5) {
+					Robot.cargoSubsystem.setArmSpeed(0);
+				}
 				curStep = Step.FINISHED;
 			}
 			break;

@@ -46,12 +46,12 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		targetLevel = Robot.oi.getArmLevel();
 		
 		if (currentLevel < targetLevel) {
-			Robot.cargoSubsystem.setArmSpeed(0.1);
+			Robot.cargoSubsystem.setArmSpeed(0.15);
 			armUp = true;
 		}
 		
 		if (currentLevel > targetLevel) {
-			Robot.cargoSubsystem.setArmSpeed(-0.1);
+			Robot.cargoSubsystem.setArmSpeed(-0.15);
 			armUp = false;
 		}
 		
