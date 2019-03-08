@@ -93,11 +93,11 @@ public class OI extends TOi {
 	public void startDriverRumble() {
 		driverRumble.rumbleOn();
 	}
-	
+
 	public void endDriverRumble() {
 		driverRumble.rumbleOff();
 	}
-	
+
 	public void startOperatorRumble() {
 		operatorRumble.rumbleOn();
 	}
@@ -105,7 +105,7 @@ public class OI extends TOi {
 	public void endOperatorRumble() {
 		operatorRumble.rumbleOn();
 	}
-	
+
 	/* *************************************************
 	 * Drive Subsystem buttons
     /* *************************************************/
@@ -147,11 +147,24 @@ public class OI extends TOi {
 	public void setSpeedPidEnabled(boolean state) {
 		speedPidToggle.set(state);
 	}
-	
-	public void switchCameraStream() {
-		cameraToggle.get();
-	}
 
+	public boolean getToHatchCam() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.RIGHT_BUMPER);
+		}
+		else {
+			return false;
+		}
+	}
+	public boolean getToCargoCam() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.LEFT_BUMPER);
+		}
+		else {
+			return false;
+		}
+	}
+	
 	/* *************************************************
 	 * Hatch Subsystem buttons
     /* *************************************************/
@@ -181,7 +194,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean getHatchMechExtend() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.Y);
@@ -190,7 +203,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean getHatchMechRetract() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.A);
@@ -199,7 +212,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean getHatchMechEject() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.B);
@@ -247,7 +260,7 @@ public class OI extends TOi {
 	public void setArmLevel(double level) {
 		armLevelSetPoint = level;
 	}
-	
+
 	public double getArmLevel() {
 		return armLevelSetPoint;
 	}
@@ -292,7 +305,7 @@ public class OI extends TOi {
 			return 0;
 		}
 	}
-	
+
 	public boolean getLiftDriveForward() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.A);
@@ -301,7 +314,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean syncedExtendLift() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.Y);
@@ -310,7 +323,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean syncedRetractLift() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TButton.B);
@@ -319,7 +332,7 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	
+
 	public boolean startLevel3() {
 		if (liftModeEnabled) {
 			return operatorController.getButton(TStick.RIGHT);
@@ -385,7 +398,8 @@ public class OI extends TOi {
 		cameraToggle.updatePeriodic();
 		intakeToggle.updatePeriodic();
 		driverRumble.updatePeriodic();
-		
+
+
 
 		// Update all SmartDashboard values
 		SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
