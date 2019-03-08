@@ -32,6 +32,13 @@ public class RobotConst {
 	public static final double    INTAKE_SPEED = 0.5;
 
     // *********************************************************
+    // Hatch System Constants
+    // *********************************************************
+	
+	public static final int		 LEFT_HATCH_LIMIT_ENCODER_COUNT=1950;
+	public static final int		 RIGHT_HATCH_LIMIT_ENCODER_COUNT=-2050;
+	
+    // *********************************************************
     // For Ultrasonic Calibration
     // *********************************************************
     public static final double  ULTRASONIC_VOLTAGE_20IN       = 0.191;

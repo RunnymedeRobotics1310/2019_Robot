@@ -51,7 +51,6 @@ public class L3Command extends TSafeCommand {
         // Move the arm to level 2
         Robot.oi.setArmLevel(2);
         Scheduler.getInstance().add(new CargoArmLevelCommand());
-
         Scheduler.getInstance().add(new HatchCentreCommand());
     }
 

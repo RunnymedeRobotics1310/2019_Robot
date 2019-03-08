@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
+import robot.RobotConst;
 import robot.RobotMap;
 import robot.commands.hatch.DefaultHatchCommand;
 import robot.commands.hatch.HatchCentreCommand;
@@ -89,6 +90,13 @@ public class HatchSubsystem extends TSubsystem {
 
 	public void updatePeriodic() {
 		
+		if (leftSlideLimit.atLimit()) {
+			slideEncoder.set(RobotConst.LEFT_HATCH_LIMIT_ENCODER_COUNT);
+		}
+		
+		if (rightSlideLimit.atLimit()) {
+			slideEncoder.set(RobotConst.RIGHT_HATCH_LIMIT_ENCODER_COUNT);
+		}
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 		SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());

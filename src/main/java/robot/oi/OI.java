@@ -47,6 +47,7 @@ public class OI extends TOi {
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
 	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
 	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
+	private TToggle			cameraToggle	= new TToggle(operatorController, TButton.X);
 
 	private DriveSelector   driveSelector    = new DriveSelector();
 
@@ -145,6 +146,10 @@ public class OI extends TOi {
 
 	public void setSpeedPidEnabled(boolean state) {
 		speedPidToggle.set(state);
+	}
+	
+	public void switchCameraStream() {
+		cameraToggle.get();
 	}
 
 	/* *************************************************
@@ -317,7 +322,7 @@ public class OI extends TOi {
 	
 	public boolean startLevel3() {
 		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.X);
+			return operatorController.getButton(TStick.RIGHT);
 		}
 		else {
 			return false;
@@ -377,7 +382,10 @@ public class OI extends TOi {
 		// Update all Toggles
 		compressorToggle.updatePeriodic();
 		speedPidToggle.updatePeriodic();
+		cameraToggle.updatePeriodic();
+		intakeToggle.updatePeriodic();
 		driverRumble.updatePeriodic();
+		
 
 		// Update all SmartDashboard values
 		SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
