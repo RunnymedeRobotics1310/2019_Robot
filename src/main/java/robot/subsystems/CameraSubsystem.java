@@ -12,16 +12,31 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class CameraSubsystem extends TSubsystem {
 
+	MjpegServer switchedCamera;
+	UsbCamera camera1;
+	UsbCamera camera2;
     public CameraSubsystem() {
         //Uncomment this line to start a USB camera feed
-    	MjpegServer switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
-        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture("Hatch", 0); // Port 1182
+    	switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
+        camera1 = CameraServer.getInstance().startAutomaticCapture("Hatch", 0); // Port 1182
         camera1.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
-        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
+        camera2 = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
         
         switchedCamera.setSource(camera1);
     }
 
+    public MjpegServer getSwitchedCamera() {
+    	return switchedCamera;
+    }
+    
+    public UsbCamera getCamera1() {
+    	return camera1;
+    }
+    
+    public UsbCamera getCamera2() {
+    	return camera2;
+    }
+    
     @Override
     public void init() {
     }

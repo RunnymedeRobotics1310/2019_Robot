@@ -381,6 +381,13 @@ public class OI extends TOi {
 		else if (getArmDown() > 0) {
 			armManualDriveMode = true;
 		}
+		
+		if(getToHatchCam()) {
+			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera1());
+		}
+		if(getToCargoCam()) {
+			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera2());
+		}
 
 
 		// Update the Lift Mode
