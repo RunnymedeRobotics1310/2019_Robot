@@ -70,6 +70,7 @@ public class L3Command extends TSafeCommand {
             if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L3_ENCODER_COUNTS) {
                 state = State.DRIVE_TO_PLATFORM;
             }
+            Scheduler.getInstance().add(new HatchCentreCommand());
             break;
             
         case DRIVE_TO_PLATFORM:
@@ -88,7 +89,6 @@ public class L3Command extends TSafeCommand {
             Robot.driveSubsystem.setSpeed(-0.07,-0.07);
             if (Robot.liftSubsystem.getRearLiftEncoder().get() > -350) {
                 state = State.DRIVE_ON;
-                stepStartTime = timeSinceInitialized();
             }
             break;
         
@@ -96,7 +96,7 @@ public class L3Command extends TSafeCommand {
             Robot.liftSubsystem.setRearMotorSpeed(0.2);
             Robot.liftSubsystem.setDriveMotorSpeed(1);
             Robot.driveSubsystem.setSpeed(-0.1,-0.1);
-            if (timeSinceInitialized() - stepStartTime > 0.7) {
+            if (Robot.liftSubsystem.getCentreDetect()) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }

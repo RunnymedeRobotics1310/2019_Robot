@@ -3,7 +3,6 @@ package robot.oi;
 import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
-import com.torontocodingcollective.oi.TGameController_Logitech;
 import com.torontocodingcollective.oi.TGameController_Xbox;
 import com.torontocodingcollective.oi.TOi;
 import com.torontocodingcollective.oi.TRumbleManager;
@@ -15,7 +14,8 @@ import com.torontocodingcollective.oi.TTrigger;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
-import robot.commands.hatch.*;
+import robot.RobotConst.Camera;
+import robot.commands.hatch.HatchCentreCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -64,8 +64,10 @@ public class OI extends TOi {
 	 * Initializers and General Controls
     /* *************************************************/
 	public void init() {
-		compressorToggle.set(false);
+		compressorToggle.set(true);
 		speedPidToggle.set(false);
+		driverController.axisDeadband=0.1;
+		operatorController.axisDeadband=0.1;
 	}
 
 	@Override
@@ -106,6 +108,9 @@ public class OI extends TOi {
 		operatorRumble.rumbleOn();
 	}
 
+	public Camera getSelectedCamera() {
+		return Camera.HATCH;
+	}
 	/* *************************************************
 	 * Drive Subsystem buttons
     /* *************************************************/
@@ -383,19 +388,19 @@ public class OI extends TOi {
 		}
 		
 		if(getToHatchCam()) {
-			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera1());
+//			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera1());
 		}
 		if(getToCargoCam()) {
-			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera2());
+//			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera2());
 		}
 
 
 		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=true;
 		}
 		if (getHatchModeEnabled()) {
-			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=false;
 		}
 

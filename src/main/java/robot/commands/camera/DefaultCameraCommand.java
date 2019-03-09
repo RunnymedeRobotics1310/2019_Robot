@@ -1,26 +1,25 @@
-package robot.commands.hatch;
+package robot.commands.camera;
 
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
- * The default hatch command TODO: commenting
+ *
  */
-public class HatchCentreCommand extends TSafeCommand {
+public class DefaultCameraCommand extends TSafeCommand {
 
 	private static final String COMMAND_NAME = 
-			DefaultHatchCommand.class.getSimpleName();
+			DefaultCameraCommand.class.getSimpleName();
 
-	private boolean isLeftOfCentre;
-
-	public HatchCentreCommand() {
+	public DefaultCameraCommand() {
 
 		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
 
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.hatchSubsystem);
+		requires(Robot.cameraSubsystem);
 	}
 
 	@Override
@@ -39,35 +38,18 @@ public class HatchCentreCommand extends TSafeCommand {
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
-		if (!Robot.hatchSubsystem.isCentered()) {
-			if (Robot.hatchSubsystem.getSlideMotorEncoderCount()>0) {
-				isLeftOfCentre=true;
-				Robot.hatchSubsystem.setSlideSpeed(-0.1);
-			}
-			else if (Robot.hatchSubsystem.getSlideMotorEncoderCount()<0) {
-				isLeftOfCentre=false;
-				Robot.hatchSubsystem.setSlideSpeed(0.1);
-			}
-		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {	
+	protected void execute() {
+		Robot.cameraSubsystem.setCamera(Robot.oi.getSelectedCamera());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (super.isFinished()) {
-			return true;
-		}
-		return Robot.hatchSubsystem.isCentered();
-	}
-
-	@Override
-	protected void end() {
-		Robot.hatchSubsystem.setSlideSpeed(0);
+		return false;
 	}
 
 }

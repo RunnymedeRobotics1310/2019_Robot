@@ -88,6 +88,7 @@ public class RobotMap {
     public static final int                     LIFT_REAR_UPPER_LIMIT_DIO_PORT;
     public static final int                     LIFT_REAR_LOWER_LIMIT_DIO_PORT;
     public static final int                     LIFT_PLATFORM_DETECT_DIO_PORT;
+    public static final int                     LIFT_CENTRE_DETECT_DIO_PORT;
 
     // ******************************************
     // Gyro Ports
@@ -131,8 +132,8 @@ public class RobotMap {
             HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 2;
             HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 1;
 
-            HATCH_PICKUP_SOLENOID							  = 0;
-            HATCH_PUNCH_SOLENOID							  = 1;
+            HATCH_PICKUP_SOLENOID							  = 1;
+            HATCH_PUNCH_SOLENOID							  = 0;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
             ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 18;
@@ -171,6 +172,7 @@ public class RobotMap {
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 6;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 5;
             LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
+            LIFT_CENTRE_DETECT_DIO_PORT						  = 10;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
@@ -243,6 +245,7 @@ public class RobotMap {
             LIFT_REAR_UPPER_LIMIT_DIO_PORT                    = 8;
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 9;
             LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
+            LIFT_CENTRE_DETECT_DIO_PORT						  = 10;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;

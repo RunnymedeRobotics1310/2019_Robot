@@ -38,6 +38,7 @@ public class LiftSubsystem extends TSubsystem {
 	TLimitSwitch rearLiftUpperLimit = new TLimitSwitch(RobotMap.LIFT_REAR_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rearLiftLowerLimit = new TLimitSwitch(RobotMap.LIFT_REAR_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch platformDetect = new TLimitSwitch(RobotMap.LIFT_PLATFORM_DETECT_DIO_PORT, DefaultState.TRUE);
+	TLimitSwitch centreDetect = new TLimitSwitch(RobotMap.LIFT_CENTRE_DETECT_DIO_PORT, DefaultState.TRUE);
 
 	@Override
 	public void init() {
@@ -54,6 +55,26 @@ public class LiftSubsystem extends TSubsystem {
 	
 	public TEncoder getRearLiftEncoder() {
 		return rearLiftEncoder;
+	}
+	
+	public boolean getFrontLiftUpperLimit() {
+		return frontLiftUpperLimit.atLimit();
+	}
+	public boolean getFrontLiftlowerLimit() {
+		return frontLiftLowerLimit.atLimit();
+	}
+	public boolean getRearLiftUpperLimit() {
+		return rearLiftUpperLimit.atLimit();
+	}
+	public boolean getRearLiftlowerLimit() {
+		return rearLiftLowerLimit.atLimit();
+	}
+	public boolean getPlatformDetect() {
+		return platformDetect.atLimit();
+	}
+	
+	public boolean getCentreDetect() {
+		return centreDetect.atLimit();
 	}
 
 	public void setFrontMotorSpeed(double speed) {
@@ -140,23 +161,10 @@ public class LiftSubsystem extends TSubsystem {
 		SmartDashboard.putBoolean("Rear Down",  rearLiftLowerLimit.atLimit());
 		
 		SmartDashboard.putBoolean("Platform Detected",   platformDetect.atLimit());
+		SmartDashboard.putBoolean("Centre Detected",   centreDetect.atLimit());
 	}
 
-	public boolean getFrontLiftUpperLimit() {
-		return frontLiftUpperLimit.atLimit();
-	}
-	public boolean getFrontLiftlowerLimit() {
-		return frontLiftLowerLimit.atLimit();
-	}
-	public boolean getRearLiftUpperLimit() {
-		return rearLiftUpperLimit.atLimit();
-	}
-	public boolean getRearLiftlowerLimit() {
-		return rearLiftLowerLimit.atLimit();
-	}
-	public boolean getPlatformDetect() {
-		return platformDetect.atLimit();
-	}
+
 
 
 }

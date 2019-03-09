@@ -29,8 +29,13 @@ public class HatchSubsystem extends TSubsystem {
 	Solenoid pickupSolenoid = new Solenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
 	Solenoid punchSolenoid =new Solenoid( RobotMap.HATCH_PUNCH_SOLENOID);
 	
+	boolean extendHatch = true;
+	boolean ejectHatch = true;
+	
 	public void init() {
 		slideEncoder.setInverted(true);
+		pickupSolenoid.set(!extendHatch);
+		punchSolenoid.set(!ejectHatch);
 	}
 
 	protected void initDefaultCommand() {
@@ -61,19 +66,19 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void ejectHatch () {
-		punchSolenoid.set(true);
+		punchSolenoid.set(ejectHatch);
 	}
 	
 	public void retractPunchMech () {
-		punchSolenoid.set(false);
+		punchSolenoid.set(!ejectHatch);
 	}
 	
 	public void extendHatchMech() {
-		pickupSolenoid.set(true);
+		pickupSolenoid.set(extendHatch);
 	}
 	
 	public void retractHatchMech() {
-		pickupSolenoid.set(false);
+		pickupSolenoid.set(!extendHatch);
 	}
 
 	public boolean leftSlideLimitDetected() {
@@ -92,15 +97,23 @@ public class HatchSubsystem extends TSubsystem {
 		
 		if (leftSlideLimit.atLimit()) {
 			slideEncoder.set(RobotConst.LEFT_HATCH_LIMIT_ENCODER_COUNT);
+			if (slideMotor.get() > 0) {
+				slideMotor.set(0);
+			}
 		}
 		
 		if (rightSlideLimit.atLimit()) {
 			slideEncoder.set(RobotConst.RIGHT_HATCH_LIMIT_ENCODER_COUNT);
+			if (slideMotor.get() < 0) {
+				slideMotor.set(0);
+			}
 		}
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 		SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
 		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid.get());
+		SmartDashboard.putBoolean("Left Slide Limit", leftSlideLimit.atLimit());
+		SmartDashboard.putBoolean("right Slide Limit", rightSlideLimit.atLimit());
 		
 	}
 }
