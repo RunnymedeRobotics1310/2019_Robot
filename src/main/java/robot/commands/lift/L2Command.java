@@ -99,7 +99,7 @@ public class L2Command extends TSafeCommand {
             Robot.liftSubsystem.setRearMotorSpeed(0.2);
             Robot.liftSubsystem.setDriveMotorSpeed(1);
             Robot.driveSubsystem.setSpeed(-0.1,-0.1);
-            if (timeSinceInitialized() > driveStartTime + 1) {
+            if (timeSinceInitialized() > driveStartTime + 1.5) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }
