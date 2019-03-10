@@ -22,18 +22,18 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
         super(
                 // Left Speed Controller
                 new TCanSpeedController(
-                        RobotMap.LEFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE,
-                        RobotMap.LEFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS,
-                        RobotMap.LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE,
-                        RobotMap.LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS, 
+                       RobotMap.LEFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE,
+                      RobotMap.LEFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS,
+                       RobotMap.LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE,
+                       RobotMap.LEFT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS, 
                         RobotMap.LEFT_DRIVE_CAN_MOTOR_ISINVERTED),
 
                 // Right Speed Controller
                 new TCanSpeedController(
                         RobotMap.RIGHT_DRIVE_CAN_SPEED_CONTROLLER_TYPE,
                         RobotMap.RIGHT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS,
-                        RobotMap.RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE,
-                        RobotMap.RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS, 
+                       RobotMap.RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_TYPE,
+                       RobotMap.RIGHT_DRIVE_CAN_FOLLOWER_SPEED_CONTROLLER_ADDRESS, 
                         RobotMap.RIGHT_DRIVE_CAN_MOTOR_ISINVERTED),
 
                 // Gyro used for this subsystem

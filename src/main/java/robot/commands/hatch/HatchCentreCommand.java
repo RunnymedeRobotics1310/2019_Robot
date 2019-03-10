@@ -46,7 +46,7 @@ public class HatchCentreCommand extends TSafeCommand {
 			}
 			else if (Robot.hatchSubsystem.getSlideMotorEncoderCount()<0) {
 				isLeftOfCentre=false;
-				Robot.hatchSubsystem.setSlideSpeed(0.);
+				Robot.hatchSubsystem.setSlideSpeed(0.15);
 			}
 		}
 	}

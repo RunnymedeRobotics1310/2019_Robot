@@ -43,6 +43,7 @@ public class HatchSubsystem extends TSubsystem {
 	}
 
 	public void setSlideSpeed (double slideSpeed) {
+		slideSpeed = slideSpeed;
 		if (slideSpeed>0&&(!leftSlideLimitDetected())) {
 			slideMotor.set(slideSpeed);
 		}
@@ -55,7 +56,7 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public boolean isCentered() {
-		if (Math.abs(getSlideMotorEncoderCount())<120) {
+		if (Math.abs(getSlideMotorEncoderCount())<200) {
 			return true;
 		}
 		return false;

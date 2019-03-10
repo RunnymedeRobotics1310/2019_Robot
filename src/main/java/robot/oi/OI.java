@@ -45,7 +45,7 @@ public class OI extends TOi {
 	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
-	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
+//	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
 	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
 	private TToggle			cameraToggle	= new TToggle(operatorController, TButton.X);
 
@@ -65,7 +65,6 @@ public class OI extends TOi {
     /* *************************************************/
 	public void init() {
 		compressorToggle.set(true);
-		speedPidToggle.set(false);
 		driverController.axisDeadband=0.1;
 		operatorController.axisDeadband=0.1;
 	}
@@ -142,15 +141,6 @@ public class OI extends TOi {
 	 */
 	public TStick getSelectedSingleStickSide() {
 		return driveSelector.getSingleStickSide();
-	}
-
-	@Override
-	public boolean getSpeedPidEnabled() {
-		return speedPidToggle.get();
-	}
-
-	public void setSpeedPidEnabled(boolean state) {
-		speedPidToggle.set(state);
 	}
 
 	public boolean getToHatchCam() {
@@ -406,7 +396,7 @@ public class OI extends TOi {
 
 		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
-			Scheduler.getInstance().add(new HatchCentreCommand());
+			//Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=true;
 		}
 		if (getHatchModeEnabled()) {
@@ -415,7 +405,6 @@ public class OI extends TOi {
 
 		// Update all Toggles
 		compressorToggle.updatePeriodic();
-		speedPidToggle.updatePeriodic();
 		cameraToggle.updatePeriodic();
 		intakeToggle.updatePeriodic();
 		driverRumble.updatePeriodic();
@@ -429,5 +418,11 @@ public class OI extends TOi {
 		SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
 		SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
 		SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
+	}
+
+	@Override
+	public boolean getSpeedPidEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -109,7 +109,6 @@ public class Robot extends TimedRobot {
         // Turn off the drive PIDs
         // Save the battery in teleop by using the
         // SpeedController built in braking.
-        Robot.oi.setSpeedPidEnabled(false);
         driveSubsystem.disableSpeedPids();
 
         // Reset the gyro and the encoders
@@ -147,7 +146,6 @@ public class Robot extends TimedRobot {
         // Turn off the drive PIDs
         // Save the battery in teleop by using the
         // SpeedController built in braking.
-        Robot.oi.setSpeedPidEnabled(false);
         driveSubsystem.disableSpeedPids();
 
     }
