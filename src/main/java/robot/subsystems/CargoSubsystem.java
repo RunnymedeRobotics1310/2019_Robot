@@ -62,9 +62,9 @@ public class CargoSubsystem extends TSubsystem {
     }
 
     public void setArmSpeed (double armSpeed){
-    	double armAngle = (Math.PI*(armEncoder.get()-500)/10)/180;
+    	double armAngle = (Math.PI*(armEncoder.get()-500)/11)/180;
 
-    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.08;
+    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.07;
     			
     			
     	if (calculatedArmSpeed > 0) {
@@ -107,8 +107,8 @@ public class CargoSubsystem extends TSubsystem {
     }
     
     public void ejectCargo() {
-    	leftIntakeMotor.set(-1);
-    	rightIntakeMotor.set(1);
+    	leftIntakeMotor.set(-0.5);
+    	rightIntakeMotor.set(0.5);
     }
     
     public boolean isCargoDetected() {

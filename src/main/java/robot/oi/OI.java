@@ -346,6 +346,15 @@ public class OI extends TOi {
 			return false;
 		}
 	}
+	
+	public boolean startLevel2() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TStick.LEFT);
+		}
+		else {
+			return false;
+		}
+	}
 
 
 	/* *************************************************

@@ -55,7 +55,7 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public boolean isCentered() {
-		if (Math.abs(getSlideMotorEncoderCount())<70) {
+		if (Math.abs(getSlideMotorEncoderCount())<120) {
 			return true;
 		}
 		return false;

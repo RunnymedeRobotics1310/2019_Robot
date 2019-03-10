@@ -25,7 +25,7 @@ public class CameraSubsystem extends TSubsystem {
     	switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
         hatchCamera = CameraServer.getInstance().startAutomaticCapture("Hatch", 0); // Port 1182
         hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
-        cargoCamera = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
+//        cargoCamera = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
         
         switchedCamera.setSource(hatchCamera);
         curCamera = Camera.HATCH;

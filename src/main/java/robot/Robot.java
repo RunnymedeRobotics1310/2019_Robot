@@ -104,8 +104,13 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
 
         // Turn on the drive pids for auto
-        Robot.oi.setSpeedPidEnabled(true);
-        driveSubsystem.enableSpeedPids();
+//        Robot.oi.setSpeedPidEnabled(true);
+//        driveSubsystem.enableSpeedPids();
+        // Turn off the drive PIDs
+        // Save the battery in teleop by using the
+        // SpeedController built in braking.
+        Robot.oi.setSpeedPidEnabled(false);
+        driveSubsystem.disableSpeedPids();
 
         // Reset the gyro and the encoders
         Robot.driveSubsystem.setGyroAngle(0);
@@ -113,8 +118,8 @@ public class Robot extends TimedRobot {
 
         // Initialize the robot command after initializing the game data
         // because the game data will be used in the auto command.
-        autoCommand = new AutonomousCommand();
-        autoCommand.start();
+//        autoCommand = new AutonomousCommand();
+//        autoCommand.start();
     }
 
     /**

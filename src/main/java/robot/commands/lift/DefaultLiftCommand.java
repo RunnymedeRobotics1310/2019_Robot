@@ -47,6 +47,10 @@ public class DefaultLiftCommand extends TSafeCommand {
 			Scheduler.getInstance().add(new L3Command());
 		}
 		
+		if (Robot.oi.startLevel2()) {
+			Scheduler.getInstance().add(new L2Command());
+		}
+		
 		if (Robot.oi.syncedExtendLift()) {
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
 					- Robot.liftSubsystem.getRearLiftEncoder().get();
