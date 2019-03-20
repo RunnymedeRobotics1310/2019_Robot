@@ -250,6 +250,10 @@ public class OI extends TOi {
 		return driverController.getButton(TButton.Y);
 	}
 
+	public boolean cargoEjectFast() {
+		return driverController.getButton(TButton.B);
+	}
+
 	public boolean intakeOff(){
 		return  driverController.getButton(TButton.B);
 	}

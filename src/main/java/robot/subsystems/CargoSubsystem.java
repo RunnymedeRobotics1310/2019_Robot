@@ -106,10 +106,16 @@ public class CargoSubsystem extends TSubsystem {
     	rightIntakeMotor.set(0);
     }
     
-    public void ejectCargo() {
-    	leftIntakeMotor.set(-0.5);
-    	rightIntakeMotor.set(0.5);
-    }
+    public void ejectCargo(boolean fast) {
+		if (fast) {
+    		leftIntakeMotor.set(-1);
+			rightIntakeMotor.set(1);
+		}
+		else {
+			leftIntakeMotor.set(-0.5);
+			rightIntakeMotor.set(0.5);
+		}
+}
     
     public boolean isCargoDetected() {
     	return cargoDetectLimitSwitch.atLimit();
