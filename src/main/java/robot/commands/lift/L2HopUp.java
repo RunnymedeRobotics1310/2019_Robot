@@ -64,7 +64,7 @@ public class L2HopUp extends TSafeCommand {
         case REAR_UP:
         	Robot.liftSubsystem.setFrontMotorSpeed(0);
             Robot.liftSubsystem.setRearMotorSpeed(-.95);
-            if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
+            if (Robot.liftSubsystem.getRearLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
                 Robot.liftSubsystem.setFrontMotorSpeed(0);
                 Robot.liftSubsystem.setRearMotorSpeed(0);
                 state = State.DRIVE_TO_PLATFORM;
@@ -84,17 +84,18 @@ public class L2HopUp extends TSafeCommand {
             Robot.liftSubsystem.setRearMotorSpeed(1.0);
             Robot.liftSubsystem.setFrontMotorSpeed(-.95);
             Robot.driveSubsystem.setSpeed(-0.07,-0.07);
-            if (Robot.liftSubsystem.getRearLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
+            if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
                 state = State.DRIVE_ON;
                 driveStartTime = timeSinceInitialized();
             }
             break;
         
         case DRIVE_ON:
+            Robot.liftSubsystem.setFrontMotorSpeed(0);
             Robot.liftSubsystem.setRearMotorSpeed(0);
             Robot.liftSubsystem.setDriveMotorSpeed(0);
             Robot.driveSubsystem.setSpeed(-0.15,-0.15);
-            if (timeSinceInitialized() > driveStartTime + 0.5) {
+            if (timeSinceInitialized() > driveStartTime + 1.5) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }

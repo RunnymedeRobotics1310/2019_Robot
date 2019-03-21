@@ -48,7 +48,7 @@ public class DefaultLiftCommand extends TSafeCommand {
 		}
 		
 		if (Robot.oi.startLevel2()) {
-			Scheduler.getInstance().add(new L2Command());
+			Scheduler.getInstance().add(new L2HopUp());
 		}
 		
 		if (Robot.oi.syncedExtendLift()) {
