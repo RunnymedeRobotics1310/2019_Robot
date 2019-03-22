@@ -83,8 +83,9 @@ public class L2HopUp extends TSafeCommand {
         case SHUFFLE:
             Robot.liftSubsystem.setRearMotorSpeed(1.0);
             Robot.liftSubsystem.setFrontMotorSpeed(-.95);
+            Robot.liftSubsystem.setDriveMotorSpeed(1.0);
             Robot.driveSubsystem.setSpeed(-0.07,-0.07);
-            if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
+            if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS-200) {
                 state = State.DRIVE_ON;
                 driveStartTime = timeSinceInitialized();
             }
@@ -94,8 +95,8 @@ public class L2HopUp extends TSafeCommand {
             Robot.liftSubsystem.setFrontMotorSpeed(0);
             Robot.liftSubsystem.setRearMotorSpeed(0);
             Robot.liftSubsystem.setDriveMotorSpeed(0);
-            Robot.driveSubsystem.setSpeed(-0.15,-0.15);
-            if (timeSinceInitialized() > driveStartTime + 1.5) {
+            Robot.driveSubsystem.setSpeed(-0.2,-0.2);
+            if (timeSinceInitialized() > driveStartTime + 1.7) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }
@@ -103,8 +104,9 @@ public class L2HopUp extends TSafeCommand {
             
         case RAISE_FRONT:
             Robot.liftSubsystem.setFrontMotorSpeed(1.0);
-            Robot.driveSubsystem.setSpeed(-0.05,-0.05);
-            if (timeSinceInitialized() > driveStartTime + 0.5) {
+            Robot.liftSubsystem.setDriveMotorSpeed(0);
+            Robot.driveSubsystem.setSpeed(-0.2,-0.2);
+            if (timeSinceInitialized() > driveStartTime + 1) {
                 state = State.FINISH_FORWARD;
                 driveStartTime = timeSinceInitialized();
                 Robot.liftSubsystem.setDriveMotorSpeed(0.0);
@@ -112,8 +114,8 @@ public class L2HopUp extends TSafeCommand {
             break;
             
         case FINISH_FORWARD:
-            Robot.driveSubsystem.setSpeed(-0.05,-0.05);
-            if (timeSinceInitialized() > driveStartTime + 0.5) {
+            Robot.driveSubsystem.setSpeed(-0.2,-0.2);
+            if (timeSinceInitialized() > driveStartTime + 2) {
                 state = State.FINISH;
             }
             break;
