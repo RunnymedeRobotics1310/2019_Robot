@@ -57,7 +57,7 @@ public class L2Command extends TSafeCommand {
 
     // Called repeatedly when this Command is scheduled to run
     
-    public static final double BUMPER_AT_L2_ENCODER_COUNTS = -2050;
+    public static final double BUMPER_AT_L2_ENCODER_COUNTS = -1900;
     @Override
     protected void execute() {
 
@@ -80,7 +80,7 @@ public class L2Command extends TSafeCommand {
         case DRIVE_TO_PLATFORM:
             Robot.liftSubsystem.setDriveMotorSpeed(0.7);
             Robot.driveSubsystem.setSpeed(-0.07,-0.07);
-            if (timeSinceInitialized() > driveStartTime + 0.7) {
+            if (timeSinceInitialized() > driveStartTime + 0.9) {
                 state = State.RAISE_REAR;
             }
             break;
@@ -99,7 +99,7 @@ public class L2Command extends TSafeCommand {
             Robot.liftSubsystem.setRearMotorSpeed(0.2);
             Robot.liftSubsystem.setDriveMotorSpeed(1);
             Robot.driveSubsystem.setSpeed(-0.1,-0.1);
-            if (timeSinceInitialized() > driveStartTime + 1.8) {
+            if (timeSinceInitialized() > driveStartTime + 2.6) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }

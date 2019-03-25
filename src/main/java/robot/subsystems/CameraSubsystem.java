@@ -21,13 +21,13 @@ public class CameraSubsystem extends TSubsystem {
 	UsbCamera hatchCamera;
 	UsbCamera cargoCamera;
     public CameraSubsystem() {
-        //Uncomment this line to start a USB camera feed
-    	switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
+//         //Uncomment this line to start a USB camera feed
+//     	switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
         hatchCamera = CameraServer.getInstance().startAutomaticCapture("Hatch", 0); // Port 1182
-        hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
-//        cargoCamera = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
+//         hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+// //        cargoCamera = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
         
-        switchedCamera.setSource(hatchCamera);
+//         switchedCamera.setSource(hatchCamera);
         curCamera = Camera.HATCH;
     }
 
@@ -36,22 +36,22 @@ public class CameraSubsystem extends TSubsystem {
     }
     
     public void setCamera(Camera camera) {
-    	switch (camera) {
-    	case HATCH:
-    		if (curCamera != Camera.HATCH) {
-    			switchedCamera.setSource(hatchCamera);
-    			curCamera = Camera.HATCH;
-    		}
-    		break;
-    	case CARGO:
-    		if (curCamera != Camera.CARGO) {
-    			switchedCamera.setSource(cargoCamera);
-    			curCamera = Camera.CARGO;
-    		}
-    		break;
-    	default:
-    		break;
-    	}
+    	// switch (camera) {
+    	// case HATCH:
+    	// 	if (curCamera != Camera.HATCH) {
+    	// 		switchedCamera.setSource(hatchCamera);
+    	// 		curCamera = Camera.HATCH;
+    	// 	}
+    	// 	break;
+    	// case CARGO:
+    	// 	if (curCamera != Camera.CARGO) {
+    	// 		switchedCamera.setSource(cargoCamera);
+    	// 		curCamera = Camera.CARGO;
+    	// 	}
+    	// 	break;
+    	// default:
+    	// 	break;
+    	// }
     }
 
     // Periodically update the dashboard and any PIDs or sensors

@@ -22,7 +22,8 @@ import robot.commands.hatch.HatchCentreCommand;
 public class HatchSubsystem extends TSubsystem {
 
 	TSpeedController slideMotor = new TCanSpeedController(
-			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS);
+			RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS,
+			RobotMap.HATCH_SLIDE_CAN_MOTOR_ISINVERTED);
 	TEncoder slideEncoder = slideMotor.getEncoder();
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
