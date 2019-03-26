@@ -37,8 +37,8 @@ public class RobotConst {
     // Hatch System Constants
     // *********************************************************
 	
-	public static final int		 LEFT_HATCH_LIMIT_ENCODER_COUNT=1200;
-	public static final int		 RIGHT_HATCH_LIMIT_ENCODER_COUNT=-1200;
+	public static final int		 LEFT_HATCH_LIMIT_ENCODER_COUNT=1950;
+	public static final int		 RIGHT_HATCH_LIMIT_ENCODER_COUNT=-2050;
 	
     // *********************************************************
     // For Ultrasonic Calibration
