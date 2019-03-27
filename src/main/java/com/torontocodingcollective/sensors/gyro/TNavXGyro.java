@@ -28,9 +28,9 @@ public class TNavXGyro extends TGyro {
 
     @Override
     public double getAngle() {
-    	SmartDashboard.putNumber("NavX Yaw",   navXGyro.getYaw());
-    	SmartDashboard.putNumber("NavX Pitch", navXGyro.getPitch());
-    	SmartDashboard.putNumber("NavX Roll",  navXGyro.getRoll());
+    	SmartDashboard.putNumber("NavX X",   navXGyro.getRawGyroX());
+    	SmartDashboard.putNumber("NavX Y",   navXGyro.getRawGyroY());
+    	SmartDashboard.putNumber("NavX Z",   navXGyro.getRawGyroZ());
         return super.getAngle(navXGyro.getAngle());
     }
 
