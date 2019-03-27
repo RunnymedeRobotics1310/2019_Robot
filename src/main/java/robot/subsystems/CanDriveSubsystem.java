@@ -102,29 +102,29 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
     }
 
     //     // Ramp toward the setpoint
-    //     // if (Math.abs(leftCurSpeed - leftRampSetpoint) < .01) {
-    //     //     leftCurSpeed = leftRampSetpoint;
-    //     // }
-    //     // else {
-    //     //     if (leftCurSpeed < leftRampSetpoint)  {
-    //     //         leftCurSpeed += .200;
-    //     //     }
-    //     //     if (leftCurSpeed < leftRampSetpoint) {
-    //     //         leftCurSpeed -= .200;
-    //     //     }
-    //     // }
+    //     if (Math.abs(leftCurSpeed - leftRampSetpoint) < .2) {
+    //         leftCurSpeed = leftRampSetpoint;
+    //     }
+    //     else {
+    //         if (leftCurSpeed < leftRampSetpoint)  {
+    //             leftCurSpeed += .200;
+    //         }
+    //         if (leftCurSpeed < leftRampSetpoint) {
+    //             leftCurSpeed -= .200;
+    //         }
+    //     }
 
-    //     if (Math.abs(rightCurSpeed - rightRampSetpoint) < .01) {
+    //     if (Math.abs(rightCurSpeed - rightRampSetpoint) < .2) {
     //         rightCurSpeed = rightRampSetpoint;
     //     }
-    //     // else {
-    //     //     if (rightCurSpeed < rightRampSetpoint)  {
-    //     //         rightCurSpeed += .200;
-    //     //     }
-    //     //     if (rightCurSpeed < rightRampSetpoint) {
-    //     //         rightCurSpeed -= .200;
-    //     //     }
-    //     // }
+    //     else {
+    //         if (rightCurSpeed < rightRampSetpoint)  {
+    //             rightCurSpeed += .200;
+    //         }
+    //         if (rightCurSpeed < rightRampSetpoint) {
+    //             rightCurSpeed -= .200;
+    //         }
+    //     }
 
     //     super.setSpeed(leftCurSpeed, rightCurSpeed);
 

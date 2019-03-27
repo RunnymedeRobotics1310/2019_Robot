@@ -1,3 +1,4 @@
+
 package robot.commands.lift;
 
 import com.torontocodingcollective.TConst;
@@ -148,5 +149,4 @@ public class L2HopUp extends TSafeCommand {
         Robot.liftSubsystem.setDriveMotorSpeed(0);
         Robot.driveSubsystem.setSpeed(0, 0);
     }
-
 }
