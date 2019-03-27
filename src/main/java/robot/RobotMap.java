@@ -97,6 +97,11 @@ public class RobotMap {
     public static final boolean                 GYRO_ISINVERTED;
 
     // ******************************************
+    // Ultrasonic Ports
+    // ******************************************
+    public static final int                     ULTRASONIC_ANALOG_PORT;
+
+    // ******************************************
     // Pneumatics Ports
     // ******************************************
     public static final int                     SHIFTER_PNEUMATIC_PORT = 0;
@@ -173,6 +178,8 @@ public class RobotMap {
             LIFT_REAR_LOWER_LIMIT_DIO_PORT                    = 5;
             LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
             LIFT_CENTRE_DETECT_DIO_PORT						  = 10;
+
+            ULTRASONIC_ANALOG_PORT                            = 0;
             
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
@@ -247,6 +254,8 @@ public class RobotMap {
             LIFT_PLATFORM_DETECT_DIO_PORT					  = 4;
             LIFT_CENTRE_DETECT_DIO_PORT						  = 10;
             
+            ULTRASONIC_ANALOG_PORT                            = 0;
+
             GYRO_PORT       = 0;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
             

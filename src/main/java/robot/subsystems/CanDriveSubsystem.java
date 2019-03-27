@@ -2,9 +2,11 @@ package robot.subsystems;
 
 import com.torontocodingcollective.sensors.encoder.TEncoder;
 import com.torontocodingcollective.sensors.gyro.TAnalogGyro;
+import com.torontocodingcollective.sensors.ultrasonic.TUltrasonicSensor;
 import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.subsystem.TGyroDriveSubsystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.RobotConst;
 import robot.RobotMap;
 import robot.commands.drive.DefaultDriveCommand;
@@ -17,6 +19,8 @@ import robot.commands.drive.DefaultDriveCommand;
  */
 public class CanDriveSubsystem extends TGyroDriveSubsystem {
 
+	TUltrasonicSensor ultrasonicSensor = new TUltrasonicSensor(RobotMap.ULTRASONIC_ANALOG_PORT);
+	
     public CanDriveSubsystem() {
 
         super(
@@ -60,6 +64,10 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
 	@Override
 	public void init() {
 		// Put any subsystem initialization code here.
+    	ultrasonicSensor.calibrate(
+    			RobotConst.ULTRASONIC_VOLTAGE_20IN, 
+    			RobotConst.ULTRASONIC_VOLTAGE_40IN, 
+    			RobotConst.ULTRASONIC_VOLTAGE_80IN);
 	}
 	
     // Initialize the default command for the Chassis subsystem.
@@ -79,8 +87,19 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
     //     rightRampSetpoint = rightSpeed;
     // }
 
-    // @Override 
-    // public void updatePeriodic() {
+    public double getUltrasonicDistance() {
+    	return ultrasonicSensor.getDistance();
+    }
+    
+    @Override 
+    public void updatePeriodic() {
+
+    	super.updatePeriodic();
+
+    	SmartDashboard.putNumber("Ultrasonic Voltage",   ultrasonicSensor.getRawVoltage());
+    	SmartDashboard.putNumber("Ultrasonic Distance" , getUltrasonicDistance());
+
+    }
 
     //     // Ramp toward the setpoint
     //     // if (Math.abs(leftCurSpeed - leftRampSetpoint) < .01) {
