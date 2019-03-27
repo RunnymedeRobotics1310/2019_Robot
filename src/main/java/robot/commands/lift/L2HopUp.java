@@ -1,3 +1,4 @@
+
 package robot.commands.lift;
 
 import com.torontocodingcollective.TConst;
@@ -96,7 +97,7 @@ public class L2HopUp extends TSafeCommand {
             Robot.liftSubsystem.setRearMotorSpeed(0);
             Robot.liftSubsystem.setDriveMotorSpeed(0);
             Robot.driveSubsystem.setSpeed(-0.2,-0.2);
-            if (timeSinceInitialized() > driveStartTime + .7) {
+            if (timeSinceInitialized() > driveStartTime + 1.7) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
             }
@@ -148,5 +149,4 @@ public class L2HopUp extends TSafeCommand {
         Robot.liftSubsystem.setDriveMotorSpeed(0);
         Robot.driveSubsystem.setSpeed(0, 0);
     }
-
 }

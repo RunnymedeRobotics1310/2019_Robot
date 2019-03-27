@@ -1,6 +1,8 @@
 package robot.oi;
 
+import com.torontocodingcollective.oi.TAxis;
 import com.torontocodingcollective.oi.TButton;
+import com.torontocodingcollective.oi.TPOVPressDetector;
 import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
 import com.torontocodingcollective.oi.TGameController_Xbox;
@@ -45,7 +47,7 @@ public class OI extends TOi {
 	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
-//	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
+	private TPOVPressDetector operatorPOV	 = new TPOVPressDetector(operatorController);
 	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
 	private TToggle			cameraToggle	= new TToggle(operatorController, TButton.X);
 
@@ -233,10 +235,16 @@ public class OI extends TOi {
 	}
 
 	public boolean cargoIntake() {
+		if (operatorController.getAxis(TStick.LEFT, TAxis.Y)>0.3) {
+			return true;
+		}
 		return driverController.getButton(TButton.X);
 	}
 
 	public boolean cargoEject() {
+		if (operatorController.getAxis(TStick.LEFT, TAxis.Y)<-0.3) {
+			return true;
+		}
 		return driverController.getButton(TButton.Y);
 	}
 

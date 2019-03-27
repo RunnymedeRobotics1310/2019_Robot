@@ -16,7 +16,7 @@ public class L3Command extends TSafeCommand {
     private static final String COMMAND_NAME = 
             L3Command.class.getSimpleName();
 
-    enum State { LIFT, DRIVE_TO_PLATFORM, NUDGE_FORWARD, RAISE_REAR, DRIVE_ON, RAISE_FRONT, FINISH_FORWARD, FINISH };
+    enum State { LIFT, DRIVE_TO_PLATFORM, NUDGE_FORWARD, RAISE_REAR, DRIVE_ON, RAISE_FRONT, RAISE_FRONT2, FINISH_FORWARD, FINISH };
 
     private State state = State.LIFT;
 
@@ -77,7 +77,7 @@ public class L3Command extends TSafeCommand {
             Robot.liftSubsystem.setFrontMotorSpeed(-0.3 - encoderMismatch * .001);
             Robot.liftSubsystem.setRearMotorSpeed(-0.3);
             Robot.liftSubsystem.setDriveMotorSpeed(0.7);
-            Robot.driveSubsystem.setSpeed(-0.07,-0.07);
+            Robot.driveSubsystem.setSpeed(-0.11,-0.11);
             if (Robot.liftSubsystem.getPlatformDetect()) {
                 state = State.RAISE_REAR;
             }
@@ -85,8 +85,8 @@ public class L3Command extends TSafeCommand {
 
         case RAISE_REAR:
             Robot.liftSubsystem.setRearMotorSpeed(1.0);
-            Robot.liftSubsystem.setDriveMotorSpeed(0.7);
-            Robot.driveSubsystem.setSpeed(-0.07,-0.07);
+            Robot.liftSubsystem.setDriveMotorSpeed(0.5);
+            Robot.driveSubsystem.setSpeed(-0.05,-0.05);
             if (Robot.liftSubsystem.getRearLiftEncoder().get() > -350) {
                 state = State.DRIVE_ON;
             }
@@ -95,7 +95,7 @@ public class L3Command extends TSafeCommand {
         case DRIVE_ON:
             Robot.liftSubsystem.setRearMotorSpeed(0.2);
             Robot.liftSubsystem.setDriveMotorSpeed(1);
-            Robot.driveSubsystem.setSpeed(-0.1,-0.1);
+            Robot.driveSubsystem.setSpeed(-0.2,-0.2);
             if (Robot.liftSubsystem.getCentreDetect()) {
                 state = State.RAISE_FRONT;
                 Robot.liftSubsystem.setRearMotorSpeed(0);
@@ -103,9 +103,20 @@ public class L3Command extends TSafeCommand {
             break;
             
         case RAISE_FRONT:
+            Robot.liftSubsystem.setFrontMotorSpeed(0.3);
+            Robot.liftSubsystem.setDriveMotorSpeed(0.4);
+            Robot.driveSubsystem.setSpeed(-0.09,-0.09);
+            if (Robot.liftSubsystem.getFrontLiftEncoder().get() > -5100) {
+                state = State.FINISH;
+                stepStartTime = timeSinceInitialized();
+                Robot.liftSubsystem.setDriveMotorSpeed(0.0);
+            }
+            break;
+            
+        case RAISE_FRONT2:
             Robot.liftSubsystem.setFrontMotorSpeed(1.0);
             Robot.liftSubsystem.setDriveMotorSpeed(0.4);
-            Robot.driveSubsystem.setSpeed(-0.05,-0.05);
+            Robot.driveSubsystem.setSpeed(-0.09,-0.09);
             if (Robot.liftSubsystem.getFrontLiftEncoder().get() > -350) {
                 state = State.FINISH_FORWARD;
                 stepStartTime = timeSinceInitialized();
@@ -115,8 +126,8 @@ public class L3Command extends TSafeCommand {
             
         case FINISH_FORWARD:
             Robot.liftSubsystem.setFrontMotorSpeed(0.3);
-            Robot.driveSubsystem.setSpeed(-0.05,-0.05);
-            if (timeSinceInitialized() - stepStartTime > 0.5) {
+            Robot.driveSubsystem.setSpeed(-0.09,-0.09);
+            if (timeSinceInitialized() - stepStartTime > 1.0) {
                 state = State.FINISH;
             }
             break;

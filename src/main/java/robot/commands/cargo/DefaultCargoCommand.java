@@ -57,10 +57,10 @@ public class DefaultCargoCommand extends TSafeCommand {
 		}
 
 		if (Robot.oi.getArmUp() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()/4);
+			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()/3);
 			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
 		} else if (Robot.oi.getArmDown() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()/4);
+			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()/3);
 			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
 
 		} else {
