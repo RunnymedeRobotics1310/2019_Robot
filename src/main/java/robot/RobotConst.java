@@ -47,6 +47,8 @@ public class RobotConst {
     public static final double  ULTRASONIC_VOLTAGE_20IN       = 0.191;
     public static final double  ULTRASONIC_VOLTAGE_40IN       = 0.383;
     public static final double  ULTRASONIC_VOLTAGE_80IN       = 0.764;
+    
+    public static final double VISION_CENTER_X = 320; // half of 640x480;
 
     public static enum Direction {
         FORWARD, BACKWARD
