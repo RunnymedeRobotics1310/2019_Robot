@@ -24,7 +24,8 @@ public class CameraSubsystem extends TSubsystem {
 //         //Uncomment this line to start a USB camera feed
 //     	switchedCamera = CameraServer.getInstance().addServer("Switched");  // Port 1181
         hatchCamera = CameraServer.getInstance().startAutomaticCapture("Hatch", 0); // Port 1182
-//         hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+        hatchCamera.setVideoMode(PixelFormat.kMJPEG, 320, 240, 15);
+        hatchCamera.setExposureManual(40);
 // //        cargoCamera = CameraServer.getInstance().startAutomaticCapture("Cargo", 1); // Port 1183
         
 //         switchedCamera.setSource(hatchCamera);
