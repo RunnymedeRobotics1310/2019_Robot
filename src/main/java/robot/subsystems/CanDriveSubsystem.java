@@ -73,43 +73,43 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
     double leftCurSpeed = 0;
     double rightCurSpeed = 0;
 
-    @Override
-    public void setSpeed(double leftSpeed, double rightSpeed) {
-        leftRampSetpoint = leftSpeed;
-        rightRampSetpoint = rightSpeed;
-    }
+    // @Override
+    // public void setSpeed(double leftSpeed, double rightSpeed) {
+    //     leftRampSetpoint = leftSpeed;
+    //     rightRampSetpoint = rightSpeed;
+    // }
 
-    @Override 
-    public void updatePeriodic() {
+    // @Override 
+    // public void updatePeriodic() {
 
-        // Ramp toward the setpoint
-        if (Math.abs(leftCurSpeed - leftRampSetpoint) < .2) {
-            leftCurSpeed = leftRampSetpoint;
-        }
-        else {
-            if (leftCurSpeed < leftRampSetpoint)  {
-                leftCurSpeed += .200;
-            }
-            if (leftCurSpeed < leftRampSetpoint) {
-                leftCurSpeed -= .200;
-            }
-        }
+    //     // Ramp toward the setpoint
+    //     if (Math.abs(leftCurSpeed - leftRampSetpoint) < .2) {
+    //         leftCurSpeed = leftRampSetpoint;
+    //     }
+    //     else {
+    //         if (leftCurSpeed < leftRampSetpoint)  {
+    //             leftCurSpeed += .200;
+    //         }
+    //         if (leftCurSpeed < leftRampSetpoint) {
+    //             leftCurSpeed -= .200;
+    //         }
+    //     }
 
-        if (Math.abs(rightCurSpeed - rightRampSetpoint) < .2) {
-            rightCurSpeed = rightRampSetpoint;
-        }
-        else {
-            if (rightCurSpeed < rightRampSetpoint)  {
-                rightCurSpeed += .200;
-            }
-            if (rightCurSpeed < rightRampSetpoint) {
-                rightCurSpeed -= .200;
-            }
-        }
+    //     if (Math.abs(rightCurSpeed - rightRampSetpoint) < .2) {
+    //         rightCurSpeed = rightRampSetpoint;
+    //     }
+    //     else {
+    //         if (rightCurSpeed < rightRampSetpoint)  {
+    //             rightCurSpeed += .200;
+    //         }
+    //         if (rightCurSpeed < rightRampSetpoint) {
+    //             rightCurSpeed -= .200;
+    //         }
+    //     }
 
-        super.setSpeed(leftCurSpeed, rightCurSpeed);
+    //     super.setSpeed(leftCurSpeed, rightCurSpeed);
 
-        super.updatePeriodic();
-    }
+    //     super.updatePeriodic();
+    // }
 
 }

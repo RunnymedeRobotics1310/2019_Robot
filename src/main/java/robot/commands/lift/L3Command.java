@@ -56,7 +56,7 @@ public class L3Command extends TSafeCommand {
 
     // Called repeatedly when this Command is scheduled to run
     
-    public static final double BUMPER_AT_L3_ENCODER_COUNTS = -5200;
+    public static final double BUMPER_AT_L3_ENCODER_COUNTS = -5500;
     @Override
     protected void execute() {
 
