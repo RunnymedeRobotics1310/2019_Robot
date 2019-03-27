@@ -125,6 +125,10 @@ public class OI extends TOi {
 		return driverController.getPOV();
 	}
 
+	public boolean getDriveToPosition(){
+		return driverController.getButton(TButton.A);
+	}
+
 	/**
 	 * Get the selected drive type
 	 * 

@@ -43,11 +43,11 @@ public class RobotConst {
     // *********************************************************
     // For Ultrasonic Calibration
     // *********************************************************
-    public static final double  ULTRASONIC_RECESS             = 0.0;
-    public static final double  ULTRASONIC_VOLTAGE_20IN       = 0.191;
-    public static final double  ULTRASONIC_VOLTAGE_40IN       = 0.383;
-    public static final double  ULTRASONIC_VOLTAGE_80IN       = 0.764;
-
+    public static final double  ULTRASONIC_RECESS             = 6.0;
+    public static final double  ULTRASONIC_VOLTAGE_20IN       = 0.23;//0.18;
+    public static final double  ULTRASONIC_VOLTAGE_40IN       = 0.48;//0.37;
+    public static final double  ULTRASONIC_VOLTAGE_80IN       = 0.97;//0.73;
+    
     public static enum Direction {
         FORWARD, BACKWARD
     };
@@ -77,7 +77,7 @@ public class RobotConst {
             DRIVE_SPEED_PID_KP = 0.4;
             DRIVE_SPEED_PID_KI = DRIVE_SPEED_PID_KP / 20.0;
  
-            ENCODER_COUNTS_PER_INCH = 55.6;
+            ENCODER_COUNTS_PER_INCH = 43.75;
 
         	break;
         	

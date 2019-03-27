@@ -1,11 +1,14 @@
 package robot.commands.drive;
 
 import com.torontocodingcollective.commands.TDefaultDriveCommand;
+import com.torontocodingcollective.commands.drive.TDriveTimeCommand;
+import com.torontocodingcollective.commands.gyroDrive.TDriveOnHeadingDistanceCommand;
 import com.torontocodingcollective.commands.TDifferentialDrive;
 import com.torontocodingcollective.oi.TStick;
 import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.speedcontroller.TSpeeds;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 import robot.oi.OI;
 import robot.subsystems.CanDriveSubsystem;
@@ -58,7 +61,11 @@ public class DefaultDriveCommand extends TDefaultDriveCommand {
 
         // Check the driver controller buttons
         super.execute();
-        
+
+        if (Robot.oi.getDriveToPosition()){
+            Scheduler.getInstance().add(new TDriveOnHeadingDistanceCommand(Robot.driveSubsystem.getUltrasonicDistance(), 0, 0.25, 10, true, oi, driveSubsystem));
+        }
+
         if (Robot.oi.getLiftDriveForward()) {
         	Robot.driveSubsystem.setSpeed(-0.05,-0.05);
         	return;

@@ -137,8 +137,8 @@ public class RobotMap {
             HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 2;
             HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 1;
 
-            HATCH_PICKUP_SOLENOID							  = 1;
-            HATCH_PUNCH_SOLENOID							  = 0;
+            HATCH_PICKUP_SOLENOID							  = 0;
+            HATCH_PUNCH_SOLENOID							  = 1;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
             ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 18;
@@ -181,7 +181,7 @@ public class RobotMap {
 
             ULTRASONIC_ANALOG_PORT                            = 0;
             
-            GYRO_PORT       = 0;
+            GYRO_PORT       = 1;
             GYRO_ISINVERTED = TConst.NOT_INVERTED;
             
         	break;
