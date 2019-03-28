@@ -88,7 +88,7 @@ public class CanDriveSubsystem extends TGyroDriveSubsystem {
 	// }
 
 	public double getUltrasonicDistance() {
-		return ultrasonicSensor.getDistance();
+		return ultrasonicSensor.getDistance()-RobotConst.ULTRASONIC_RECESS;
 	}
 
 	@Override 
