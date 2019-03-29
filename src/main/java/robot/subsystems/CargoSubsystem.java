@@ -39,6 +39,7 @@ public class CargoSubsystem extends TSubsystem {
     
     @Override
     public void init() {
+		armEncoder.set(1140);
     };
 
     @Override
