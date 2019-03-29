@@ -44,6 +44,9 @@ public class AutonomousCommand extends CommandGroup {
      * sensor information relevant to when the command is run.
      */
     public AutonomousCommand() {
+
+
+
 //
 //        // getting info
 //        String robotStartPosition = AutoSelector.getRobotStartPosition();
@@ -81,39 +84,23 @@ public class AutonomousCommand extends CommandGroup {
 //        *  ***********************************************************/
 //        if (pattern.equals(AutoSelector.PATTERN_BOX)) {
 //            // Go forward 2 ft
-//            this.addSequential(
-//                    // 24 in, 0 deg, .5 speed, 5 sec, Brake
-//                    new TDriveOnHeadingDistanceCommand(24, 0, .5, 5, TConst.COAST_WHEN_FINISHED, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            // Drive a 3 ft box
-//            this.addSequential(
-//                    new TDriveOnHeadingDistanceCommand(36, 0, .5, 5, TConst.BRAKE_WHEN_FINISHED, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(new TRotateToHeadingCommand(90, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(
-//                    new TDriveOnHeadingDistanceCommand(36, 90, .5, 5, TConst.BRAKE_WHEN_FINISHED,
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(new TRotateToHeadingCommand(180, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(
-//                    new TDriveOnHeadingDistanceCommand(36, 180, .5, 5, TConst.BRAKE_WHEN_FINISHED, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(new TRotateToHeadingCommand(270, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(
-//                    new TDriveOnHeadingDistanceCommand(36, 270, .5, 5, TConst.BRAKE_WHEN_FINISHED, 
-//                            Robot.oi, Robot.driveSubsystem));
-//
-//            this.addSequential(new TRotateToHeadingCommand(0, 
-//                            Robot.oi, Robot.driveSubsystem));
-//        }
-    }
+           this.addSequential(
+                   // 24 in, 0 deg, .5 speed, 5 sec, Brake
+                   new TDriveOnHeadingDistanceCommand(36, 0, .25, 5, TConst.COAST_WHEN_FINISHED, 
+                           Robot.oi, Robot.driveSubsystem));
+
+           this.addSequential(new TRotateToHeadingCommand(45, 
+                           Robot.oi, Robot.driveSubsystem));
+
+           this.addSequential(
+                   new TDriveOnHeadingDistanceCommand(36, 45, .25, 5, TConst.BRAKE_WHEN_FINISHED,
+                           Robot.oi, Robot.driveSubsystem));
+
+           this.addSequential(new TRotateToHeadingCommand(0, 
+                           Robot.oi, Robot.driveSubsystem));
+
+           this.addSequential(
+                   new TDriveOnHeadingDistanceCommand(20, 0, .25, 5, TConst.BRAKE_WHEN_FINISHED, 
+                           Robot.oi, Robot.driveSubsystem));
+       }
 }

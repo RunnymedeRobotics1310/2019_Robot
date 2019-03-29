@@ -54,8 +54,8 @@ public class DefaultLiftCommand extends TSafeCommand {
 		if (Robot.oi.syncedExtendLift()) {
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
 					- Robot.liftSubsystem.getRearLiftEncoder().get();
-			Robot.liftSubsystem.setFrontMotorSpeed(-1.0 - encoderMismatch * .001);
-			Robot.liftSubsystem.setRearMotorSpeed(-1.0);
+			Robot.liftSubsystem.setFrontMotorSpeed(-0.9 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(-0.9);
 		}
 		else if (Robot.oi.syncedRetractLift()){
 			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
