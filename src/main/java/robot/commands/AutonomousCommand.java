@@ -7,6 +7,7 @@ import com.torontocodingcollective.commands.gyroDrive.TRotateToHeadingCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import robot.Robot;
+import robot.commands.cargo.ArmReleaseCommand;
 import robot.oi.AutoSelector;
 
 /**
@@ -47,17 +48,20 @@ public class AutonomousCommand extends CommandGroup {
 
 
 
-//
-//        // getting info
-//        String robotStartPosition = AutoSelector.getRobotStartPosition();
-//        String pattern            = AutoSelector.getPattern();
-//
-//        // Print out the user selection and Game config for debug later
-//        System.out.println("Auto Command Configuration");
-//        System.out.println("--------------------------");
-//        System.out.println("Robot Position : " + robotStartPosition);
-//        System.out.println("Pattern        : " + pattern);
-//
+
+        // getting info
+        String robotStartPosition = AutoSelector.getRobotStartPosition();
+        String pattern            = AutoSelector.getPattern();
+
+        // Print out the user selection and Game config for debug later
+        System.out.println("Auto Command Configuration");
+        System.out.println("--------------------------");
+        System.out.println("Robot Position : " + robotStartPosition);
+        System.out.println("Pattern        : " + pattern);
+
+        // Always release the arm
+        this.addSequential(new ArmReleaseCommand());
+        
 //        /* ***********************************************************
 //        *  Drive Straight using GyroPID control
 //        *  ***********************************************************/
@@ -84,6 +88,7 @@ public class AutonomousCommand extends CommandGroup {
 //        *  ***********************************************************/
 //        if (pattern.equals(AutoSelector.PATTERN_BOX)) {
 //            // Go forward 2 ft
+    	if (pattern.equals(AutoSelector.PATTERN_CARGO)) {
            this.addSequential(
                    // 24 in, 0 deg, .5 speed, 5 sec, Brake
                    new TDriveOnHeadingDistanceCommand(36, 0, .25, 5, TConst.COAST_WHEN_FINISHED, 
@@ -103,4 +108,5 @@ public class AutonomousCommand extends CommandGroup {
                    new TDriveOnHeadingDistanceCommand(20, 0, .25, 5, TConst.BRAKE_WHEN_FINISHED, 
                            Robot.oi, Robot.driveSubsystem));
        }
+    }
 }
