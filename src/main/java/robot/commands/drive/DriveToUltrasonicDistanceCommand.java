@@ -1,9 +1,11 @@
 package robot.commands.drive;
 
+import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TDefaultDriveCommand;
 import com.torontocodingcollective.commands.drive.TDriveTimeCommand;
 import com.torontocodingcollective.commands.gyroDrive.TDriveOnHeadingDistanceCommand;
 import com.torontocodingcollective.commands.TDifferentialDrive;
+import com.torontocodingcollective.commands.TSafeCommand;
 import com.torontocodingcollective.oi.TStick;
 import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.speedcontroller.TSpeeds;
@@ -16,7 +18,7 @@ import robot.subsystems.CanDriveSubsystem;
 /**
  * Default drive command for a drive base
  */
-public class DriveToUltrasonicDistanceCommand extends TDefaultDriveCommand {
+public class DriveToUltrasonicDistanceCommand extends TSafeCommand {
 
     private static final String COMMAND_NAME = 
             DriveToUltrasonicDistanceCommand.class.getSimpleName();
@@ -25,11 +27,19 @@ public class DriveToUltrasonicDistanceCommand extends TDefaultDriveCommand {
     CanDriveSubsystem driveSubsystem    = Robot.driveSubsystem;
     
     private boolean offHAB=false;
+    private double distance;//in inches
+    private double startSpeed;
+    private double secondarySpeed;
+    private double startTime;
 
-    public DriveToUltrasonicDistanceCommand() {
-        // The drive logic will be handled by the TDefaultDriveCommand
-        // which also contains the requires(driveSubsystem) statement
-        super(Robot.oi, Robot.driveSubsystem);
+    public DriveToUltrasonicDistanceCommand(double distance,double startSpeed, double secondarySpeed,double startTime) {
+    	super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+    	this.distance=distance;
+    	this.startSpeed=startSpeed;
+    	this.secondarySpeed=secondarySpeed;
+    	this.startTime=startTime;
+    	requires(Robot.driveSubsystem);
+    	
     }
     
     @Override
@@ -51,7 +61,7 @@ public class DriveToUltrasonicDistanceCommand extends TDefaultDriveCommand {
         if (getCommandName().equals(COMMAND_NAME)) {
             logMessage(getParmDesc() + " starting");
         }
-        driveSubsystem.setSpeed(0.4, 0.4);
+        driveSubsystem.setSpeed(startSpeed, startSpeed);
         super.initialize();
     }
 
@@ -59,15 +69,15 @@ public class DriveToUltrasonicDistanceCommand extends TDefaultDriveCommand {
     @Override
     protected void execute() {
     	//Speed up after the first second
-    	if (timeSinceInitialized()>1.5) {
-    		driveSubsystem.setSpeed(0.6, 0.6);
+    	if (timeSinceInitialized()>startTime) {
+    		driveSubsystem.setSpeed(secondarySpeed, secondarySpeed);
     		offHAB=true;
     	}
     }
 
     @Override
     protected boolean isFinished() {
-        if (driveSubsystem.getUltrasonicDistance()<70&&offHAB) {
+        if (driveSubsystem.getUltrasonicDistance()<distance&&offHAB) {
         	return true;
         }
         

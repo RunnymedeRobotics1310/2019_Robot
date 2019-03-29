@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import robot.Robot;
 import robot.commands.cargo.ArmReleaseCommand;
 import robot.commands.cargo.CargoArmLevelCommand;
+import robot.commands.drive.DriveToUltrasonicDistanceCommand;
 import robot.oi.AutoSelector;
 
 /**
@@ -123,9 +124,7 @@ public class AutonomousCommand extends CommandGroup {
 			//Auto-Align for starting on the centre of HAB1
 			else if (robotStartPosition.equals(CENTER)){
 				this.addSequential(
-						
-				
-				
+						new DriveToUltrasonicDistanceCommand(70,0.9,0.8,0.8));
 			}
 		}
 		else {
