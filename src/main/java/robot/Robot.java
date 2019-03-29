@@ -102,7 +102,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-
+    	Robot.cargoSubsystem.resetToStartingPos();
         // Turn on the drive pids for auto
 //        Robot.oi.setSpeedPidEnabled(true);
 //        driveSubsystem.enableSpeedPids();

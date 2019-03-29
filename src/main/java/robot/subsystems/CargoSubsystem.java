@@ -39,13 +39,17 @@ public class CargoSubsystem extends TSubsystem {
     
     @Override
     public void init() {
-		armEncoder.set(1140);
-		Robot.oi.setArmLevel(getCurrentLevel());
+    	resetToStartingPos();
     };
 
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new DefaultCargoCommand());
+    }
+    
+    public void resetToStartingPos() {
+		armEncoder.set(1140);
+		Robot.oi.setArmLevel(getCurrentLevel());
     }
     
     public double getCurrentLevel() {

@@ -13,7 +13,7 @@ public class AutoSelector {
 
     public static SendableChooser<String> pattern;
 
-    public static final String            PATTERN_CARGO  = "Cargo";
+    public static final String            PATTERN_ALIGN  = "Align";
     public static final String            PATTERN_NONE   = "None";
     public static final String            PATTERN_TEST   = "Test";
 
@@ -30,7 +30,7 @@ public class AutoSelector {
         // Robot Pattern Options
         pattern = new SendableChooser<String>();
         pattern.addDefault(PATTERN_NONE, PATTERN_NONE);
-        pattern.addObject(PATTERN_CARGO, PATTERN_CARGO);
+        pattern.addObject(PATTERN_ALIGN, PATTERN_ALIGN);
         pattern.addObject(PATTERN_TEST, PATTERN_TEST);
 
         SmartDashboard.putData("Auto Pattern", pattern);

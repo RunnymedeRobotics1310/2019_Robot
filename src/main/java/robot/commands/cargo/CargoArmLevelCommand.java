@@ -48,6 +48,7 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		// Print the command parameters if this is the current
 		// called command (it was not sub-classed)
 		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
+		Robot.oi.setArmDriveMode(false);
 		targetLevel = Robot.oi.getArmLevel();
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting at: " + currentLevel + " Target: " + targetLevel);

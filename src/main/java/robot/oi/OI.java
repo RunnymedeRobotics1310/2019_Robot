@@ -238,7 +238,10 @@ public class OI extends TOi {
 	public boolean getArmDriveMode() {
 		return armManualDriveMode;
 	}
-
+	
+	public void setArmDriveMode(boolean manualMode) {
+		armManualDriveMode=manualMode;
+	}
 	public double getArmUp(){
 		return driverController.getTrigger(TTrigger.RIGHT);
 	}
