@@ -8,6 +8,7 @@ import com.torontocodingcollective.commands.gyroDrive.TRotateToHeadingCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import robot.Robot;
 import robot.commands.cargo.ArmReleaseCommand;
+import robot.commands.cargo.CargoArmLevelCommand;
 import robot.oi.AutoSelector;
 
 /**
@@ -91,21 +92,24 @@ public class AutonomousCommand extends CommandGroup {
     	if (pattern.equals(AutoSelector.PATTERN_CARGO)) {
            this.addSequential(
                    // 24 in, 0 deg, .5 speed, 5 sec, Brake
-                   new TDriveOnHeadingDistanceCommand(36, 0, .25, 5, TConst.COAST_WHEN_FINISHED, 
+                   new TDriveOnHeadingDistanceCommand(56, 0, .25, 5, TConst.COAST_WHEN_FINISHED, 
                            Robot.oi, Robot.driveSubsystem));
 
            this.addSequential(new TRotateToHeadingCommand(45, 
                            Robot.oi, Robot.driveSubsystem));
 
+           this.addParallel(
+        		   new CargoArmLevelCommand(0));
+           
            this.addSequential(
-                   new TDriveOnHeadingDistanceCommand(36, 45, .25, 5, TConst.BRAKE_WHEN_FINISHED,
+                   new TDriveOnHeadingDistanceCommand(44.5, 45, .25, 5, TConst.BRAKE_WHEN_FINISHED,
                            Robot.oi, Robot.driveSubsystem));
 
            this.addSequential(new TRotateToHeadingCommand(0, 
                            Robot.oi, Robot.driveSubsystem));
 
            this.addSequential(
-                   new TDriveOnHeadingDistanceCommand(20, 0, .25, 5, TConst.BRAKE_WHEN_FINISHED, 
+                   new TDriveOnHeadingDistanceCommand(14, 0, .25, 5, TConst.BRAKE_WHEN_FINISHED, 
                            Robot.oi, Robot.driveSubsystem));
        }
     }

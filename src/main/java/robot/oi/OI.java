@@ -169,6 +169,15 @@ public class OI extends TOi {
 	/* *************************************************
 	 * Hatch Subsystem buttons
     /* *************************************************/
+	public boolean getBusEject() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.B);
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public double getHatchSlideLeft() {
 		if (!liftModeEnabled) {
 			return operatorController.getTrigger(TTrigger.LEFT);
@@ -214,9 +223,9 @@ public class OI extends TOi {
 		}
 	}
 
-	public boolean getHatchMechEject() {
+	public boolean getHatchEject() {
 		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.B);
+			return operatorController.getButton(TButton.RIGHT_BUMPER);
 		}
 		else {
 			return false;

@@ -24,6 +24,15 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.cargoSubsystem);
 	}
+	
+	public CargoArmLevelCommand(int level) {
+
+		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.cargoSubsystem);
+		Robot.oi.setArmLevel(level);
+	}
 
 	@Override
 	protected String getCommandName() { return COMMAND_NAME; }
@@ -38,12 +47,14 @@ public class CargoArmLevelCommand extends TSafeCommand {
 	protected void initialize() {
 		// Print the command parameters if this is the current
 		// called command (it was not sub-classed)
-		if (getCommandName().equals(COMMAND_NAME)) {
-			logMessage(getParmDesc() + " starting");
-		}
-		
 		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
 		targetLevel = Robot.oi.getArmLevel();
+		if (getCommandName().equals(COMMAND_NAME)) {
+			logMessage(getParmDesc() + " starting at: " + currentLevel + " Target: " + targetLevel);
+		}
+		
+		
+		
 		
 		if (currentLevel < targetLevel) {
 			Robot.cargoSubsystem.setArmSpeed(0.15);
@@ -97,6 +108,7 @@ public class CargoArmLevelCommand extends TSafeCommand {
 	@Override
 	protected void end() {
 		Robot.cargoSubsystem.setArmSpeed(0);
+		logMessage("Ending at: " + Robot.cargoSubsystem.getCurrentLevel());
 	}
 
 }

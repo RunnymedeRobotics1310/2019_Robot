@@ -15,7 +15,7 @@ public class ArmReleaseCommand extends TSafeCommand {
 
 	public ArmReleaseCommand() {
 
-		super(2.0, Robot.oi);
+		super(0.25, Robot.oi);
 
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.cargoSubsystem);
@@ -38,7 +38,7 @@ public class ArmReleaseCommand extends TSafeCommand {
 			logMessage(getParmDesc() + " starting");
 		}
 		
-		Robot.cargoSubsystem.setArmSpeed(0.15);
+		Robot.cargoSubsystem.setArmSpeed(0.2);
 		
 	}
 	

@@ -63,8 +63,11 @@ public class DefaultHatchCommand extends TSafeCommand {
 			Robot.hatchSubsystem.retractHatchMech();
 		}
 		
-		if (Robot.oi.getHatchMechEject()) {
-			Robot.hatchSubsystem.ejectHatch();
+		if (Robot.oi.getHatchEject()) {
+			Scheduler.getInstance().add(new HatchEjectCommand());
+		}
+		else if (Robot.oi.getBusEject()) {
+			Robot.hatchSubsystem.extendPunchMech();
 		}
 		else {
 			Robot.hatchSubsystem.retractPunchMech();

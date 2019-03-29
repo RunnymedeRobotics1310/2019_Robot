@@ -29,8 +29,8 @@ public class AutoSelector {
 
         // Robot Pattern Options
         pattern = new SendableChooser<String>();
-        pattern.addObject(PATTERN_NONE, PATTERN_NONE);
-        pattern.addDefault(PATTERN_CARGO, PATTERN_CARGO);
+        pattern.addDefault(PATTERN_NONE, PATTERN_NONE);
+        pattern.addObject(PATTERN_CARGO, PATTERN_CARGO);
         pattern.addObject(PATTERN_TEST, PATTERN_TEST);
 
         SmartDashboard.putData("Auto Pattern", pattern);

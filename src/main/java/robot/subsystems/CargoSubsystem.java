@@ -40,6 +40,7 @@ public class CargoSubsystem extends TSubsystem {
     @Override
     public void init() {
 		armEncoder.set(1140);
+		Robot.oi.setArmLevel(getCurrentLevel());
     };
 
     @Override
@@ -71,6 +72,7 @@ public class CargoSubsystem extends TSubsystem {
     	if (calculatedArmSpeed > 0) {
     		if (armUpLimit.atLimit()) {
     			armMotor.set(0);
+    			System.out.println("AT UPPER LIMT");
     		}
     		else {
     			armMotor.set(calculatedArmSpeed);
@@ -79,6 +81,7 @@ public class CargoSubsystem extends TSubsystem {
     	else if (calculatedArmSpeed < 0) {
     		if (armDownLimit.atLimit()) {
     			armMotor.set(0);
+    			System.out.println("AT LOWER LIMT");
     		}
     		else {
     			armMotor.set(calculatedArmSpeed);
@@ -86,6 +89,7 @@ public class CargoSubsystem extends TSubsystem {
     	}
     	else {
     		armMotor.set(0);
+    		System.out.println("DEFAULT");
     	}
     }
     

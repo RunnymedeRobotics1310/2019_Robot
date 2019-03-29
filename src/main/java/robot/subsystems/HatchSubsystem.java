@@ -67,7 +67,7 @@ public class HatchSubsystem extends TSubsystem {
 		slideEncoder.reset();
 	}
 	
-	public void ejectHatch () {
+	public void extendPunchMech () {
 		punchSolenoid.set(ejectHatch);
 	}
 	

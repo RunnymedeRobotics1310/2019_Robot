@@ -117,8 +117,8 @@ public class Robot extends TimedRobot {
 
         // Initialize the robot command after initializing the game data
         // because the game data will be used in the auto command.
-//        autoCommand = new AutonomousCommand();
-//        autoCommand.start();
+        autoCommand = new AutonomousCommand();
+        autoCommand.start();
     }
 
     /**

@@ -10,7 +10,6 @@ public class HatchEjectCommand extends TSafeCommand{
 
 	private static final String COMMAND_NAME = 
 			DefaultHatchCommand.class.getSimpleName();
-	private static int counter;
 
 	public HatchEjectCommand() {
 
@@ -35,19 +34,25 @@ public class HatchEjectCommand extends TSafeCommand{
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
-		Robot.hatchSubsystem.ejectHatch();
+		Robot.hatchSubsystem.extendHatchMech();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		counter++;
+		if (timeSinceInitialized()>0.7) {
+			Robot.hatchSubsystem.extendPunchMech();
+		}
+		if (timeSinceInitialized()>0.9) {
+			Robot.hatchSubsystem.retractHatchMech();
+		}
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (counter>=20) {
+		if (timeSinceInitialized()>1.6) {
 			return true;
 		}
 		return false;

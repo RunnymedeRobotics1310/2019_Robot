@@ -29,6 +29,7 @@ public class L3Command extends TSafeCommand {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.liftSubsystem);
         requires(Robot.driveSubsystem);
+        //requires(Robot.cargoSubsystem);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class L3Command extends TSafeCommand {
 
     // Called repeatedly when this Command is scheduled to run
     
-    public static final double BUMPER_AT_L3_ENCODER_COUNTS = -5500;
+    public static final double BUMPER_AT_L3_ENCODER_COUNTS = -5350;
     @Override
     protected void execute() {
 
@@ -103,17 +104,6 @@ public class L3Command extends TSafeCommand {
             break;
             
         case RAISE_FRONT:
-            Robot.liftSubsystem.setFrontMotorSpeed(0.3);
-            Robot.liftSubsystem.setDriveMotorSpeed(0.4);
-            Robot.driveSubsystem.setSpeed(-0.09,-0.09);
-            if (Robot.liftSubsystem.getFrontLiftEncoder().get() > -5100) {
-                state = State.FINISH;
-                stepStartTime = timeSinceInitialized();
-                Robot.liftSubsystem.setDriveMotorSpeed(0.0);
-            }
-            break;
-            
-        case RAISE_FRONT2:
             Robot.liftSubsystem.setFrontMotorSpeed(1.0);
             Robot.liftSubsystem.setDriveMotorSpeed(0.4);
             Robot.driveSubsystem.setSpeed(-0.09,-0.09);
@@ -123,8 +113,20 @@ public class L3Command extends TSafeCommand {
                 Robot.liftSubsystem.setDriveMotorSpeed(0.0);
             }
             break;
-            
+//            
+//        case RAISE_FRONT2:
+//            Robot.liftSubsystem.setFrontMotorSpeed(1.0);
+//            Robot.liftSubsystem.setDriveMotorSpeed(0.4);
+//            Robot.driveSubsystem.setSpeed(-0.09,-0.09);
+//            if (Robot.liftSubsystem.getFrontLiftEncoder().get() > -350) {
+//                state = State.FINISH_FORWARD;
+//                stepStartTime = timeSinceInitialized();
+//                Robot.liftSubsystem.setDriveMotorSpeed(0.0);
+//            }
+//            break;
+//            
         case FINISH_FORWARD:
+        	Robot.cargoSubsystem.setArmSpeed(-0.25);
             Robot.liftSubsystem.setFrontMotorSpeed(0.3);
             Robot.driveSubsystem.setSpeed(-0.09,-0.09);
             if (timeSinceInitialized() - stepStartTime > 1.0) {
