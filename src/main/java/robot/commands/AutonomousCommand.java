@@ -123,6 +123,9 @@ public class AutonomousCommand extends CommandGroup {
 			}
 			//Auto-Align for starting on the centre of HAB1
 			else if (robotStartPosition.equals(CENTER)){
+				this.addParallel(
+						new CargoArmLevelCommand(0));
+				
 				this.addSequential(
 						new DriveToUltrasonicDistanceCommand(70,0.9,0.8,0.8));
 			}
