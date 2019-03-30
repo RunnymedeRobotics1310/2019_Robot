@@ -52,6 +52,10 @@ public class CargoSubsystem extends TSubsystem {
 		Robot.oi.setArmLevel(getCurrentLevel());
     }
     
+    public int getEncoderCounts() {
+    	return armEncoder.get();
+    }
+    
     public double getCurrentLevel() {
     	
     	double encoderCounts = armEncoder.get();
