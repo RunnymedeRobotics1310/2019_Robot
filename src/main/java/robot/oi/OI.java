@@ -149,7 +149,10 @@ public class OI extends TOi {
 		return driveSelector.getSingleStickSide();
 	}
 
-	public boolean getToHatchCam() {
+	/* *************************************************
+	 * Hatch Subsystem buttons
+    /* *************************************************/
+	public boolean getHatchEjectRight() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.RIGHT_BUMPER);
 		}
@@ -157,7 +160,8 @@ public class OI extends TOi {
 			return false;
 		}
 	}
-	public boolean getToCargoCam() {
+	
+	public boolean getHatchEjectLeft() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.LEFT_BUMPER);
 		}
@@ -166,10 +170,7 @@ public class OI extends TOi {
 		}
 	}
 	
-	/* *************************************************
-	 * Hatch Subsystem buttons
-    /* *************************************************/
-	public boolean getBusEject() {
+	public boolean getHatchRocketEject() {
 		if (!liftModeEnabled) {
 			return operatorController.getButton(TButton.B);
 		}
@@ -223,15 +224,6 @@ public class OI extends TOi {
 		}
 	}
 
-	public boolean getHatchEject() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.RIGHT_BUMPER);
-		}
-		else {
-			return false;
-		}
-	}
-
 	/* *************************************************
 	 * Arm / Cargo Subsystem buttons
     /* *************************************************/
@@ -266,19 +258,6 @@ public class OI extends TOi {
 
 	public boolean cargoEjectFast() {
 		return driverController.getButton(TButton.B);
-	}
-
-	public boolean intakeOff(){
-		return false;
-//		return  driverController.getButton(TButton.B);
-	}
-
-	public boolean rollOn(){
-		return driverController.getButton(TButton.X);
-	}
-
-	public boolean rollOff(){
-		return driverController.getButton(TButton.RIGHT_BUMPER);
 	}
 
 	public void setArmLevel(double level) {
@@ -415,14 +394,6 @@ public class OI extends TOi {
 			armManualDriveMode = true;
 		}
 		
-		if(getToHatchCam()) {
-//			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera1());
-		}
-		if(getToCargoCam()) {
-//			Robot.cameraSubsystem.getSwitchedCamera().setSource(Robot.cameraSubsystem.getCamera2());
-		}
-
-
 		// Update the Lift Mode
 		if (getLiftModeEnabled()) {
 			//Scheduler.getInstance().add(new HatchCentreCommand());

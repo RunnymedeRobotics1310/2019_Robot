@@ -40,7 +40,8 @@ public class RobotMap {
 
     // Solenoid ports
     public static final int						HATCH_PICKUP_SOLENOID;
-    public static final int						HATCH_PUNCH_SOLENOID;
+    public static final int						HATCH_PUNCH_SOLENOID_RIGHT;
+    public static final int						HATCH_PUNCH_SOLENOID_LEFT;
 
     public static final int                     ARM_CAN_SPEED_CONTROLLER_ADDRESS;
     public static final int						ARM_CAN_SPEED_CONTROLLER_2_ADDRESS;
@@ -137,8 +138,9 @@ public class RobotMap {
             HATCH_LEFT_LIMIT_SWITCH_DIO_PORT				  = 2;
             HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT				  = 1;
 
-            HATCH_PICKUP_SOLENOID							  = 1;
-            HATCH_PUNCH_SOLENOID							  = 0;
+            HATCH_PICKUP_SOLENOID							  = 0;
+            HATCH_PUNCH_SOLENOID_RIGHT						  = 1;
+            HATCH_PUNCH_SOLENOID_LEFT						  = 2;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 12;
             ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 18;
@@ -213,7 +215,8 @@ public class RobotMap {
             
             // Solenoid ports
             HATCH_PICKUP_SOLENOID							  = 0;
-            HATCH_PUNCH_SOLENOID							  = 1;
+            HATCH_PUNCH_SOLENOID_RIGHT						  = 1;
+            HATCH_PUNCH_SOLENOID_LEFT						  = 2;
             
             ARM_CAN_SPEED_CONTROLLER_ADDRESS                  = 30;
             ARM_CAN_SPEED_CONTROLLER_2_ADDRESS                = 13;

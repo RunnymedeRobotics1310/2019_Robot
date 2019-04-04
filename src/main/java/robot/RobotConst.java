@@ -5,6 +5,7 @@ public class RobotConst {
     public static final String  TEST_ROBOT                    = "TestRobot";
     public static final String  PROD_ROBOT                    = "ProdRobot";
 
+    public enum Side {LEFT, RIGHT};
 	public enum Camera {HATCH, CARGO};
 	
     // *********************************************************

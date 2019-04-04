@@ -48,7 +48,6 @@ public class DefaultCargoCommand extends TSafeCommand {
 		if (Robot.oi.getArmDriveMode() == false ) {
 			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
 				Scheduler.getInstance().add(new CargoArmLevelCommand());
-				return;
 			}
 		}
 		
@@ -75,25 +74,17 @@ public class DefaultCargoCommand extends TSafeCommand {
 				Robot.cargoSubsystem.stopIntake();
 			}
 		}
-		else{
-			Robot.cargoSubsystem.stopIntake();
-		}
-    	if (Robot.oi.cargoEject()) {
-    		Robot.cargoSubsystem.ejectCargo(false);
-		}
-    	if (Robot.oi.cargoEjectFast()) {
-    		Robot.cargoSubsystem.ejectCargo(true);
-		}
-		if (Robot.oi.intakeOff()) {
-			Robot.cargoSubsystem.stopIntake();
-		}
-		if(Robot.oi.rollOn()) {
-			Robot.cargoSubsystem.rollerActive();
-		}
-		if (Robot.oi.intakeOff()) {
-			Robot.cargoSubsystem.rollerInactive();
-		}
-		
+    	else {
+	    	if (Robot.oi.cargoEject()) {
+	    		Robot.cargoSubsystem.ejectCargo(false);
+			}
+	    	else if (Robot.oi.cargoEjectFast()) {
+	    		Robot.cargoSubsystem.ejectCargo(true);
+			}
+			else {
+				Robot.cargoSubsystem.stopIntake();
+			}
+    	}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

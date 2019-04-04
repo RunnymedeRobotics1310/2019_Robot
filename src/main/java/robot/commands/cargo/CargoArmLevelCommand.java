@@ -61,9 +61,6 @@ public class CargoArmLevelCommand extends TSafeCommand {
 			logMessage(getParmDesc() + " starting at: " + currentLevel + " Target: " + targetLevel);
 		}
 
-
-
-
 		if (currentLevel < targetLevel) {
 			Robot.cargoSubsystem.setArmSpeed(0.15);
 			armUp = true;
@@ -73,7 +70,6 @@ public class CargoArmLevelCommand extends TSafeCommand {
 			Robot.cargoSubsystem.setArmSpeed(-0.15);
 			armUp = false;
 		}
-
 
 	}
 
@@ -101,7 +97,28 @@ public class CargoArmLevelCommand extends TSafeCommand {
 		Robot.cargoSubsystem.setArmSpeed(correctionSpeed);
 
 
-		// Possible alternative non-PID system
+		// Always allow the driver to intake or eject the ball.
+    	if (Robot.oi.cargoIntake()) {
+			if (!Robot.cargoSubsystem.isCargoDetected()){
+				Robot.cargoSubsystem.startIntake();
+			}
+			else {
+				Robot.cargoSubsystem.stopIntake();
+			}
+		}
+    	else {
+	    	if (Robot.oi.cargoEject()) {
+	    		Robot.cargoSubsystem.ejectCargo(false);
+			}
+	    	else if (Robot.oi.cargoEjectFast()) {
+	    		Robot.cargoSubsystem.ejectCargo(true);
+			}
+			else {
+				Robot.cargoSubsystem.stopIntake();
+			}
+    	}
+
+    	// Possible alternative non-PID system
 
 		//		double currentLevel = Robot.cargoSubsystem.getCurrentLevel();
 		//		if (currentLevel < targetLevel) {

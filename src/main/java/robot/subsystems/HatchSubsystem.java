@@ -8,13 +8,10 @@ import com.torontocodingcollective.speedcontroller.TSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.Robot;
 import robot.RobotConst;
 import robot.RobotMap;
 import robot.commands.hatch.DefaultHatchCommand;
-import robot.commands.hatch.HatchCentreCommand;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing mechanisim.
@@ -28,7 +25,8 @@ public class HatchSubsystem extends TSubsystem {
 	TLimitSwitch leftSlideLimit = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	TLimitSwitch rightSlideLimit = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
 	Solenoid pickupSolenoid = new Solenoid(RobotMap.HATCH_PICKUP_SOLENOID);//Testing
-	Solenoid punchSolenoid =new Solenoid( RobotMap.HATCH_PUNCH_SOLENOID);
+	Solenoid rightPunchSolenoid =new Solenoid( RobotMap.HATCH_PUNCH_SOLENOID_RIGHT);
+	Solenoid leftPunchSolenoid =new Solenoid( RobotMap.HATCH_PUNCH_SOLENOID_LEFT);
 	
 	boolean extendHatch = true;
 	boolean ejectHatch = true;
@@ -36,7 +34,7 @@ public class HatchSubsystem extends TSubsystem {
 	public void init() {
 		slideEncoder.setInverted(true);
 		pickupSolenoid.set(!extendHatch);
-		punchSolenoid.set(!ejectHatch);
+		rightPunchSolenoid.set(!ejectHatch);
 	}
 
 	protected void initDefaultCommand() {
@@ -68,11 +66,21 @@ public class HatchSubsystem extends TSubsystem {
 	}
 	
 	public void extendPunchMech () {
-		punchSolenoid.set(ejectHatch);
+		rightPunchSolenoid.set(ejectHatch);
+		leftPunchSolenoid.set(ejectHatch);
+	}
+	
+	public void extendPunchMechRight () {
+		rightPunchSolenoid.set(ejectHatch);
+	}
+	
+	public void extendPunchMechLeft () {
+		leftPunchSolenoid.set(ejectHatch);
 	}
 	
 	public void retractPunchMech () {
-		punchSolenoid.set(!ejectHatch);
+		rightPunchSolenoid.set(!ejectHatch);
+		leftPunchSolenoid.set(!ejectHatch);
 	}
 	
 	public void extendHatchMech() {
@@ -113,7 +121,7 @@ public class HatchSubsystem extends TSubsystem {
 		SmartDashboard.putNumber("Slide Motor", slideMotor.get());
 		SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
 		SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
-		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", punchSolenoid.get());
+		SmartDashboard.putBoolean("Punch Solenoid 2 Extended", rightPunchSolenoid.get());
 		SmartDashboard.putBoolean("Left Slide Limit", leftSlideLimit.atLimit());
 		SmartDashboard.putBoolean("right Slide Limit", rightSlideLimit.atLimit());
 		
