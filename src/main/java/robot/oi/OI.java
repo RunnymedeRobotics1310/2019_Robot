@@ -154,7 +154,7 @@ public class OI extends TOi {
     /* *************************************************/
 	public boolean getHatchEjectRight() {
 		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.RIGHT_BUMPER);
+			return operatorController.getButton(TButton.B);
 		}
 		else {
 			return false;
@@ -163,7 +163,7 @@ public class OI extends TOi {
 	
 	public boolean getHatchEjectLeft() {
 		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.LEFT_BUMPER);
+			return operatorController.getButton(TButton.X);
 		}
 		else {
 			return false;
@@ -172,7 +172,7 @@ public class OI extends TOi {
 	
 	public boolean getHatchRocketEject() {
 		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.B);
+			return operatorController.getButton(TButton.RIGHT_BUMPER);
 		}
 		else {
 			return false;
@@ -199,7 +199,7 @@ public class OI extends TOi {
 
 	public boolean getHatchSlideCentre(){
 		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.X);
+			return operatorController.getButton(TButton.LEFT_BUMPER);
 		}
 		else {
 			return false;
@@ -371,8 +371,8 @@ public class OI extends TOi {
 				armLevelSetPoint = Math.floor(currentArmLevel);
 			}
 			armLevelSetPoint ++;
-			if (armLevelSetPoint > 5) {
-				armLevelSetPoint = 5;
+			if (armLevelSetPoint > 4) {
+				armLevelSetPoint = 4;
 			}
 			armManualDriveMode = false;
 		}
