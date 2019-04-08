@@ -2,8 +2,6 @@ package robot.oi;
 
 import com.torontocodingcollective.oi.TAxis;
 import com.torontocodingcollective.oi.TButton;
-import com.torontocodingcollective.oi.TPOVPressDetector;
-import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
 import com.torontocodingcollective.oi.TGameController_Xbox;
 import com.torontocodingcollective.oi.TOi;
@@ -13,11 +11,8 @@ import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.oi.TToggle;
 import com.torontocodingcollective.oi.TTrigger;
 
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.Robot;
 import robot.RobotConst.Camera;
-import robot.commands.hatch.HatchCentreCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,18 +42,14 @@ public class OI extends TOi {
 	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
-	private TPOVPressDetector operatorPOV	 = new TPOVPressDetector(operatorController);
-	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
-	private TToggle			cameraToggle	= new TToggle(operatorController, TButton.X);
 
 	private DriveSelector   driveSelector    = new DriveSelector();
 
-	private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
-	private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
+//	private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
+//	private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
 
 	private boolean         armManualDriveMode = true;
 	private double 			armLevelSetPoint   = 0;   
-	//private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
 
 	private boolean         liftModeEnabled;
 
@@ -120,14 +111,9 @@ public class OI extends TOi {
 		return driverController.getStickPosition(stick);
 	}
 
-	@Override
-	public int getRotateToHeading() {
-		return driverController.getPOV();
-	}
-
-	public boolean getDriveToPosition(){
-		return driverController.getButton(TButton.A);
-	}
+//	public boolean getDriveToPosition(){
+//		return driverController.getButton(TButton.A);
+//	}
 
 	/**
 	 * Get the selected drive type
@@ -361,31 +347,55 @@ public class OI extends TOi {
 	@Override
 	public void updatePeriodic() {
 
-		// Set the arm manual mode
-		if (armUpDetector.get()) {
-			// If we were previously using a manual
-			// drive, then the arm set point can
-			// be incorrect. 
-			if (armManualDriveMode) {
-				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
-				armLevelSetPoint = Math.floor(currentArmLevel);
-			}
-			armLevelSetPoint ++;
-			if (armLevelSetPoint > 4) {
-				armLevelSetPoint = 4;
-			}
-			armManualDriveMode = false;
-		}
-		if (armDownDetector.get()) {
-			if (armManualDriveMode) {
-				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
-				armLevelSetPoint = Math.ceil(currentArmLevel);
-			}
-			armLevelSetPoint = armLevelSetPoint - 1;
-			if (armLevelSetPoint < 0) {
+		if (driverController.getPOV() >= 0) {
+			switch (driverController.getPOV()) {
+			case 0:
+				armLevelSetPoint = 3;
+				armManualDriveMode = false;
+				break;
+
+			case 180:
 				armLevelSetPoint = 0;
+				armManualDriveMode = false;
+				break;
+
+			default:
+				// do nothing
+				break;
 			}
+		} else if (driverController.getButton(TButton.A)) {
+			armLevelSetPoint = 1;
 			armManualDriveMode = false;
+		} else if (driverController.getButton(TButton.LEFT_BUMPER)) {
+			armLevelSetPoint = 2;
+			armManualDriveMode = false;
+		} else if (driverController.getButton(TButton.RIGHT_BUMPER)) {
+			armLevelSetPoint = 4;
+			armManualDriveMode = false;
+//		} else if (armUpDetector.get()) {
+//			// If we were previously using a manual
+//			// drive, then the arm set point can
+//			// be incorrect. 
+//			if (armManualDriveMode) {
+//				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
+//				armLevelSetPoint = Math.floor(currentArmLevel);
+//			}
+//			armLevelSetPoint ++;
+//			if (armLevelSetPoint >= RobotConst.ARM_LEVELS.length) {
+//				armLevelSetPoint = RobotConst.ARM_LEVELS.length - 1;
+//			}
+//			armManualDriveMode = false;
+//		}
+//		else if (armDownDetector.get()) {
+//			if (armManualDriveMode) {
+//				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
+//				armLevelSetPoint = Math.ceil(currentArmLevel);
+//			}
+//			armLevelSetPoint = armLevelSetPoint - 1;
+//			if (armLevelSetPoint < 0) {
+//				armLevelSetPoint = 0;
+//			}
+//			armManualDriveMode = false;
 		}
 		if (getArmUp() > 0) {
 			armManualDriveMode = true;
@@ -405,8 +415,6 @@ public class OI extends TOi {
 
 		// Update all Toggles
 		compressorToggle.updatePeriodic();
-		cameraToggle.updatePeriodic();
-		intakeToggle.updatePeriodic();
 		driverRumble.updatePeriodic();
 
 
