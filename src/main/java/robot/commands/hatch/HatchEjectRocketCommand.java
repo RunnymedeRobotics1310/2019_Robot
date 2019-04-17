@@ -40,7 +40,7 @@ public class HatchEjectRocketCommand extends TSafeCommand{
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if (timeSinceInitialized()>0.7) {
+		if (timeSinceInitialized()>0.7&&timeSinceInitialized()<0.9) {
 			Robot.hatchSubsystem.extendPunchMech();
 		}
 		if (timeSinceInitialized()>0.9) {
