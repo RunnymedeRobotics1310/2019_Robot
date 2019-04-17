@@ -33,8 +33,8 @@ public class CargoSubsystem extends TSubsystem {
     		RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_R_CAN_MOTOR_ISINVERTED);
 	TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
 	
-	TCanSpeedController rollerMotor = new TCanSpeedController(
-    		RobotMap.ROLLER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ROLLER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.ROLLER_CAN_MOTOR_ISINVERTED);
+//	TCanSpeedController rollerMotor = new TCanSpeedController(
+//    		RobotMap.ROLLER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ROLLER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.ROLLER_CAN_MOTOR_ISINVERTED);
 
     
     @Override
@@ -135,11 +135,11 @@ public class CargoSubsystem extends TSubsystem {
 	}
 	
 	public void rollerActive(){
-		rollerMotor.set(0.5);
+//		rollerMotor.set(0.5);
 	}
 
 	public void rollerInactive(){
-		rollerMotor.set(0);
+//		rollerMotor.set(0);
 	}
 	
 	public void resetEncoder() {
