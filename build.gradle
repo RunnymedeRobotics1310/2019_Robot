@@ -20,7 +20,7 @@ deploy {
     artifacts {
         frcJavaArtifact('frcJava') {
             targets << "roborio"
-            jvmArgs << “-Djava.lang.invoke.stringConcat=BC_SB"
+            jvmArgs << "-Djava.lang.invoke.stringConcat=BC_SB"
             // Debug can be overridden by command line, for use with VSCode
             debug = frc.getDebugOrDefault(false)
         }
