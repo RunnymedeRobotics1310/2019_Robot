@@ -5,6 +5,7 @@ import com.torontocodingcollective.commands.TSafeCommand;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
+import robot.RobotConst;
 
 /**
  *
@@ -50,18 +51,44 @@ public class DefaultCargoCommand extends TSafeCommand {
 				return;
 			}
 		}
+		
+		if (Robot.oi.getReset()) {
+			Robot.cargoSubsystem.resetEncoder();
+		}
 
 		if (Robot.oi.getArmUp() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()) ;
+			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()/4);
 			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-
 		} else if (Robot.oi.getArmDown() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()) ;
+			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()/4);
 			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
 
 		} else {
 			Robot.cargoSubsystem.setArmSpeed(0);
-			
+		}
+		
+    	if (Robot.oi.cargoIntake()) {
+			if (!Robot.cargoSubsystem.isCargoDetected()){
+				Robot.cargoSubsystem.startIntake();
+			}
+			else {
+				Robot.cargoSubsystem.stopIntake();
+			}
+		}
+		else{
+			Robot.cargoSubsystem.stopIntake();
+		}
+    	if (Robot.oi.cargoEject()) {
+    		Robot.cargoSubsystem.ejectCargo();
+		}
+		if (Robot.oi.intakeOff()) {
+			Robot.cargoSubsystem.stopIntake();
+		}
+		if(Robot.oi.rollOn()) {
+			Robot.cargoSubsystem.rollerActive();
+		}
+		if (Robot.oi.intakeOff()) {
+			Robot.cargoSubsystem.rollerInactive();
 		}
 		
 	}

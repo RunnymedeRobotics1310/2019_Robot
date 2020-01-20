@@ -26,10 +26,10 @@ public class RobotConst {
     // *********************************************************
     // Cargo System Constants
     // *********************************************************
-    public static final double[]  ARM_LEVELS = { 0, 418, 583 , 1001, 1837, 2057 };
-    public static final double    ARM_TOLERANCE = 40;
+    public static final double[]  ARM_LEVELS = { 0,480, 583 , 1130, 1950, 2200 };
+    public static final double    ARM_TOLERANCE = 20;
 
-	public static final double    INTAKE_SPEED = 0;
+	public static final double    INTAKE_SPEED = 0.5;
 
     // *********************************************************
     // For Ultrasonic Calibration
@@ -44,7 +44,7 @@ public class RobotConst {
 
     // The TorontoCodingCollective framework was developed to run on different
     // robots through the use of multiple mappings and constants.
-    public static final String robot = TEST_ROBOT;
+    public static final String robot = PROD_ROBOT;
 
     static {
 

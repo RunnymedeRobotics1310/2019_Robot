@@ -3,6 +3,7 @@ package robot.commands.lift;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
@@ -42,24 +43,48 @@ public class DefaultLiftCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		if (Robot.oi.startLevel3()) {
+			Scheduler.getInstance().add(new L3Command());
+		}
+		
+		if (Robot.oi.syncedExtendLift()) {
+			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
+					- Robot.liftSubsystem.getRearLiftEncoder().get();
+			Robot.liftSubsystem.setFrontMotorSpeed(-1.0 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(-1.0);
+		}
+		else if (Robot.oi.syncedRetractLift()){
+			double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
+					- Robot.liftSubsystem.getRearLiftEncoder().get();
+			Robot.liftSubsystem.setFrontMotorSpeed(0.5 - encoderMismatch * .001);
+			Robot.liftSubsystem.setRearMotorSpeed(0.5);
+		}
+		else {
 			if (Robot.oi.getRetractFrontLift()) {
-				Robot.liftSubsystem.setFrontMotorSpeed(-0.4);
+				Robot.liftSubsystem.setFrontMotorSpeed(0.8);
 			}
 			else if (Robot.oi.getExtendFrontLift() > 0) {
-				Robot.liftSubsystem.setFrontMotorSpeed(Robot.oi.getExtendFrontLift());
+				Robot.liftSubsystem.setFrontMotorSpeed(-Robot.oi.getExtendFrontLift());
 			}
 			else {
 				Robot.liftSubsystem.setFrontMotorSpeed(0);
 			}
 			if (Robot.oi.getRetractRearLift()) {
-				Robot.liftSubsystem.setRearMotorSpeed(-0.4);
+				Robot.liftSubsystem.setRearMotorSpeed(0.8);
 			}
 			else if (Robot.oi.getExtendRearLift() > 0) {
-				Robot.liftSubsystem.setRearMotorSpeed(Robot.oi.getExtendRearLift());
+				Robot.liftSubsystem.setRearMotorSpeed(-Robot.oi.getExtendRearLift());
 			}
 			else {
 				Robot.liftSubsystem.setRearMotorSpeed(0);
 			}
+		}
+		if (Robot.oi.getLiftDriveForward()) {
+			Robot.liftSubsystem.setDriveMotorSpeed(0.5);
+		}
+		else {
+			Robot.liftSubsystem.setDriveMotorSpeed(0);
+		}
 		
 	}
 

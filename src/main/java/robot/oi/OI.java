@@ -4,6 +4,7 @@ import com.torontocodingcollective.oi.TButton;
 import com.torontocodingcollective.oi.TButtonPressDetector;
 import com.torontocodingcollective.oi.TGameController;
 import com.torontocodingcollective.oi.TGameController_Logitech;
+import com.torontocodingcollective.oi.TGameController_Xbox;
 import com.torontocodingcollective.oi.TOi;
 import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
@@ -11,8 +12,10 @@ import com.torontocodingcollective.oi.TStickPosition;
 import com.torontocodingcollective.oi.TToggle;
 import com.torontocodingcollective.oi.TTrigger;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
+import robot.commands.hatch.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -35,7 +38,7 @@ import robot.Robot;
  */
 public class OI extends TOi {
 
-	private TGameController driverController = new TGameController_Logitech(0);
+	private TGameController driverController = new TGameController_Xbox(0);
 	private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
 
 	private TGameController operatorController = new TGameController_Logitech(1);
@@ -43,6 +46,7 @@ public class OI extends TOi {
 
 	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
 	private TToggle         speedPidToggle   = new TToggle(driverController, TStick.RIGHT);
+	private TToggle         intakeToggle   = new TToggle(driverController, TButton.A);
 
 	private DriveSelector   driveSelector    = new DriveSelector();
 
@@ -51,7 +55,7 @@ public class OI extends TOi {
 
 	private boolean         armManualDriveMode = true;
 	private double 			armLevelSetPoint   = 0;   
-	private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
+	//private TToggle         cargoToggle        = new TToggle(driverController, TButton.A);
 
 	private boolean         liftModeEnabled;
 
@@ -172,6 +176,33 @@ public class OI extends TOi {
 			return false;
 		}
 	}
+	
+	public boolean getHatchMechExtend() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.Y);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean getHatchMechRetract() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.A);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean getHatchMechEject() {
+		if (!liftModeEnabled) {
+			return operatorController.getButton(TButton.B);
+		}
+		else {
+			return false;
+		}
+	}
 
 	/* *************************************************
 	 * Arm / Cargo Subsystem buttons
@@ -189,11 +220,23 @@ public class OI extends TOi {
 	}
 
 	public boolean cargoIntake() {
-		return cargoToggle.get();
+		return driverController.getButton(TButton.X);
 	}
 
 	public boolean cargoEject() {
 		return driverController.getButton(TButton.Y);
+	}
+
+	public boolean intakeOff(){
+		return  driverController.getButton(TButton.B);
+	}
+
+	public boolean rollOn(){
+		return driverController.getButton(TButton.X);
+	}
+
+	public boolean rollOff(){
+		return driverController.getButton(TButton.RIGHT_BUMPER);
 	}
 
 	public void setArmLevel(double level) {
@@ -244,6 +287,42 @@ public class OI extends TOi {
 			return 0;
 		}
 	}
+	
+	public boolean getLiftDriveForward() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.A);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean syncedExtendLift() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.Y);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean syncedRetractLift() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.B);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean startLevel3() {
+		if (liftModeEnabled) {
+			return operatorController.getButton(TButton.X);
+		}
+		else {
+			return false;
+		}
+	}
 
 
 	/* *************************************************
@@ -291,6 +370,7 @@ public class OI extends TOi {
 			liftModeEnabled=true;
 		}
 		if (getHatchModeEnabled()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
 			liftModeEnabled=false;
 		}
 

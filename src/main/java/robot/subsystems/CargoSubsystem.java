@@ -6,9 +6,12 @@ import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState
 import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 import com.torontocodingcollective.subsystem.TSubsystem;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import robot.Robot;
 import robot.RobotConst;
 import robot.RobotMap;
+import robot.commands.cargo.CargoIntakeCommand;
 import robot.commands.cargo.DefaultCargoCommand;
 
 /**
@@ -19,14 +22,20 @@ import robot.commands.cargo.DefaultCargoCommand;
 
 public class CargoSubsystem extends TSubsystem {
 
-    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS);
+    TCanSpeedController armMotor = new TCanSpeedController(RobotMap.ARM_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ARM_CAN_SPEED_CONTROLLER_ADDRESS,RobotMap.ARM_CAN_MOTOR_ISINVERTED);
     TLimitSwitch armDownLimit = new TLimitSwitch(RobotMap.ARM_DOWN_LIMIT_SWITCH, DefaultState.TRUE);
     TEncoder armEncoder = armMotor.getEncoder();
     TLimitSwitch armUpLimit = new TLimitSwitch(RobotMap.ARM_UP_LIMIT_SWITCH, DefaultState.TRUE);
     
-    TCanSpeedController intakeMotor = new TCanSpeedController(
-    		RobotMap.INTAKE_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_CAN_MOTOR_ISINVERTED);
-    TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
+    TCanSpeedController leftIntakeMotor = new TCanSpeedController(
+    		RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_L_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_L_CAN_MOTOR_ISINVERTED);
+    TCanSpeedController rightIntakeMotor = new TCanSpeedController(
+    		RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_TYPE,RobotMap.INTAKE_R_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.INTAKE_R_CAN_MOTOR_ISINVERTED);
+	TLimitSwitch cargoDetectLimitSwitch = new TLimitSwitch(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT, DefaultState.TRUE);
+	
+	TCanSpeedController rollerMotor = new TCanSpeedController(
+    		RobotMap.ROLLER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ROLLER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.ROLLER_CAN_MOTOR_ISINVERTED);
+
     
     @Override
     public void init() {
@@ -53,21 +62,25 @@ public class CargoSubsystem extends TSubsystem {
     }
 
     public void setArmSpeed (double armSpeed){
+    	double armAngle = (Math.PI*(armEncoder.get()-500)/10)/180;
 
-    	if (armSpeed > 0) {
+    	double calculatedArmSpeed= armSpeed + Math.cos(armAngle)*0.08;
+    			
+    			
+    	if (calculatedArmSpeed > 0) {
     		if (armUpLimit.atLimit()) {
     			armMotor.set(0);
     		}
     		else {
-    			armMotor.set(armSpeed);
+    			armMotor.set(calculatedArmSpeed);
     		}
     	}
-    	else if (armSpeed < 0) {
+    	else if (calculatedArmSpeed < 0) {
     		if (armDownLimit.atLimit()) {
     			armMotor.set(0);
     		}
     		else {
-    			armMotor.set(armSpeed);
+    			armMotor.set(calculatedArmSpeed);
     		}
     	}
     	else {
@@ -84,16 +97,35 @@ public class CargoSubsystem extends TSubsystem {
     }
     
     public void startIntake() {
-    	intakeMotor.set(RobotConst.INTAKE_SPEED);
+    	leftIntakeMotor.set(RobotConst.INTAKE_SPEED);
+    	rightIntakeMotor.set(-RobotConst.INTAKE_SPEED);
     }
     
     public void stopIntake() {
-    	intakeMotor.set(0);
+    	leftIntakeMotor.set(0);
+    	rightIntakeMotor.set(0);
+    }
+    
+    public void ejectCargo() {
+    	leftIntakeMotor.set(-1);
+    	rightIntakeMotor.set(1);
     }
     
     public boolean isCargoDetected() {
     	return cargoDetectLimitSwitch.atLimit();
-    }
+	}
+	
+	public void rollerActive(){
+		rollerMotor.set(0.5);
+	}
+
+	public void rollerInactive(){
+		rollerMotor.set(0);
+	}
+	
+	public void resetEncoder() {
+		armEncoder.reset();
+	}
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
@@ -109,6 +141,12 @@ public class CargoSubsystem extends TSubsystem {
     	if (armSpeed < 0 && armDownLimit.atLimit()) {
     		armMotor.set(0);
     	}
+    	
+    	if (armDownLimitDetected()) {
+    		armEncoder.reset();
+    	}
+    	
+
     	
          SmartDashboard.putNumber("Arm Motor", armMotor.get());
          SmartDashboard.putBoolean("Arm Down", armDownLimit.atLimit());

@@ -49,6 +49,10 @@ public class AutonomousCommand extends CommandGroup {
         String robotStartPosition = AutoSelector.getRobotStartPosition();
         String pattern            = AutoSelector.getPattern();
 
+        if (robotStartPosition == null || pattern == null) {
+            return;  // return control to the driver
+        }
+
         // Print out the user selection and Game config for debug later
         System.out.println("Auto Command Configuration");
         System.out.println("--------------------------");

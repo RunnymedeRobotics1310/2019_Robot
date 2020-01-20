@@ -4,21 +4,17 @@ import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
 import robot.Robot;
+import robot.RobotMap;
 
-/**
- * The default hatch command TODO: commenting
- */
-public class HatchCentreCommand extends TSafeCommand {
+public class HatchEjectCommand extends TSafeCommand{
 
 	private static final String COMMAND_NAME = 
 			DefaultHatchCommand.class.getSimpleName();
+	private static int counter;
 
-	private boolean isLeftOfCentre;
-
-	public HatchCentreCommand() {
+	public HatchEjectCommand() {
 
 		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
-
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.hatchSubsystem);
 	}
@@ -39,35 +35,27 @@ public class HatchCentreCommand extends TSafeCommand {
 		if (getCommandName().equals(COMMAND_NAME)) {
 			logMessage(getParmDesc() + " starting");
 		}
-		if (!Robot.hatchSubsystem.isCentered()) {
-			if (Robot.hatchSubsystem.getSlideMotorEncoderCount()>0) {
-				isLeftOfCentre=true;
-				Robot.hatchSubsystem.setSlideSpeed(-0.25);
-			}
-			else if (Robot.hatchSubsystem.getSlideMotorEncoderCount()<0) {
-				isLeftOfCentre=false;
-				Robot.hatchSubsystem.setSlideSpeed(0.2);
-			}
-		}
+		Robot.hatchSubsystem.ejectHatch();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {	
+	protected void execute() {
+		counter++;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (super.isFinished()) {
+		if (counter>=20) {
 			return true;
 		}
-		return Robot.hatchSubsystem.isCentered();
+		return false;
 	}
-
+	
 	@Override
 	protected void end() {
-		Robot.hatchSubsystem.setSlideSpeed(0);
+		Robot.hatchSubsystem.retractPunchMech();
 	}
 
 }

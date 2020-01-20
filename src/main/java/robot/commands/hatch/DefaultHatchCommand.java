@@ -3,6 +3,7 @@ package robot.commands.hatch;
 import com.torontocodingcollective.TConst;
 import com.torontocodingcollective.commands.TSafeCommand;
 
+import edu.wpi.first.wpilibj.command.Scheduler;
 import robot.Robot;
 
 /**
@@ -42,23 +43,34 @@ public class DefaultHatchCommand extends TSafeCommand {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//FIXME left will overide right for now.
+
+		Robot.hatchSubsystem.setSlideSpeed((Robot.oi.getHatchSlideLeft()/3)-(Robot.oi.getHatchSlideRight()/3));
 		
-		//FIXME:  RM
-		//        Since the Hatch control buttons are on triggers,
-		//        and the triggers will both return a positive number,
-		//        the setSlideSpeed should be passed a negative
-		//        for one of the sides in order to make the slider
-		//        go in the opposite direction.
-		if (Robot.oi.getHatchSlideLeft() > 0) {	
-			Robot.hatchSubsystem.setSlideSpeed(Robot.oi.getHatchSlideLeft());
+		if (Robot.oi.getReset()) {
+			Robot.hatchSubsystem.resetEncoder();
 		}
-		else if (Robot.oi.getHatchSlideRight() > 0) {
-			Robot.hatchSubsystem.setSlideSpeed(-Robot.oi.getHatchSlideRight());
+
+		if (Robot.oi.getHatchSlideCentre()) {
+			Scheduler.getInstance().add(new HatchCentreCommand());
+			return;
+		}
+		
+		// Updates and sets the Solenoids for the hatch mech
+		if (Robot.oi.getHatchMechExtend()) {
+			Robot.hatchSubsystem.extendHatchMech();
+		}
+		else if (Robot.oi.getHatchMechRetract()) {
+			Robot.hatchSubsystem.retractHatchMech();
+		}
+		
+		if (Robot.oi.getHatchMechEject()) {
+			Robot.hatchSubsystem.ejectHatch();
 		}
 		else {
-			Robot.hatchSubsystem.setSlideSpeed(0);
+			Robot.hatchSubsystem.retractPunchMech();
 		}
+		
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
