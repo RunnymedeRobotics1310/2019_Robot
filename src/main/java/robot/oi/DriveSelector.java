@@ -7,29 +7,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSelector {
 
-    public SendableChooser<String> driveControlType;
-    public SendableChooser<String> singleStickSide;
+    public SendableChooser<DriveControlType> driveControlType;
+    public SendableChooser<String>           singleStickSide;
 
-    public static final String     DRIVE_CONTROL_TYPE_ARCADE       = "Arcade";
-    public static final String     DRIVE_CONTROL_TYPE_TANK         = "Tank";
-    public static final String     DRIVE_CONTROL_TYPE_SINGLE_STICK = "Single Stick";
+    public static final String               DRIVE_CONTROL_TYPE_ARCADE       = "Arcade";
+    public static final String               DRIVE_CONTROL_TYPE_TANK         = "Tank";
+    public static final String               DRIVE_CONTROL_TYPE_SINGLE_STICK = "Single Stick";
 
-    public static final String     SINGLE_STICK_LEFT               = "Left";
-    public static final String     SINGLE_STICK_RIGHT              = "Right";
+    public static final String               SINGLE_STICK_LEFT               = "Left";
+    public static final String               SINGLE_STICK_RIGHT              = "Right";
 
     {
         // Drive Type
         driveControlType = new SendableChooser<>();
-        driveControlType.addDefault(DRIVE_CONTROL_TYPE_ARCADE, DRIVE_CONTROL_TYPE_ARCADE);
-        driveControlType.addObject(DRIVE_CONTROL_TYPE_TANK, DRIVE_CONTROL_TYPE_TANK);
-        driveControlType.addObject(DRIVE_CONTROL_TYPE_SINGLE_STICK, DRIVE_CONTROL_TYPE_SINGLE_STICK);
+        driveControlType.setDefaultOption(DRIVE_CONTROL_TYPE_ARCADE, DriveControlType.ARCADE);
+        driveControlType.addOption(DRIVE_CONTROL_TYPE_TANK, DriveControlType.TANK);
+        driveControlType.addOption(DRIVE_CONTROL_TYPE_TANK, DriveControlType.SINGLE_STICK);
 
         SmartDashboard.putData("Drive Type", driveControlType);
 
         // Single Stick Side
         singleStickSide = new SendableChooser<>();
-        singleStickSide.addDefault(SINGLE_STICK_RIGHT, SINGLE_STICK_RIGHT);
-        singleStickSide.addObject(SINGLE_STICK_LEFT, SINGLE_STICK_LEFT);
+        singleStickSide.setDefaultOption(SINGLE_STICK_RIGHT, SINGLE_STICK_RIGHT);
+        singleStickSide.addOption(SINGLE_STICK_LEFT, SINGLE_STICK_LEFT);
 
         SmartDashboard.putData("Single Stick Side", singleStickSide);
     }
@@ -38,16 +38,7 @@ public class DriveSelector {
      * Get the Drive Type
      */
     public DriveControlType getDriveControlType() {
-
-        switch (driveControlType.getSelected()) {
-        case DRIVE_CONTROL_TYPE_TANK:
-            return DriveControlType.TANK;
-        case DRIVE_CONTROL_TYPE_SINGLE_STICK:
-            return DriveControlType.SINGLE_STICK;
-        case DRIVE_CONTROL_TYPE_ARCADE:
-        default:
-            return DriveControlType.ARCADE;
-        }
+        return driveControlType.getSelected();
     }
 
     /**
