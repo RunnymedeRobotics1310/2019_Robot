@@ -1,18 +1,9 @@
 package robot.oi;
 
-import com.torontocodingcollective.oi.TAxis;
-import com.torontocodingcollective.oi.TButton;
-import com.torontocodingcollective.oi.TGameController;
-import com.torontocodingcollective.oi.TGameController_Xbox;
-import com.torontocodingcollective.oi.TOi;
-import com.torontocodingcollective.oi.TRumbleManager;
 import com.torontocodingcollective.oi.TStick;
-import com.torontocodingcollective.oi.TStickPosition;
-import com.torontocodingcollective.oi.TToggle;
-import com.torontocodingcollective.oi.TTrigger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.RobotConst.Camera;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,416 +12,343 @@ import robot.RobotConst.Camera;
 
 /**
  * Driver Controller (inherited from TOi)
- * 
+ *
  * Sticks: Right Stick = Drive Stick Left Stick = Drive Stick Right Stick Press
  * = Toggle PIDs Left Stick Press = Toggle Compressor
- * 
+ *
  * Buttons: Start Button = Reset Encoders and Gyro Back Button = Cancel any
  * Command
- * 
+ *
  * Bumpers/Triggers:
- * 
+ *
  * POV: Any Angle = Rotate to the Pressed Angle
- * 
+ *
  */
-public class OI extends TOi {
+public class OI extends SubsystemBase {
 
-	private TGameController driverController = new TGameController_Xbox(0);
-	private TRumbleManager  driverRumble     = new TRumbleManager("Driver", driverController);
+    private GameController driverController   = new GameController(0);
 
-	private TGameController operatorController = new TGameController_Xbox(1);
-	private TRumbleManager  operatorRumble     = new TRumbleManager("Operator", operatorController);
+    private GameController operatorController = new GameController(1);
 
-	private TToggle         compressorToggle = new TToggle(driverController, TStick.LEFT);
+    private boolean        compressorToggle   = true;
 
-	private DriveSelector   driveSelector    = new DriveSelector();
+    private DriveSelector  driveSelector      = new DriveSelector();
 
 //	private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
 //	private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
 
-	private boolean         armManualDriveMode = true;
-	private double 			armLevelSetPoint   = 0;   
+    private boolean armManualDriveMode = true;
+    private double  armLevelSetPoint   = 0;
 
-	private boolean         liftModeEnabled;
+    private boolean liftModeEnabled;
 
-	/* *************************************************
-	 * Initializers and General Controls
-    /* *************************************************/
-	public void init() {
-		compressorToggle.set(true);
-		driverController.axisDeadband=0.1;
-		operatorController.axisDeadband=0.1;
-	}
+    /*
+     * *************************************************
+     * Initializers and General Controls
+     * /*
+     *************************************************/
+    public void init() {
+        compressorToggle = true;
+    }
 
-	@Override
-	public boolean getCancelCommand() {
-		return driverController.getButton(TButton.BACK);
-	}
+    public boolean getCancelCommand() {
+        return driverController.getBackButton();
+    }
 
-	public boolean getCompressorEnabled() {
-		return compressorToggle.get();
-	}
+    public boolean getCompressorEnabled() {
+        return compressorToggle;
+    }
 
-	@Override
-	public boolean getReset() {
-		return driverController.getButton(TButton.START);
-	}
+    public boolean getReset() {
+        return driverController.getStartButton();
+    }
 
-	public boolean getLiftModeEnabled() {
-		return operatorController.getButton(TButton.START);
-	}
+    public boolean getLiftModeEnabled() {
+        return operatorController.getStartButton();
+    }
 
-	public boolean getHatchModeEnabled() {
-		return operatorController.getButton(TButton.BACK);
-	}
+    public boolean getHatchModeEnabled() {
+        return operatorController.getStartButton();
+    }
 
-	public void startDriverRumble() {
-		driverRumble.rumbleOn();
-	}
+    /**
+     * Get the selected drive type
+     *
+     * @return {@link DriveControlType} selected on the SmartDashboard. The default
+     * drive type is {@link DriveControlType#ARCADE}
+     */
+    public DriveControlType getSelectedDriveType() {
+        return driveSelector.getDriveControlType();
+    }
 
-	public void endDriverRumble() {
-		driverRumble.rumbleOff();
-	}
+    /**
+     * Get the selected single stick side
+     *
+     * @return {@link TStick} selected on the SmartDashboard. The default single
+     * stick drive is {@link TStick#RIGHT}
+     */
+    public TStick getSelectedSingleStickSide() {
+        return driveSelector.getSingleStickSide();
+    }
 
-	public void startOperatorRumble() {
-		operatorRumble.rumbleOn();
-	}
+    /*
+     * *************************************************
+     * Hatch Subsystem buttons
+     * /*
+     *************************************************/
+    public boolean getHatchEjectRight() {
+        if (!liftModeEnabled) {
+            return operatorController.getBButton();
+        }
+        else {
+            return false;
+        }
+    }
 
-	public void endOperatorRumble() {
-		operatorRumble.rumbleOn();
-	}
+    public boolean getHatchEjectLeft() {
+        if (!liftModeEnabled) {
+            return operatorController.getXButton();
+        }
+        else {
+            return false;
+        }
+    }
 
-	public Camera getSelectedCamera() {
-		return Camera.HATCH;
-	}
-	/* *************************************************
-	 * Drive Subsystem buttons
-    /* *************************************************/
-	@Override
-	public TStickPosition getDriveStickPosition(TStick stick) {
-		return driverController.getStickPosition(stick);
-	}
+    public boolean getHatchRocketEject() {
+        if (!liftModeEnabled) {
+            return operatorController.getRightBumper();
+        }
+        else {
+            return false;
+        }
+    }
 
-//	public boolean getDriveToPosition(){
-//		return driverController.getButton(TButton.A);
-//	}
+    public double getHatchSlideLeft() {
+        if (!liftModeEnabled) {
+            return operatorController.getLeftTriggerAxis();
+        }
+        else {
+            return 0;
+        }
+    }
 
-	/**
-	 * Get the selected drive type
-	 * 
-	 * @return {@link DriveControlType} selected on the SmartDashboard. The default
-	 *         drive type is {@link DriveControlType#ARCADE}
-	 */
-	public DriveControlType getSelectedDriveType() {
-		return driveSelector.getDriveControlType();
-	}
+    public double getHatchSlideRight() {
+        if (!liftModeEnabled) {
+            return operatorController.getRightTriggerAxis();
+        }
+        else {
+            return 0;
+        }
+    }
 
-	/**
-	 * Get the selected single stick side
-	 * 
-	 * @return {@link TStick} selected on the SmartDashboard. The default single
-	 *         stick drive is {@link TStick#RIGHT}
-	 */
-	public TStick getSelectedSingleStickSide() {
-		return driveSelector.getSingleStickSide();
-	}
+    public boolean getHatchSlideCentre() {
+        if (!liftModeEnabled) {
+            return operatorController.getLeftBumper();
+        }
+        else {
+            return false;
+        }
+    }
 
-	/* *************************************************
-	 * Hatch Subsystem buttons
-    /* *************************************************/
-	public boolean getHatchEjectRight() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.B);
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean getHatchEjectLeft() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.X);
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean getHatchRocketEject() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.RIGHT_BUMPER);
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public double getHatchSlideLeft() {
-		if (!liftModeEnabled) {
-			return operatorController.getTrigger(TTrigger.LEFT);
-		}
-		else {
-			return 0;
-		}
-	}
+    public boolean getHatchMechExtend() {
+        if (!liftModeEnabled) {
+            return operatorController.getYButton();
+        }
+        else {
+            return false;
+        }
+    }
 
-	public double getHatchSlideRight() {
-		if (!liftModeEnabled) {
-			return operatorController.getTrigger(TTrigger.RIGHT);
-		}
-		else {
-			return 0;
-		}
-	}
+    public boolean getHatchMechRetract() {
+        if (!liftModeEnabled) {
+            return operatorController.getAButton();
+        }
+        else {
+            return false;
+        }
+    }
 
-	public boolean getHatchSlideCentre(){
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.LEFT_BUMPER);
-		}
-		else {
-			return false;
-		}
-	}
+    /*
+     * *************************************************
+     * Arm / Cargo Subsystem buttons
+     * /*
+     *************************************************/
+    public boolean getArmDriveMode() {
+        return armManualDriveMode;
+    }
 
-	public boolean getHatchMechExtend() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.Y);
-		}
-		else {
-			return false;
-		}
-	}
+    public void setArmDriveMode(boolean manualMode) {
+        armManualDriveMode = manualMode;
+    }
 
-	public boolean getHatchMechRetract() {
-		if (!liftModeEnabled) {
-			return operatorController.getButton(TButton.A);
-		}
-		else {
-			return false;
-		}
-	}
+    public double getArmUp() {
+        return driverController.getRightTriggerAxis();
+    }
 
-	/* *************************************************
-	 * Arm / Cargo Subsystem buttons
-    /* *************************************************/
-	public boolean getArmDriveMode() {
-		return armManualDriveMode;
-	}
-	
-	public void setArmDriveMode(boolean manualMode) {
-		armManualDriveMode=manualMode;
-	}
-	public double getArmUp(){
-		return driverController.getTrigger(TTrigger.RIGHT);
-	}
+    public double getArmDown() {
+        return driverController.getLeftTriggerAxis();
+    }
 
-	public double getArmDown(){
-		return driverController.getTrigger(TTrigger.LEFT);
-	}
+    public boolean cargoIntake() {
+        if (operatorController.getLeftY() > 0.3) {
+            return true;
+        }
+        return driverController.getXButton();
+    }
 
-	public boolean cargoIntake() {
-		if (operatorController.getAxis(TStick.LEFT, TAxis.Y)>0.3) {
-			return true;
-		}
-		return driverController.getButton(TButton.X);
-	}
+    public boolean cargoEject() {
+        if (operatorController.getLeftY() < -0.3) {
+            return true;
+        }
+        return driverController.getYButton();
+    }
 
-	public boolean cargoEject() {
-		if (operatorController.getAxis(TStick.LEFT, TAxis.Y)<-0.3) {
-			return true;
-		}
-		return driverController.getButton(TButton.Y);
-	}
+    public boolean cargoEjectFast() {
+        return driverController.getBButton();
+    }
 
-	public boolean cargoEjectFast() {
-		return driverController.getButton(TButton.B);
-	}
+    public void setArmLevel(double level) {
+        armLevelSetPoint = level;
+    }
 
-	public void setArmLevel(double level) {
-		armLevelSetPoint = level;
-	}
-
-	public double getArmLevel() {
-		return armLevelSetPoint;
-	}
+    public double getArmLevel() {
+        return armLevelSetPoint;
+    }
 
 
-	/* *************************************************
-	 * Lift Subsystem buttons
-    /* *************************************************/
-	public boolean getRetractFrontLift() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.RIGHT_BUMPER);
-		}
-		else {
-			return false;
-		}
+    /*
+     * *************************************************
+     * Lift Subsystem buttons
+     * /*
+     *************************************************/
+    public boolean getRetractFrontLift() {
+        if (liftModeEnabled) {
+            return operatorController.getRightBumper();
+        }
+        return false;
+    }
 
-	}
+    public double getExtendFrontLift() {
+        if (liftModeEnabled) {
+            return operatorController.getRightTriggerAxis();
+        }
+        return 0;
+    }
 
-	public double getExtendFrontLift() {
-		if (liftModeEnabled) {
-			return operatorController.getTrigger(TTrigger.RIGHT);
-		}
-		else {
-			return 0;
-		}
-	}
+    public boolean getRetractRearLift() {
+        if (liftModeEnabled) {
+            return operatorController.getLeftBumper();
+        }
+        return false;
+    }
 
-	public boolean getRetractRearLift() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.LEFT_BUMPER);
-		}
-		else {
-			return false;
-		}
-	}
+    public double getExtendRearLift() {
+        if (liftModeEnabled) {
+            return operatorController.getLeftTriggerAxis();
+        }
+        return 0;
+    }
 
-	public double getExtendRearLift() {
-		if (liftModeEnabled) {
-			return operatorController.getTrigger(TTrigger.LEFT);
-		}
-		else {
-			return 0;
-		}
-	}
+    public boolean getLiftDriveForward() {
+        if (liftModeEnabled) {
+            return operatorController.getAButton();
+        }
+        return false;
+    }
 
-	public boolean getLiftDriveForward() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.A);
-		}
-		else {
-			return false;
-		}
-	}
+    public boolean syncedExtendLift() {
+        if (liftModeEnabled) {
+            return operatorController.getYButton();
+        }
+        return false;
+    }
 
-	public boolean syncedExtendLift() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.Y);
-		}
-		else {
-			return false;
-		}
-	}
+    public boolean syncedRetractLift() {
+        if (liftModeEnabled) {
+            return operatorController.getBButton();
+        }
+        return false;
+    }
 
-	public boolean syncedRetractLift() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TButton.B);
-		}
-		else {
-			return false;
-		}
-	}
+    public boolean startLevel3() {
+        if (liftModeEnabled) {
+            return operatorController.getStartButton();
+        }
+        return false;
+    }
 
-	public boolean startLevel3() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TStick.RIGHT);
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean startLevel2() {
-		if (liftModeEnabled) {
-			return operatorController.getButton(TStick.LEFT);
-		}
-		else {
-			return false;
-		}
-	}
+    public boolean startLevel2() {
+        if (liftModeEnabled) {
+            return operatorController.getLeftStickButton();
+        }
+        return false;
+    }
 
 
-	/* *************************************************
-	 * Update and SmartDashboard
-    /* *************************************************/
-	@Override
-	public void updatePeriodic() {
+    /*
+     * *************************************************
+     * Update and SmartDashboard
+     * /*
+     *************************************************/
+    @Override
+    public void periodic() {
 
-		if (driverController.getPOV() >= 0) {
-			switch (driverController.getPOV()) {
-			case 0:
-				armLevelSetPoint = 3;
-				armManualDriveMode = false;
-				break;
+        if (driverController.getPOV() >= 0) {
+            switch (driverController.getPOV()) {
+            case 0:
+                armLevelSetPoint = 3;
+                armManualDriveMode = false;
+                break;
 
-			case 180:
-				armLevelSetPoint = 0;
-				armManualDriveMode = false;
-				break;
+            case 180:
+                armLevelSetPoint = 0;
+                armManualDriveMode = false;
+                break;
 
-			default:
-				// do nothing
-				break;
-			}
-		} else if (driverController.getButton(TButton.A)) {
-			armLevelSetPoint = 1;
-			armManualDriveMode = false;
-		} else if (driverController.getButton(TButton.LEFT_BUMPER)) {
-			armLevelSetPoint = 2;
-			armManualDriveMode = false;
-		} else if (driverController.getButton(TButton.RIGHT_BUMPER)) {
-			armLevelSetPoint = 4;
-			armManualDriveMode = false;
-//		} else if (armUpDetector.get()) {
-//			// If we were previously using a manual
-//			// drive, then the arm set point can
-//			// be incorrect. 
-//			if (armManualDriveMode) {
-//				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
-//				armLevelSetPoint = Math.floor(currentArmLevel);
-//			}
-//			armLevelSetPoint ++;
-//			if (armLevelSetPoint >= RobotConst.ARM_LEVELS.length) {
-//				armLevelSetPoint = RobotConst.ARM_LEVELS.length - 1;
-//			}
-//			armManualDriveMode = false;
-//		}
-//		else if (armDownDetector.get()) {
-//			if (armManualDriveMode) {
-//				double currentArmLevel = Robot.cargoSubsystem.getCurrentLevel();
-//				armLevelSetPoint = Math.ceil(currentArmLevel);
-//			}
-//			armLevelSetPoint = armLevelSetPoint - 1;
-//			if (armLevelSetPoint < 0) {
-//				armLevelSetPoint = 0;
-//			}
-//			armManualDriveMode = false;
-		}
-		if (getArmUp() > 0) {
-			armManualDriveMode = true;
-		}
-		else if (getArmDown() > 0) {
-			armManualDriveMode = true;
-		}
-		
-		// Update the Lift Mode
-		if (getLiftModeEnabled()) {
-			//Scheduler.getInstance().add(new HatchCentreCommand());
-			liftModeEnabled=true;
-		}
-		if (getHatchModeEnabled()) {
-			liftModeEnabled=false;
-		}
+            default:
+                // do nothing
+                break;
+            }
+        }
+        else if (driverController.getAButton()) {
+            armLevelSetPoint   = 1;
+            armManualDriveMode = false;
+        }
+        else if (driverController.getLeftBumper()) {
+            armLevelSetPoint   = 2;
+            armManualDriveMode = false;
+        }
+        else if (driverController.getRightBumper()) {
+            armLevelSetPoint   = 4;
+            armManualDriveMode = false;
+        }
+        if (getArmUp() > 0) {
+            armManualDriveMode = true;
+        }
+        else if (getArmDown() > 0) {
+            armManualDriveMode = true;
+        }
 
-		// Update all Toggles
-		compressorToggle.updatePeriodic();
-		driverRumble.updatePeriodic();
+        // Update the Lift Mode
+        if (getLiftModeEnabled()) {
+            // Scheduler.getInstance().add(new HatchCentreCommand());
+            liftModeEnabled = true;
+        }
+        if (getHatchModeEnabled()) {
+            liftModeEnabled = false;
+        }
 
+        // Update all Toggles
+        if (driverController.getLeftStickButtonPressed()) {
+            compressorToggle = !compressorToggle;
+        }
 
-
-		// Update all SmartDashboard values
-		SmartDashboard.putBoolean("Speed PID Toggle", getSpeedPidEnabled());
-		SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
-		SmartDashboard.putString("Driver Controller", driverController.toString());
-		SmartDashboard.putNumber("Arm Level",armLevelSetPoint);
-		SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
-		SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
-	}
-
-	@Override
-	public boolean getSpeedPidEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+        // Update all SmartDashboard values
+        SmartDashboard.putBoolean("Compressor Toggle", getCompressorEnabled());
+        SmartDashboard.putString("Driver Controller", driverController.toString());
+        SmartDashboard.putString("Operator Controller", operatorController.toString());
+        SmartDashboard.putNumber("Arm Level", armLevelSetPoint);
+        SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
+        SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
+    }
 }

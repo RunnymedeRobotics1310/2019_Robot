@@ -7,10 +7,9 @@ import com.torontocodingcollective.speedcontroller.TCanSpeedController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robot.Robot;
 import robot.RobotConst;
+import robot.RobotContainer;
 import robot.RobotMap;
-import robot.commands.cargo.DefaultCargoCommand;
 
 /**
  * Subsystem for arm mechanism.
@@ -39,19 +38,13 @@ public class CargoSubsystem extends SubsystemBase {
 //    		RobotMap.ROLLER_CAN_SPEED_CONTROLLER_TYPE,RobotMap.ROLLER_CAN_SPEED_CONTROLLER_ADDRESS, RobotMap.ROLLER_CAN_MOTOR_ISINVERTED);
 
 
-    @Override
-    public void init() {
+    public CargoSubsystem() {
         resetToStartingPos();
     };
 
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultCargoCommand());
-    }
-
     public void resetToStartingPos() {
         armEncoder.set(1140);
-        Robot.oi.setArmLevel(getCurrentLevel());
+        RobotContainer.oi.setArmLevel(getCurrentLevel());
     }
 
     public int getEncoderCounts() {
