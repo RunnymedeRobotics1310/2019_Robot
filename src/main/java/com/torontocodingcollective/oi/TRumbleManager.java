@@ -18,7 +18,7 @@ public class TRumbleManager {
     private State state = State.OFF;
 
     public TRumbleManager(String name, TGameController gameController) {
-        this.gameController = gameController;
+        this.gameController     = gameController;
         this.smartDashboardName = name + " rumble";
     }
 

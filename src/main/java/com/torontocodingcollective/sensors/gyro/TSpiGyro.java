@@ -36,4 +36,8 @@ public class TSpiGyro extends TGyro {
         super.setGyroAngle(0);
     }
 
+    @Override
+    public void close() throws Exception {
+        spiGyro.close();
+    }
 }

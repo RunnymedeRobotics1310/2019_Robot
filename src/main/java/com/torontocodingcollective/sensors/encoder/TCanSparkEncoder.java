@@ -12,31 +12,33 @@ public class TCanSparkEncoder extends TEncoder {
 
     private CANEncoder encoder;
 
-    private double prevEncoderPosition;
+    private double     prevEncoderPosition;
+
     /**
-     * Encoder constructor. Construct a Encoder given a TalonSRX device. 
+     * Encoder constructor. Construct a Encoder given a TalonSRX device.
      * The encoder must be a quadrature encoder plugged into the TalonSRX.
      * <p>
      * The encoder will be reset to zero when constructed
+     *
      * @param talonSRX where the quadrature encoder is attached
      * @param isInverted {@code true} if inverted, {@code false} otherwise
      */
     public TCanSparkEncoder(CANSparkMax canSparkMax, boolean isInverted) {
         super(isInverted);
-        encoder = new CANEncoder(canSparkMax);
+        encoder             = canSparkMax.getEncoder();
         prevEncoderPosition = 0;
     }
 
     @Override
     public int get() {
-    	
-    	double encoderPos = encoder.getPosition();
-    	
-    	if (encoderPos == 0) {
-    		encoderPos = prevEncoderPosition;
-    	}
-    	prevEncoderPosition = encoderPos;
-    	
+
+        double encoderPos = encoder.getPosition();
+
+        if (encoderPos == 0) {
+            encoderPos = prevEncoderPosition;
+        }
+        prevEncoderPosition = encoderPos;
+
         // Convert the raw counts
         return super.get((int) (encoderPos * 64.0));
     }

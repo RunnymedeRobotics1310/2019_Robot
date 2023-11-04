@@ -56,9 +56,9 @@ public class TAnalogGyro extends TGyro {
 
     /**
      * Get the current calibration values for the underlying analog gyro.
-     * 
+     *
      * @return String containing the channel, offset and center calibration values
-     *         for the underlying analog gyro.
+     * for the underlying analog gyro.
      */
     public String getCalibrationValuesString() {
 
@@ -77,12 +77,16 @@ public class TAnalogGyro extends TGyro {
 
     /**
      * Set the sensitivity of the analog gyro
-     * 
+     *
      * @param voltsPerDegreePerSecond
-     *            sensitivity of the gyro
+     * sensitivity of the gyro
      */
     public void setSensitivity(double voltsPerDegreePerSecond) {
         analogGyro.setSensitivity(voltsPerDegreePerSecond);
     }
 
+    @Override
+    public void close() throws Exception {
+        analogGyro.close();
+    }
 }

@@ -28,9 +28,9 @@ public class TToggle {
      * {@link #TToggle(TGameController, TTrigger)}
      * 
      * @param gameController
-     *            object
+     * object
      * @param button
-     *            to use for the toggle
+     * to use for the toggle
      */
     public TToggle(TGameController gameController, TButton button) {
         this(gameController, button, false);
@@ -45,18 +45,18 @@ public class TToggle {
      * {@link #TToggle(TGameController, TTrigger)}
      * 
      * @param gameController
-     *            object
+     * object
      * @param button
-     *            to use for the toggle
+     * to use for the toggle
      * @param initialState
-     *            of the toggle
+     * of the toggle
      */
     public TToggle(TGameController gameController, TButton button, boolean initialState) {
-        this.gameController = gameController;
-        this.button = button;
-        this.stick = null;
-        this.trigger = null;
-        this.toggleState = initialState;
+        this.gameController      = gameController;
+        this.button              = button;
+        this.stick               = null;
+        this.trigger             = null;
+        this.toggleState         = initialState;
         this.previousButtonState = gameController.getButton(button);
     }
 
@@ -66,9 +66,9 @@ public class TToggle {
      * The initial state will be set to {@code false}.
      * 
      * @param gameController
-     *            object
+     * object
      * @param stick
-     *            (push) to use for the toggle
+     * (push) to use for the toggle
      */
     public TToggle(TGameController gameController, TStick stick) {
         this(gameController, stick, false);
@@ -78,18 +78,18 @@ public class TToggle {
      * Declare a toggle over the specified button on the GameController Stick (push)
      * 
      * @param gameController
-     *            object
+     * object
      * @param stick
-     *            (push) to use for the toggle
+     * (push) to use for the toggle
      * @param initialState
-     *            of the toggle
+     * of the toggle
      */
     public TToggle(TGameController gameController, TStick stick, boolean initialState) {
-        this.gameController = gameController;
-        this.button = null;
-        this.stick = stick;
-        this.trigger = null;
-        this.toggleState = initialState;
+        this.gameController      = gameController;
+        this.button              = null;
+        this.stick               = stick;
+        this.trigger             = null;
+        this.toggleState         = initialState;
         this.previousButtonState = gameController.getButton(stick);
     }
 
@@ -102,9 +102,9 @@ public class TToggle {
      * be pressed .3 and released below that value.
      * 
      * @param gameController
-     *            object
+     * object
      * @param trigger
-     *            to use for the toggle
+     * to use for the toggle
      */
     public TToggle(TGameController gameController, TTrigger trigger) {
         this(gameController, trigger, false);
@@ -118,18 +118,18 @@ public class TToggle {
      * be pressed .3 and released below that value.
      * 
      * @param gameController
-     *            object
+     * object
      * @param trigger
-     *            to use for the toggle
+     * to use for the toggle
      * @param initialState
-     *            of the toggle
+     * of the toggle
      */
     public TToggle(TGameController gameController, TTrigger trigger, boolean initialState) {
-        this.gameController = gameController;
-        this.button = null;
-        this.stick = null;
-        this.trigger = trigger;
-        this.toggleState = initialState;
+        this.gameController      = gameController;
+        this.button              = null;
+        this.stick               = null;
+        this.trigger             = trigger;
+        this.toggleState         = initialState;
         this.previousButtonState = gameController.getButton(trigger);
     }
 
@@ -146,7 +146,7 @@ public class TToggle {
      * Set the current state of the toggle
      * 
      * @param set
-     *            value {@code true} or {@code false}
+     * value {@code true} or {@code false}
      */
     public void set(boolean set) {
         toggleState = set;

@@ -42,4 +42,9 @@ public class TNavXGyro extends TGyro {
         return true;
     }
 
+    @Override
+    public void close() throws Exception {
+        navXGyro.close();
+    }
+
 }

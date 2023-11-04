@@ -179,9 +179,9 @@ public class TGameController_PS extends TGameController {
     protected boolean isUserButtonActive() {
         // Playstation controllers use the square, triangle, etc buttons
         if (getButton(TButton.TRIANGLE) || getButton(TButton.SQUARE) || getButton(TButton.CIRCLE)
-                || getButton(TButton.X_SYMBOL) || getButton(TButton.LEFT_BUMPER) || getButton(TButton.RIGHT_BUMPER)
-                || getButton(TButton.SHARE) || getButton(TButton.OPTIONS) || getButton(TButton.PS)
-                || getButton(TButton.TOUCHPAD) || getButton(TStick.LEFT) || getButton(TStick.RIGHT)) {
+            || getButton(TButton.X_SYMBOL) || getButton(TButton.LEFT_BUMPER) || getButton(TButton.RIGHT_BUMPER)
+            || getButton(TButton.SHARE) || getButton(TButton.OPTIONS) || getButton(TButton.PS)
+            || getButton(TButton.TOUCHPAD) || getButton(TStick.LEFT) || getButton(TStick.RIGHT)) {
             return true;
         }
 

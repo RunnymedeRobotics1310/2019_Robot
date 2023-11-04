@@ -16,8 +16,7 @@ import com.torontocodingcollective.subsystem.TDriveSubsystem;
  */
 public class TDriveTimeCommand extends TSafeCommand {
 
-    private static final String COMMAND_NAME = 
-            TDriveTimeCommand.class.getSimpleName();
+    private static final String   COMMAND_NAME = TDriveTimeCommand.class.getSimpleName();
 
     private double                speed;
     private final boolean         brakeWhenFinished;
@@ -28,17 +27,17 @@ public class TDriveTimeCommand extends TSafeCommand {
      * DriveTimeCommand
      * 
      * @param speed
-     *            at which to drive in the range -1.0 <= speed <= 1.0. if the speed
-     *            is set to a very small value, the robot will not drive and the
-     *            command will end on the timeout.
+     * at which to drive in the range -1.0 <= speed <= 1.0. if the speed
+     * is set to a very small value, the robot will not drive and the
+     * command will end on the timeout.
      * @param timeout
-     *            the time after which this command will end automatically. A value
-     *            of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
-     *            timeout.
+     * the time after which this command will end automatically. A value
+     * of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
+     * timeout.
      * @param oi
-     *            that extend the TOi operator input class
+     * that extend the TOi operator input class
      * @param driveSubsystem
-     *            that extends the TGyroDriveSubsystem
+     * that extends the TGyroDriveSubsystem
      */
     public TDriveTimeCommand(double speed, double timeout, TOi oi, TDriveSubsystem driveSubsystem) {
         this(speed, timeout, TConst.BRAKE_WHEN_FINISHED, oi, driveSubsystem);
@@ -48,23 +47,23 @@ public class TDriveTimeCommand extends TSafeCommand {
      * DriveTimeCommand
      * 
      * @param speed
-     *            at which to drive in the range -1.0 <= speed <= 1.0. if the speed
-     *            is set to a very small value, the robot will not drive and the
-     *            command will end on the timeout.
+     * at which to drive in the range -1.0 <= speed <= 1.0. if the speed
+     * is set to a very small value, the robot will not drive and the
+     * command will end on the timeout.
      * @param timeout
-     *            the time after which this command will end automatically. A value
-     *            of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
-     *            timeout.
+     * the time after which this command will end automatically. A value
+     * of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
+     * timeout.
      * @param brakeWhenFinished
-     *            {@code true} to brake when the command finishes {@code false} to
-     *            coast into the next command.
+     * {@code true} to brake when the command finishes {@code false} to
+     * coast into the next command.
      * @param oi
-     *            that extend the TOi operator input class
+     * that extend the TOi operator input class
      * @param driveSubsystem
-     *            that extends the TGyroDriveSubsystem
+     * that extends the TGyroDriveSubsystem
      */
     public TDriveTimeCommand(double speed, double timeout, boolean brakeWhenFinished, TOi oi,
-            TDriveSubsystem driveSubsystem) {
+        TDriveSubsystem driveSubsystem) {
 
         super(timeout, oi);
 
@@ -76,20 +75,22 @@ public class TDriveTimeCommand extends TSafeCommand {
 
         this.brakeWhenFinished = brakeWhenFinished;
     }
-    
+
     @Override
-    protected String getCommandName() { return COMMAND_NAME; }
-    
-    @Override
-    protected String getParmDesc() { 
-        return "speed " + this.speed 
-                + ", brakeWhenFinished " + this.brakeWhenFinished 
-                + ", " + super.getParmDesc(); 
+    protected String getCommandName() {
+        return COMMAND_NAME;
     }
-    
+
+    @Override
+    protected String getParmDesc() {
+        return "speed " + this.speed
+            + ", brakeWhenFinished " + this.brakeWhenFinished
+            + ", " + super.getParmDesc();
+    }
+
     @Override
     protected void initialize() {
-        
+
         // Only print the command start message
         // if this command was not subclassed
         if (getCommandName().equals(COMMAND_NAME)) {
@@ -120,10 +121,10 @@ public class TDriveTimeCommand extends TSafeCommand {
      * driving on a heading.
      * 
      * @param speed
-     *            the speed to drive at when tracking the heading. The speed should
-     *            be between 0 and 1.0. Negative speeds should not be used. If a
-     *            value is given outside this range, then the value will be
-     *            normalized to be within the range
+     * the speed to drive at when tracking the heading. The speed should
+     * be between 0 and 1.0. Negative speeds should not be used. If a
+     * value is given outside this range, then the value will be
+     * normalized to be within the range
      */
     public void setSpeed(double speed) {
         this.speed = Math.min(1.0, Math.max(speed, 0));
@@ -146,5 +147,5 @@ public class TDriveTimeCommand extends TSafeCommand {
             driveSubsystem.setSpeed(0, 0);
         }
     }
-    
+
 }

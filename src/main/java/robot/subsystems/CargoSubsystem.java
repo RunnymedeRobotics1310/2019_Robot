@@ -143,7 +143,7 @@ public class CargoSubsystem extends SubsystemBase {
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
-    public void updatePeriodic() {
+    public void periodic() {
 
         // Monitor for limits
         // This is done in case a command starts the motor and

@@ -24,10 +24,10 @@ public class TPOVPressDetector {
      * Declare a press detector over the POV <br>
      * 
      * @param gameController
-     *            object
+     * object
      */
     public TPOVPressDetector(TGameController gameController) {
-        this.gameController = gameController;
+        this.gameController   = gameController;
         this.previousPovValue = gameController.getPOV();
     }
 
@@ -38,7 +38,7 @@ public class TPOVPressDetector {
      * subsequent calls will always return {@value -1}
      * 
      * @return {@code true} if a press was detected since the last call or
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public int get() {
 
@@ -53,7 +53,8 @@ public class TPOVPressDetector {
             if (newPOVValue == -1) {
                 previousPovValue = -1;
             }
-        } else {
+        }
+        else {
 
             // If the POV was not previously pressed (previous value = -1),
             // then return the new angle value if there is a new button press.

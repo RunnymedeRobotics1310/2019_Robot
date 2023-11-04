@@ -2,7 +2,6 @@ package com.torontocodingcollective.sensors.gyro;
 
 import com.torontocodingcollective.TUtil;
 
-import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
@@ -14,16 +13,16 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  * The TGyro class supports for clarity the methods of {@link Gyro} except for
  * the {@link #free()} method.
  */
-public abstract class TGyro extends GyroBase {
+public abstract class TGyro implements Gyro {
 
     private boolean isInverted;
     private double  offset = 0;
 
     /**
      * Construct a gyro with the specified inversion
-     * 
+     *
      * @param isInverted
-     *            {@code true} if the gyro is inverted {@code false} otherwise.
+     * {@code true} if the gyro is inverted {@code false} otherwise.
      */
     protected TGyro(boolean isInverted) {
         this.isInverted = isInverted;
@@ -42,7 +41,7 @@ public abstract class TGyro extends GyroBase {
 
     /**
      * Returns the current angle of the gyro
-     * 
+     *
      * @returns angle in the range 0 <= angle <= 360
      */
     @Override
@@ -50,10 +49,10 @@ public abstract class TGyro extends GyroBase {
 
     /**
      * Get the angle from the rawAngle
-     * 
+     *
      * @param rawAngle
      * @return normalized angle 0 <= angle < 360 where the inversion of the gyro is
-     *         taken into account
+     * taken into account
      */
     protected double getAngle(double rawAngle) {
 
@@ -70,7 +69,7 @@ public abstract class TGyro extends GyroBase {
      * <p>
      * Not all gyros allow for multiple axis and this routine will return 0 always
      * if the pitch is not supported.
-     * 
+     *
      * @return pitch in degrees or 0 if pitch is not supported
      */
     public double getPitch() {
@@ -81,7 +80,7 @@ public abstract class TGyro extends GyroBase {
      * Return the rate of change of the angle
      * <p>
      * This value is in degrees/sec
-     * 
+     *
      * @returns double degrees/sec
      */
     @Override
@@ -89,7 +88,7 @@ public abstract class TGyro extends GyroBase {
 
     /**
      * Get the gyro rate from the rawRate
-     * 
+     *
      * @param rawRate
      * @return rate normalized for inversion
      */
@@ -102,14 +101,9 @@ public abstract class TGyro extends GyroBase {
         return rawRate;
     }
 
-    @Override
-    public void free() {
-        System.out.println("The free() method is not supported for TGyro");
-    }
-
     /**
      * Returns whether or not this gyro is inverted
-     * 
+     *
      * @return boolean {@code true} if the gyro is inverted, {@code false} otherwise
      */
     public boolean isInverted() {
@@ -118,9 +112,9 @@ public abstract class TGyro extends GyroBase {
 
     /**
      * Get the angle normalized to a value between 0 and 360 degrees
-     * 
+     *
      * @param rawAngle
-     *            value
+     * value
      * @return normalized angle value
      */
     private double normalizedAngle(double rawAngle) {
@@ -164,12 +158,11 @@ public abstract class TGyro extends GyroBase {
 
     /**
      * Indicates whether this gyro supports pitch
-     * 
+     *
      * @return boolean {@code true} indicates that pitch is supported {@code false}
-     *         indicates pitch is not supported
+     * indicates pitch is not supported
      */
     public boolean supportsPitch() {
         return false;
     }
-
 }

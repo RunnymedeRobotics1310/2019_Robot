@@ -43,7 +43,7 @@ public abstract class TGameController extends Joystick {
      * The joystick index is the USB port on the drivers station.
      * 
      * @param port
-     *            The port on the Driver Station that the joystick is plugged into.
+     * The port on the Driver Station that the joystick is plugged into.
      */
     protected TGameController(int port) {
         super(port);
@@ -53,9 +53,9 @@ public abstract class TGameController extends Joystick {
      * Get the axis of the GameController stick
      * 
      * @param stick
-     *            {@link TStick#LEFT} or {@link TStick#RIGHT}
+     * {@link TStick#LEFT} or {@link TStick#RIGHT}
      * @param axis
-     *            {@link TAxis#X} or {@link TAxis#Y}
+     * {@link TAxis#X} or {@link TAxis#Y}
      * @return double value in the range 0 to 1.0 rounded to the nearest .01.
      */
     public abstract double getAxis(TStick stick, TAxis axis);
@@ -64,9 +64,9 @@ public abstract class TGameController extends Joystick {
      * Get the button on the GameController
      * 
      * @param button
-     *            a valid {@link TButton} value for this GameController. <br>
-     *            NOTE: if the button is not valid for the controller, then the
-     *            value false
+     * a valid {@link TButton} value for this GameController. <br>
+     * NOTE: if the button is not valid for the controller, then the
+     * value false
      * @return boolean {@code true} if pressed, {@code false} otherwise.
      */
     public abstract boolean getButton(TButton button);
@@ -80,9 +80,9 @@ public abstract class TGameController extends Joystick {
      * press.
      * 
      * @param stick
-     *            {@link TStick} value on this gamecontroller. <br>
-     *            NOTE: if the stick is not valid for the controller, then the value
-     *            returned is {@code false}
+     * {@link TStick} value on this gamecontroller. <br>
+     * NOTE: if the stick is not valid for the controller, then the value
+     * returned is {@code false}
      * @return boolean {@code true} if pressed, {@false otherwise}
      */
     public abstract boolean getButton(TStick stick);
@@ -95,11 +95,11 @@ public abstract class TGameController extends Joystick {
      * or {@code false}
      * 
      * @param trigger
-     *            {@link TTrigger#LEFT} or {@link TTrigger#RIGHT} <br>
-     *            NOTE: if the trigger is not valid for the game controller then the
-     *            value returned is {@code false}
+     * {@link TTrigger#LEFT} or {@link TTrigger#RIGHT} <br>
+     * NOTE: if the trigger is not valid for the game controller then the
+     * value returned is {@code false}
      * @return boolean {@code true} if the trigger is pressed {@code false}
-     *         otherwise.
+     * otherwise.
      */
     public boolean getButton(TTrigger trigger) {
         return getTrigger(trigger) > 0.3;
@@ -116,10 +116,10 @@ public abstract class TGameController extends Joystick {
      * Round the axis to the nearest 100th.
      * 
      * @param axisNumber
-     *            value indicating the raw axis index in the DriverStation.
-     *            DriverStation axis indicators start at index 0.
+     * value indicating the raw axis index in the DriverStation.
+     * DriverStation axis indicators start at index 0.
      * @return axisValue rounded to 2 decimal places and filtered by the current
-     *         {@link #axisDeadband}.
+     * {@link #axisDeadband}.
      */
     protected double getFilteredRawAxis(int axisNumber) {
 
@@ -140,9 +140,9 @@ public abstract class TGameController extends Joystick {
      * TStick values of {@link TStick#LEFT} or {@link TStick#RIGHT} are suppported.
      * 
      * @param stick
-     *            {@link TStick#LEFT} or {@link TStick#RIGHT}
+     * {@link TStick#LEFT} or {@link TStick#RIGHT}
      * @return TStickPosition of the stick or {@code null} if an invalid stick is
-     *         specified.
+     * specified.
      */
     public TStickPosition getStickPosition(TStick stick) {
         switch (stick) {
@@ -159,10 +159,10 @@ public abstract class TGameController extends Joystick {
      * Get the trigger on the GameController
      * 
      * @param trigger
-     *            {@link TTrigger#LEFT} or {@link TTrigger#RIGHT} for this
-     *            GameController. <br>
-     *            NOTE: if the trigger is not valid for the controller, then the
-     *            value returned is 0.0
+     * {@link TTrigger#LEFT} or {@link TTrigger#RIGHT} for this
+     * GameController. <br>
+     * NOTE: if the trigger is not valid for the controller, then the
+     * value returned is 0.0
      * @return double value in the range 0 to 1.0
      */
     public abstract double getTrigger(TTrigger trigger);
@@ -171,7 +171,7 @@ public abstract class TGameController extends Joystick {
      * Is Stick Active
      * 
      * @param stick
-     *            {@link TStick#LEFT} or {@link TStick#RIGHT}
+     * {@link TStick#LEFT} or {@link TStick#RIGHT}
      * @return {@code true} if active, {@code false} otherwise
      */
     public boolean isStickActive(TStick stick) {
@@ -196,7 +196,7 @@ public abstract class TGameController extends Joystick {
      * the controller
      * 
      * @return {@code true} if the user is actively using the controller,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean isUserActive() {
 
@@ -239,8 +239,8 @@ public abstract class TGameController extends Joystick {
      * Users should set the rumble value off (0) when the rumble is finished.
      * 
      * @param volume
-     *            a double value between 0 (off) and 1.0 (full rumble) for the
-     *            rumble.
+     * a double value between 0 (off) and 1.0 (full rumble) for the
+     * rumble.
      */
     public void setRumble(double volume) {
         super.setRumble(RumbleType.kLeftRumble, volume);
@@ -257,8 +257,8 @@ public abstract class TGameController extends Joystick {
             sb.append(' ').append("Active");
         }
         sb.append(' ').append(getStickPosition(TStick.LEFT)).append(' ').append(getStickPosition(TStick.RIGHT))
-                .append(" Triggers(").append(getTrigger(TTrigger.LEFT)).append(',').append(getTrigger(TTrigger.RIGHT))
-                .append(')');
+            .append(" Triggers(").append(getTrigger(TTrigger.LEFT)).append(',').append(getTrigger(TTrigger.RIGHT))
+            .append(')');
 
         String buttonString = getButtonString();
         if (!buttonString.isEmpty()) {

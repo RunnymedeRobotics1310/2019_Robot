@@ -9,7 +9,7 @@ public class TSpeeds {
     }
 
     public TSpeeds(double leftSpeed, double rightSpeed) {
-        this.left = leftSpeed;
+        this.left  = leftSpeed;
         this.right = rightSpeed;
     }
 }

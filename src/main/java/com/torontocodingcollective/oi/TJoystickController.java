@@ -43,7 +43,7 @@ public abstract class TJoystickController extends Joystick {
      * The joystick index is the USB port on the drivers station.
      * 
      * @param port
-     *            The port on the Driver Station that the joystick is plugged into.
+     * The port on the Driver Station that the joystick is plugged into.
      */
     protected TJoystickController(int port, int maxSupportedButtons) {
         super(port);
@@ -72,8 +72,8 @@ public abstract class TJoystickController extends Joystick {
      * Get the axis of the TJoystickController stick
      * 
      * @param axis
-     *            {@link TAxis#X}, {@link TAxis#Y}, {@link TAxis#TWIST} or
-     *            {@link TAxis#SLIDER}
+     * {@link TAxis#X}, {@link TAxis#Y}, {@link TAxis#TWIST} or
+     * {@link TAxis#SLIDER}
      * 
      * @return double value in the range 0 to 1.0
      */
@@ -96,9 +96,9 @@ public abstract class TJoystickController extends Joystick {
      * Get the button on theTJoystickController
      * 
      * @param button
-     *            a valid {@link TButton} value for thisTJoystickController. <br>
-     *            NOTE: if the button is not valid for the controller, then the
-     *            value false
+     * a valid {@link TButton} value for thisTJoystickController. <br>
+     * NOTE: if the button is not valid for the controller, then the
+     * value false
      * @return boolean {@code true} if pressed, {@code false} otherwise.
      */
     public boolean getButton(TButton button) {
@@ -155,7 +155,7 @@ public abstract class TJoystickController extends Joystick {
      * Is Stick Active
      * 
      * @param stick
-     *            {@link TStick#LEFT} or {@link TStick#RIGHT}
+     * {@link TStick#LEFT} or {@link TStick#RIGHT}
      * @return {@code true} if active, {@code false} otherwise
      */
     public boolean isStickActive() {
@@ -184,7 +184,7 @@ public abstract class TJoystickController extends Joystick {
      * this routine.
      * 
      * @return {@code true} if the user is actively using the controller,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean isUserActive() {
 
@@ -228,7 +228,7 @@ public abstract class TJoystickController extends Joystick {
             sb.append(' ').append("Active");
         }
         sb.append(' ').append(getStickPosition()).append(" Twist(").append(getAxis(TAxis.TWIST)).append(')')
-                .append(" Slider(").append(getAxis(TAxis.SLIDER)).append(')');
+            .append(" Slider(").append(getAxis(TAxis.SLIDER)).append(')');
 
         String buttonString = getButtonString();
         if (!buttonString.isEmpty()) {

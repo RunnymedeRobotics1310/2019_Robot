@@ -10,23 +10,24 @@ import robot.Robot;
  */
 public class DefaultPneumaticsCommand extends TSafeCommand {
 
-    private static final String COMMAND_NAME = 
-            DefaultPneumaticsCommand.class.getSimpleName();
-    
+    private static final String COMMAND_NAME = DefaultPneumaticsCommand.class.getSimpleName();
+
     public DefaultPneumaticsCommand() {
-        
+
         super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
-        
+
         // Use requires() here to declare subsystem dependencies
         requires(Robot.pneumaticsSubsystem);
     }
 
     @Override
-    protected String getCommandName() { return COMMAND_NAME; }
-    
+    protected String getCommandName() {
+        return COMMAND_NAME;
+    }
+
     @Override
-    protected String getParmDesc() { 
-        return super.getParmDesc(); 
+    protected String getParmDesc() {
+        return super.getParmDesc();
     }
 
     // Called just before this Command runs the first time
@@ -45,7 +46,8 @@ public class DefaultPneumaticsCommand extends TSafeCommand {
 
         if (Robot.oi.getCompressorEnabled()) {
             Robot.pneumaticsSubsystem.enableCompressor();
-        } else {
+        }
+        else {
             Robot.pneumaticsSubsystem.disableCompressor();
         }
     }

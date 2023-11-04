@@ -12,85 +12,88 @@ import robot.RobotConst;
  */
 public class DefaultCargoCommand extends TSafeCommand {
 
-	private static final String COMMAND_NAME = 
-			DefaultCargoCommand.class.getSimpleName();
+    private static final String COMMAND_NAME = DefaultCargoCommand.class.getSimpleName();
 
-	public DefaultCargoCommand() {
+    public DefaultCargoCommand() {
 
-		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
 
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.cargoSubsystem);
-	}
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.cargoSubsystem);
+    }
 
-	@Override
-	protected String getCommandName() { return COMMAND_NAME; }
+    @Override
+    protected String getCommandName() {
+        return COMMAND_NAME;
+    }
 
-	@Override
-	protected String getParmDesc() { 
-		return super.getParmDesc(); 
-	}
+    @Override
+    protected String getParmDesc() {
+        return super.getParmDesc();
+    }
 
-	// Called just before this Command runs the first time
-	@Override
-	protected void initialize() {
-		// Print the command parameters if this is the current
-		// called command (it was not sub-classed)
-		if (getCommandName().equals(COMMAND_NAME)) {
-			logMessage(getParmDesc() + " starting");
-		}
-	}
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+        // Print the command parameters if this is the current
+        // called command (it was not sub-classed)
+        if (getCommandName().equals(COMMAND_NAME)) {
+            logMessage(getParmDesc() + " starting");
+        }
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-		
-		if (Robot.oi.getArmDriveMode() == false ) {
-			if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
-				Scheduler.getInstance().add(new CargoArmLevelCommand());
-			}
-		}
-		
-		if (Robot.oi.getReset()) {
-			Robot.cargoSubsystem.resetEncoder();
-		}
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
 
-		if (Robot.oi.getArmUp() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp()/2.0);
-			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
-		} else if (Robot.oi.getArmDown() > 0) {
-			Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown()/2.0);
-			Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+        if (Robot.oi.getArmDriveMode() == false) {
+            if (Robot.oi.getArmLevel() != Robot.cargoSubsystem.getCurrentLevel()) {
+                Scheduler.getInstance().add(new CargoArmLevelCommand());
+            }
+        }
 
-		} else {
-			Robot.cargoSubsystem.setArmSpeed(0);
-		}
-		
-    	if (Robot.oi.cargoIntake()) {
-			if (!Robot.cargoSubsystem.isCargoDetected()){
-				Robot.cargoSubsystem.startIntake();
-			}
-			else {
-				Robot.cargoSubsystem.stopIntake();
-			}
-		}
-    	else {
-	    	if (Robot.oi.cargoEject()) {
-	    		Robot.cargoSubsystem.ejectCargo(false);
-			}
-	    	else if (Robot.oi.cargoEjectFast()) {
-	    		Robot.cargoSubsystem.ejectCargo(true);
-			}
-			else {
-				Robot.cargoSubsystem.stopIntake();
-			}
-    	}
-	}
+        if (Robot.oi.getReset()) {
+            Robot.cargoSubsystem.resetEncoder();
+        }
 
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
+        if (Robot.oi.getArmUp() > 0) {
+            Robot.cargoSubsystem.setArmSpeed(Robot.oi.getArmUp() / 2.0);
+            Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+        }
+        else if (Robot.oi.getArmDown() > 0) {
+            Robot.cargoSubsystem.setArmSpeed(-Robot.oi.getArmDown() / 2.0);
+            Robot.oi.setArmLevel(Robot.cargoSubsystem.getCurrentLevel());
+
+        }
+        else {
+            Robot.cargoSubsystem.setArmSpeed(0);
+        }
+
+        if (Robot.oi.cargoIntake()) {
+            if (!Robot.cargoSubsystem.isCargoDetected()) {
+                Robot.cargoSubsystem.startIntake();
+            }
+            else {
+                Robot.cargoSubsystem.stopIntake();
+            }
+        }
+        else {
+            if (Robot.oi.cargoEject()) {
+                Robot.cargoSubsystem.ejectCargo(false);
+            }
+            else if (Robot.oi.cargoEjectFast()) {
+                Robot.cargoSubsystem.ejectCargo(true);
+            }
+            else {
+                Robot.cargoSubsystem.stopIntake();
+            }
+        }
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
 }

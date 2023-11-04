@@ -20,28 +20,28 @@ import robot.subsystems.CanDriveSubsystem;
  */
 public class DriveToUltrasonicDistanceCommand extends TSafeCommand {
 
-    private static final String COMMAND_NAME = 
-            DriveToUltrasonicDistanceCommand.class.getSimpleName();
-    
-    OI                oi                = Robot.oi;
-    CanDriveSubsystem driveSubsystem    = Robot.driveSubsystem;
-    
-    private boolean offHAB=false;
-    private double distance;//in inches
-    private double startSpeed;
-    private double secondarySpeed;
-    private double startTime;
+    private static final String COMMAND_NAME   = DriveToUltrasonicDistanceCommand.class.getSimpleName();
 
-    public DriveToUltrasonicDistanceCommand(double distance,double startSpeed, double secondarySpeed,double startTime) {
-    	super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
-    	this.distance=distance;
-    	this.startSpeed=startSpeed;
-    	this.secondarySpeed=secondarySpeed;
-    	this.startTime=startTime;
-    	requires(Robot.driveSubsystem);
-    	
+    OI                          oi             = Robot.oi;
+    CanDriveSubsystem           driveSubsystem = Robot.driveSubsystem;
+
+    private boolean             offHAB         = false;
+    private double              distance;                                                               // in
+                                                                                                        // inches
+    private double              startSpeed;
+    private double              secondarySpeed;
+    private double              startTime;
+
+    public DriveToUltrasonicDistanceCommand(double distance, double startSpeed, double secondarySpeed, double startTime) {
+        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+        this.distance       = distance;
+        this.startSpeed     = startSpeed;
+        this.secondarySpeed = secondarySpeed;
+        this.startTime      = startTime;
+        requires(Robot.driveSubsystem);
+
     }
-    
+
     @Override
     protected String getCommandName() {
         return COMMAND_NAME;
@@ -55,7 +55,7 @@ public class DriveToUltrasonicDistanceCommand extends TSafeCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        
+
         // Print the command parameters if this is the current
         // called command (it was not sub-classed)
         if (getCommandName().equals(COMMAND_NAME)) {
@@ -68,23 +68,23 @@ public class DriveToUltrasonicDistanceCommand extends TSafeCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	//Speed up after the first second
-    	if (timeSinceInitialized()>startTime) {
-    		driveSubsystem.setSpeed(secondarySpeed, secondarySpeed);
-    		offHAB=true;
-    	}
+        // Speed up after the first second
+        if (timeSinceInitialized() > startTime) {
+            driveSubsystem.setSpeed(secondarySpeed, secondarySpeed);
+            offHAB = true;
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        if (driveSubsystem.getUltrasonicDistance()<distance&&offHAB) {
-        	return true;
+        if (driveSubsystem.getUltrasonicDistance() < distance && offHAB) {
+            return true;
         }
-        
-        if (timeSinceInitialized()>7) {
-        	return true;
+
+        if (timeSinceInitialized() > 7) {
+            return true;
         }
-        	
+
         return false;
     }
 }

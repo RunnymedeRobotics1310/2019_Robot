@@ -6,79 +6,80 @@ import com.torontocodingcollective.commands.TSafeCommand;
 import robot.Robot;
 import robot.RobotConst.Side;
 
-public class HatchEjectBusCommand extends TSafeCommand{
+public class HatchEjectBusCommand extends TSafeCommand {
 
-	private static final String COMMAND_NAME = 
-			DefaultHatchCommand.class.getSimpleName();
+    private static final String COMMAND_NAME = DefaultHatchCommand.class.getSimpleName();
 
-	private Side firstSide;
-	
-	public HatchEjectBusCommand(Side side) {
+    private Side                firstSide;
 
-		super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.hatchSubsystem);
-		
-		firstSide = side;
-	}
+    public HatchEjectBusCommand(Side side) {
 
-	@Override
-	protected String getCommandName() { return COMMAND_NAME; }
+        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.hatchSubsystem);
 
-	@Override
-	protected String getParmDesc() { 
-		return super.getParmDesc(); 
-	}
+        firstSide = side;
+    }
 
-	// Called just before this Command runs the first time
-	@Override
-	protected void initialize() {
-		// Print the command parameters if this is the current
-		// called command (it was not sub-classed)
-		if (getCommandName().equals(COMMAND_NAME)) {
-			logMessage(getParmDesc() + " starting");
-		}
+    @Override
+    protected String getCommandName() {
+        return COMMAND_NAME;
+    }
 
-		switch(firstSide) {
-		case LEFT:
-			Robot.hatchSubsystem.extendPunchMechLeft();
-			break;
-		case RIGHT:
-			Robot.hatchSubsystem.extendPunchMechRight();
-			break;
-		}
-	}
+    @Override
+    protected String getParmDesc() {
+        return super.getParmDesc();
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-		
-		if (timeSinceInitialized()>0.055) {
-			
-			switch(firstSide) {
-			case LEFT:
-				Robot.hatchSubsystem.extendPunchMechRight();
-				break;
-			case RIGHT:
-				Robot.hatchSubsystem.extendPunchMechLeft();
-				break;
-			}
-		}
-		
-	}
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+        // Print the command parameters if this is the current
+        // called command (it was not sub-classed)
+        if (getCommandName().equals(COMMAND_NAME)) {
+            logMessage(getParmDesc() + " starting");
+        }
 
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		if (timeSinceInitialized()>0.5) {
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	protected void end() {
-		Robot.hatchSubsystem.retractPunchMech();
-	}
+        switch (firstSide) {
+        case LEFT:
+            Robot.hatchSubsystem.extendPunchMechLeft();
+            break;
+        case RIGHT:
+            Robot.hatchSubsystem.extendPunchMechRight();
+            break;
+        }
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+
+        if (timeSinceInitialized() > 0.055) {
+
+            switch (firstSide) {
+            case LEFT:
+                Robot.hatchSubsystem.extendPunchMechRight();
+                break;
+            case RIGHT:
+                Robot.hatchSubsystem.extendPunchMechLeft();
+                break;
+            }
+        }
+
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    @Override
+    protected boolean isFinished() {
+        if (timeSinceInitialized() > 0.5) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void end() {
+        Robot.hatchSubsystem.retractPunchMech();
+    }
 
 }

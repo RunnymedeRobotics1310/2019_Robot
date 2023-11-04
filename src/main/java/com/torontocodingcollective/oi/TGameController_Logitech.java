@@ -146,8 +146,8 @@ public class TGameController_Logitech extends TGameController {
     protected boolean isUserButtonActive() {
         // Logitech controllers use the square, triangle, etc buttons
         if (getButton(TButton.A) || getButton(TButton.B) || getButton(TButton.X) || getButton(TButton.Y)
-                || getButton(TButton.LEFT_BUMPER) || getButton(TButton.RIGHT_BUMPER) || getButton(TButton.START)
-                || getButton(TButton.BACK) || getButton(TStick.LEFT) || getButton(TStick.RIGHT)) {
+            || getButton(TButton.LEFT_BUMPER) || getButton(TButton.RIGHT_BUMPER) || getButton(TButton.START)
+            || getButton(TButton.BACK) || getButton(TStick.LEFT) || getButton(TStick.RIGHT)) {
             return true;
         }
 

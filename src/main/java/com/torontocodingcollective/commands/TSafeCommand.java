@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class TSafeCommand extends Command {
 
-    private final TOi oi;
+    private final TOi    oi;
     private final double timeout;
 
     /**
@@ -27,8 +27,8 @@ public abstract class TSafeCommand extends Command {
      * {@link TConst#DEFAULT_COMMAND_TIMEOUT }
      * 
      * @param oi
-     *            the TOi object that defines the cancel operation
-     *            {@link TOi#getCancelCommand()}
+     * the TOi object that defines the cancel operation
+     * {@link TOi#getCancelCommand()}
      */
     public TSafeCommand(TOi oi) {
         this(TConst.DEFAULT_COMMAND_TIMEOUT, oi);
@@ -40,23 +40,24 @@ public abstract class TSafeCommand extends Command {
      * Construct a safe command with unlimited timeout
      * 
      * @param timeout
-     *            the time after which this command will end automatically a value
-     *            of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
-     *            timeout.
+     * the time after which this command will end automatically a value
+     * of {@link TConst#NO_COMMAND_TIMEOUT} will be used as an infinite
+     * timeout.
      * @param oi
-     *            the TOi object that defines the cancel operation
-     *            {@link TOi#getCancelCommand()}
+     * the TOi object that defines the cancel operation
+     * {@link TOi#getCancelCommand()}
      */
     public TSafeCommand(double timeout, TOi oi) {
         if (timeout >= 0) {
             super.setTimeout(timeout);
         }
-        this.oi = oi;
+        this.oi      = oi;
         this.timeout = timeout;
     }
 
     /**
      * Get the command name associated with this command
+     * 
      * @return
      */
     protected abstract String getCommandName();
@@ -75,6 +76,7 @@ public abstract class TSafeCommand extends Command {
      * <p>
      * The message will be marked with the current period
      * and the estimated time remaining in the period
+     * 
      * @param message to log
      */
     protected void logMessage(String message) {
@@ -82,7 +84,7 @@ public abstract class TSafeCommand extends Command {
         DriverStation driverStation = DriverStation.getInstance();
 
         // Mark the message with the time and command name
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb            = new StringBuilder();
         if (driverStation.isAutonomous()) {
             sb.append("Auto: ");
         }
@@ -106,13 +108,13 @@ public abstract class TSafeCommand extends Command {
 
         if (isCancelled()) {
             logMessage("command cancelled by user after "
-                    + TUtil.round(timeSinceInitialized(), 2) + "s");
+                + TUtil.round(timeSinceInitialized(), 2) + "s");
             return true;
         }
 
         if (super.isTimedOut()) {
             logMessage("command timed out after "
-                    + TUtil.round(timeSinceInitialized(), 2) + "s");
+                + TUtil.round(timeSinceInitialized(), 2) + "s");
             return true;
         }
 
@@ -132,7 +134,7 @@ public abstract class TSafeCommand extends Command {
      * see {@link TOi#getCancelCommand()}
      * 
      * @return {@code true} if the command is to be cancelled, {@code false}
-     *         otherwise.
+     * otherwise.
      */
     public boolean isCancelled() {
         if (oi.getCancelCommand()) {

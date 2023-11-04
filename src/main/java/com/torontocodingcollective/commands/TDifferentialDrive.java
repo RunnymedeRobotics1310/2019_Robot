@@ -29,16 +29,16 @@ public class TDifferentialDrive {
 
         if (Math.abs(inputDeadband) > MAX_DEADBAND) {
             System.out.println(
-                    "Invalid input deadband (" + inputDeadband + "). Default value " + DEFAULT_INPUT_DEADBAND
-                            + " used.");
+                "Invalid input deadband (" + inputDeadband + "). Default value " + DEFAULT_INPUT_DEADBAND
+                    + " used.");
             inputDeadband = DEFAULT_INPUT_DEADBAND;
         }
         setInputDeadband(inputDeadband);
 
         if (Math.abs(motorSpeedDeadband) > MAX_DEADBAND) {
             System.out.println(
-                    "Invalid motor deadband (" + motorSpeedDeadband + "). Default value " + DEFAULT_INPUT_DEADBAND
-                            + " used.");
+                "Invalid motor deadband (" + motorSpeedDeadband + "). Default value " + DEFAULT_INPUT_DEADBAND
+                    + " used.");
             motorSpeedDeadband = DEFAULT_INPUT_DEADBAND;
         }
         setMotorDeadband(motorSpeedDeadband);
@@ -53,28 +53,30 @@ public class TDifferentialDrive {
             return motorSpeeds;
         }
 
-        double scaledSpeed = scale(speed);
+        double scaledSpeed    = scale(speed);
         double scaledRotation = scale(rotation);
 
-        double leftSpeed = 0;
-        double rightSpeed = 0;
+        double leftSpeed      = 0;
+        double rightSpeed     = 0;
 
         if (Math.abs(scaledSpeed) > Math.abs(rotation)) {
 
             // Drive forward or reverse with steering
 
-            leftSpeed = scaledSpeed;
+            leftSpeed  = scaledSpeed;
             rightSpeed = scaledSpeed;
 
             if (speed > 0) {
 
                 if (rotation > 0) {
                     rightSpeed -= scaledRotation;
-                } else {
+                }
+                else {
                     leftSpeed += scaledRotation;
                 }
 
-            } else {
+            }
+            else {
 
                 // Driving backwards
                 // This routine uses an inverted backwards drive
@@ -83,17 +85,19 @@ public class TDifferentialDrive {
                 // or inverted direction.
                 if (rotation > 0) {
                     leftSpeed += scaledRotation;
-                } else {
+                }
+                else {
                     rightSpeed -= scaledRotation;
                 }
             }
 
-        } else {
+        }
+        else {
 
             // Rotate on the spot as the speed is adjusted, the
             // robot will move towards a pivot (around a stopped
             // side).
-            leftSpeed = scaledRotation;
+            leftSpeed  = scaledRotation;
             rightSpeed = -scaledRotation;
 
             if (rotation > 0) {
@@ -101,16 +105,19 @@ public class TDifferentialDrive {
                 // Rotating clockwise
                 if (speed > 0) {
                     rightSpeed += scaledSpeed;
-                } else {
+                }
+                else {
                     leftSpeed += scaledSpeed;
                 }
 
-            } else {
+            }
+            else {
 
                 // Rotating counter-clockwise
                 if (speed > 0) {
                     leftSpeed += scaledSpeed;
-                } else {
+                }
+                else {
                     rightSpeed += scaledSpeed;
                 }
             }
@@ -125,7 +132,7 @@ public class TDifferentialDrive {
             rightSpeed = 0;
         }
 
-        motorSpeeds.left = leftSpeed;
+        motorSpeeds.left  = leftSpeed;
         motorSpeeds.right = rightSpeed;
 
         return motorSpeeds;
@@ -141,41 +148,42 @@ public class TDifferentialDrive {
      * {@see #setMotorDeadband(double)}.
      * 
      * @param singleStickPostion
-     *            for the stick position to be used in the calculation. If the
-     *            single stick position is {@code null}, then the calculated motor
-     *            speeds will be zero.
+     * for the stick position to be used in the calculation. If the
+     * single stick position is {@code null}, then the calculated motor
+     * speeds will be zero.
      * @return TMotorSpeeds object containing the calculated left and right motor
-     *         speeds.
+     * speeds.
      */
     public TSpeeds arcadeDrive(TStickPosition singleStickPosition) {
 
         if (singleStickPosition == null) {
             return new TSpeeds();
         }
-        
+
         // When driving using a single stick, an axis value of 1, 1 cannot be
         // achieved since if the single stick is set to an angle of 45 degrees, the
         // x and y axis will be set to approx .7.
         //
-        // Each of the dimensions should be adjusted to the magnitude of the 
+        // Each of the dimensions should be adjusted to the magnitude of the
         // vector distributed by the ratio of the x and y values.
-        double y = -singleStickPosition.y;
-        double x =  singleStickPosition.x;
-        
-        double magnitude = Math.sqrt(x*x + y*y);
-        
-        double scaledX = 0;
-        double scaledY = 0;
-        
+        double y         = -singleStickPosition.y;
+        double x         = singleStickPosition.x;
+
+        double magnitude = Math.sqrt(x * x + y * y);
+
+        double scaledX   = 0;
+        double scaledY   = 0;
+
         if (Math.abs(x) > Math.abs(y)) {
             scaledX = magnitude * Math.signum(x);
             if (x != 0) {
-                scaledY = magnitude * Math.abs(y/x) * Math.signum(y);
+                scaledY = magnitude * Math.abs(y / x) * Math.signum(y);
             }
-        } else {
+        }
+        else {
             scaledY = magnitude * Math.signum(y);
             if (y != 0) {
-                scaledX = magnitude * Math.abs(x/y) * Math.signum(x);
+                scaledX = magnitude * Math.abs(x / y) * Math.signum(x);
             }
         }
         return arcadeDrive(scaledY, scaledX);
@@ -194,15 +202,15 @@ public class TDifferentialDrive {
      * {@see #setMotorDeadband(double)}.
      * 
      * @param leftStickPostion
-     *            for the stick position to be used for the speed calculation. If
-     *            the leftStickPosition is {@code null}, then the calculated motor
-     *            speeds will be zero.
+     * for the stick position to be used for the speed calculation. If
+     * the leftStickPosition is {@code null}, then the calculated motor
+     * speeds will be zero.
      * @param rightStickPostion
-     *            for the stick position to be used for the rotational calculation.
-     *            If the rightStickPosition is {@code null}, then the calculated
-     *            motor speeds will be zero.
+     * for the stick position to be used for the rotational calculation.
+     * If the rightStickPosition is {@code null}, then the calculated
+     * motor speeds will be zero.
      * @return TMotorSpeeds object containing the calculated left and right motor
-     *         speeds.
+     * speeds.
      */
     public TSpeeds arcadeDrive(TStickPosition leftStickPosition, TStickPosition rightStickPosition) {
 
@@ -226,15 +234,15 @@ public class TDifferentialDrive {
      * {@see #setMotorDeadband(double)}.
      * 
      * @param leftStickPostion
-     *            for the stick position to be used for the left side speed
-     *            calculation. If the leftStickPosition is {@code null}, then the
-     *            calculated motor speeds will be zero.
+     * for the stick position to be used for the left side speed
+     * calculation. If the leftStickPosition is {@code null}, then the
+     * calculated motor speeds will be zero.
      * @param rightStickPostion
-     *            for the stick position to be used for the right side speed
-     *            calculation. If the rightStickPosition is {@code null}, then the
-     *            calculated motor speeds will be zero.
+     * for the stick position to be used for the right side speed
+     * calculation. If the rightStickPosition is {@code null}, then the
+     * calculated motor speeds will be zero.
      * @return TMotorSpeeds object containing the calculated left and right motor
-     *         speeds.
+     * speeds.
      */
     public TSpeeds tankDrive(TStickPosition leftStickPosition, TStickPosition rightStickPosition) {
 
@@ -242,7 +250,7 @@ public class TDifferentialDrive {
             return new TSpeeds();
         }
 
-        double leftSpeed = -leftStickPosition.y;
+        double leftSpeed  = -leftStickPosition.y;
         double rightSpeed = -rightStickPosition.y;
 
         if (Math.abs(leftSpeed) <= inputDeadband || Math.abs(leftSpeed) <= motorSpeedDeadband) {
@@ -289,8 +297,8 @@ public class TDifferentialDrive {
      * Set the deadband of the input speed and rotation values which
      * 
      * @param inputDeadband
-     *            value. Any values of Math.abs(input) <= inputDeadband will be
-     *            treated as zero.
+     * value. Any values of Math.abs(input) <= inputDeadband will be
+     * treated as zero.
      */
     public void setInputDeadband(double inputDeadband) {
         if (Math.abs(inputDeadband) > MAX_DEADBAND) {
@@ -307,12 +315,12 @@ public class TDifferentialDrive {
      * returned as zero
      * 
      * @param motorSpeedDeadband
-     *            value.
+     * value.
      */
     public void setMotorDeadband(double motorSpeedDeadband) {
         if (Math.abs(motorSpeedDeadband) > MAX_DEADBAND) {
             System.out
-                    .println("Invalid motorSpeed deadband (" + motorSpeedDeadband + "). setMotorSpeedDeadband ignored");
+                .println("Invalid motorSpeed deadband (" + motorSpeedDeadband + "). setMotorSpeedDeadband ignored");
             return;
         }
         this.motorSpeedDeadband = motorSpeedDeadband;

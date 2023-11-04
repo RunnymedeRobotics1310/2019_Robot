@@ -3,16 +3,16 @@ package com.torontocodingcollective.speedcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.wpi.first.wpilibj.DMC60;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.PWMSpeedController;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.SD540;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.motorcontrol.DMC60;
+import edu.wpi.first.wpilibj.motorcontrol.Jaguar;
+import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.SD540;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 
 /**
  * TPwmSpeedController controls one or more speed controllers of the same type
@@ -62,7 +62,7 @@ public class TPwmSpeedController extends TSpeedController {
         VICTOR_SPX
     }
 
-    private List<PWMSpeedController> speedControllerList = new ArrayList<PWMSpeedController>();
+    private List<PWMMotorController> speedControllerList = new ArrayList<>();
 
     /**
      * PWM Speed Controller
@@ -70,18 +70,18 @@ public class TPwmSpeedController extends TSpeedController {
      * Supports any number of PWM speed controllers of the same type driving in the
      * same direction. The same output signal will be sent to all PWM ports
      * associated with this controller.
-     * 
+     *
      * @param controllerType
-     *            a valid {@link TPwmSpeedControllerType}
+     * a valid {@link TPwmSpeedControllerType}
      * @param pwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      * @param isInverted
-     *            {@code true} if the motors are inverted, {@code false} otherwise
+     * {@code true} if the motors are inverted, {@code false} otherwise
      * @param followerPwmPorts
-     *            and optional list of follower ports
+     * and optional list of follower ports
      */
     public TPwmSpeedController(TPwmSpeedControllerType controllerType, int pwmPort, boolean isInverted,
-            int... followerPwmPorts) {
+        int... followerPwmPorts) {
         super(isInverted);
         speedControllerList.add(newController(controllerType, pwmPort));
         for (int followerPort : followerPwmPorts) {
@@ -95,13 +95,13 @@ public class TPwmSpeedController extends TSpeedController {
      * Supports any number of PWM speed controllers of the same type driving in the
      * same direction. The same output signal will be sent to all PWM ports
      * associated with this controller.
-     * 
+     *
      * @param controllerType
-     *            a valid {@link TPwmSpeedControllerType}
+     * a valid {@link TPwmSpeedControllerType}
      * @param pwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      * @param followerPwmPorts
-     *            and optional list of follower ports
+     * and optional list of follower ports
      */
     public TPwmSpeedController(TPwmSpeedControllerType controllerType, int pwmPort, int... followerPwmPorts) {
         this(controllerType, pwmPort, false, followerPwmPorts);
@@ -112,18 +112,18 @@ public class TPwmSpeedController extends TSpeedController {
      * <p>
      * Supports two PWM speed controllers of different types driving the same drive
      * train. The same output signal will be sent to the follower PWM ports.
-     * 
+     *
      * @param controllerType
-     *            a valid {@link TPwmSpeedControllerType}
+     * a valid {@link TPwmSpeedControllerType}
      * @param pwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      * @param followerControllerType
-     *            a valid {@link TPWMControllerType}
+     * a valid {@link TPWMControllerType}
      * @param followerPwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      */
     public TPwmSpeedController(TPwmSpeedControllerType controllerType, int pwmPort,
-            TPwmSpeedControllerType followerControllerType, int followerPwmPort) {
+        TPwmSpeedControllerType followerControllerType, int followerPwmPort) {
         this(controllerType, pwmPort, followerControllerType, followerPwmPort, false);
     }
 
@@ -132,20 +132,20 @@ public class TPwmSpeedController extends TSpeedController {
      * <p>
      * Supports two PWM speed controllers of different types driving the same drive
      * train. The same output signal will be sent to the follower PWM ports.
-     * 
+     *
      * @param controllerType
-     *            a valid {@link TPwmSpeedControllerType}
+     * a valid {@link TPwmSpeedControllerType}
      * @param pwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      * @param followerControllerType
-     *            a valid {@link TPwmSpeedControllerType}
+     * a valid {@link TPwmSpeedControllerType}
      * @param followerPwmPort
-     *            the port number of the primary controller
+     * the port number of the primary controller
      * @param isInverted
-     *            {@code true} if the motors are inverted, {@code false} otherwise
+     * {@code true} if the motors are inverted, {@code false} otherwise
      */
     public TPwmSpeedController(TPwmSpeedControllerType controllerType1, int pwmPort1,
-            TPwmSpeedControllerType controllerType2, int pwmPort2, boolean isInverted) {
+        TPwmSpeedControllerType controllerType2, int pwmPort2, boolean isInverted) {
         super(isInverted);
         speedControllerList.add(newController(controllerType1, pwmPort1));
         speedControllerList.add(newController(controllerType2, pwmPort2));
@@ -166,7 +166,7 @@ public class TPwmSpeedController extends TSpeedController {
         return speed;
     }
 
-    private PWMSpeedController newController(TPwmSpeedControllerType controllerType, int pwmPort) {
+    private PWMMotorController newController(TPwmSpeedControllerType controllerType, int pwmPort) {
 
         switch (controllerType) {
         case DMC60:
@@ -199,7 +199,7 @@ public class TPwmSpeedController extends TSpeedController {
         if (getInverted()) {
             speed = -speed;
         }
-        for (PWMSpeedController speedController : speedControllerList) {
+        for (PWMMotorController speedController : speedControllerList) {
             speedController.set(speed);
         }
     }

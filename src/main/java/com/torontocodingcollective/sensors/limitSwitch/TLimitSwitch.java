@@ -28,7 +28,7 @@ public class TLimitSwitch {
      * @param port dio port
      */
     public TLimitSwitch(int port) {
-    	this(port, DefaultState.TRUE);
+        this(port, DefaultState.TRUE);
     }
 
     public TLimitSwitch(int port, DefaultState defaultState) {
@@ -37,7 +37,8 @@ public class TLimitSwitch {
 
         if (defaultState == DefaultState.TRUE) {
             this.defaultState = true;
-        } else {
+        }
+        else {
             this.defaultState = false;
         }
     }

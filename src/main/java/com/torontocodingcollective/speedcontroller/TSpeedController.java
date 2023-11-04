@@ -1,18 +1,16 @@
 package com.torontocodingcollective.speedcontroller;
 
 import com.torontocodingcollective.TConst;
-import com.torontocodingcollective.pid.TSpeedPID;
 import com.torontocodingcollective.sensors.encoder.TEncoder;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /**
  * Common interface for all TSpeedControllers
  * <p>
  * All TSpeedControllers must implement the {@link SpeedController} interface
  */
-public abstract class TSpeedController implements SpeedController {
+public abstract class TSpeedController implements MotorController {
 
     private boolean isInverted = TConst.NOT_INVERTED;
 
@@ -28,17 +26,6 @@ public abstract class TSpeedController implements SpeedController {
     @Override
     public boolean getInverted() {
         return isInverted;
-    }
-
-    /**
-     * NOTE: This routine is not used in the TorontoFramework but is provided for
-     * compile reasons to support the {@link SpeedController} interface and in case
-     * a TSpeedController is used in a wpilib {@link PIDController}. It is
-     * recommended instead to use the TorontoJar {@link TSpeedPID} instead
-     */
-    @Override
-    public void pidWrite(double output) {
-        set(output);
     }
 
     @Override
@@ -59,9 +46,9 @@ public abstract class TSpeedController implements SpeedController {
      * <p>
      * By default, the encoder will be set with the same inversion setting as the
      * motor and is assumed to be a 2-channel quadrature encoder.
-     * 
+     *
      * @returns TEncoder attached to this device or {@code null} if this device does
-     *          not support an attached encoder
+     * not support an attached encoder
      */
     public TEncoder getEncoder() {
         System.out.println("GetEncoder is not supported for " + this.getClass().getName());

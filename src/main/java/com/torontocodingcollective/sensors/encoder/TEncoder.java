@@ -72,8 +72,9 @@ public abstract class TEncoder {
     }
 
     /**
-     * Returns whether the current speed controller is 
+     * Returns whether the current speed controller is
      * inverted
+     * 
      * @return {@code true} if inverted, {@code false} otherwise
      */
     public boolean isInverted() {
@@ -98,7 +99,7 @@ public abstract class TEncoder {
      * Set the encoder counts to a known value
      * 
      * @param encoderCount
-     *            to set the encoder to
+     * to set the encoder to
      */
     public void set(int encoderCount) {
         offset = 0;
@@ -112,8 +113,8 @@ public abstract class TEncoder {
      * A call to setInverted also resets the encoder if the inversion changes
      * 
      * @param isInverted
-     *            {@code true} if the output should be inverted {@code false}
-     *            otherwise
+     * {@code true} if the output should be inverted {@code false}
+     * otherwise
      */
     public void setInverted(boolean isInverted) {
 

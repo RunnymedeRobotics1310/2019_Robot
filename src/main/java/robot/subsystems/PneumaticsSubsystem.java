@@ -45,7 +45,8 @@ public class PneumaticsSubsystem extends TSubsystem {
         if (compressor != null) {
             SmartDashboard.putBoolean("Compressor", compressor.enabled());
             SmartDashboard.putBoolean("Compressor Enabled", compressor.getClosedLoopControl());
-        } else {
+        }
+        else {
             SmartDashboard.putBoolean("Compressor", false);
             SmartDashboard.putBoolean("Compressor Enabled", false);
         }

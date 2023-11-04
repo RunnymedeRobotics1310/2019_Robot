@@ -12,11 +12,11 @@ public class TDioQuadEncoder extends TEncoder {
      * The encoder is not inverted.
      * 
      * @param dioChannelA
-     *            The a channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
-     *            port
+     * The a channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
+     * port
      * @param dioChannelB
-     *            The b channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
-     *            port
+     * The b channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
+     * port
      *
      */
     public TDioQuadEncoder(int dioChannelA, int dioChannelB) {
@@ -29,14 +29,14 @@ public class TDioQuadEncoder extends TEncoder {
      * The encoder counts are inverted (negated) based on the isInverted parameter.
      * 
      * @param dioChannelA
-     *            The a channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
-     *            port
+     * The a channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
+     * port
      * @param dioChannelB
-     *            The b channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
-     *            port
+     * The b channel DIO channel. 0-9 are on-board, 10-25 are on the MXP
+     * port
      * @param isInverted
-     *            Inversion orientation of this encoder {@code true} if inverted,
-     *            {@code false} otherwise.
+     * Inversion orientation of this encoder {@code true} if inverted,
+     * {@code false} otherwise.
      */
     public TDioQuadEncoder(int dioChannelA, int dioChannelB, boolean isInverted) {
         super(isInverted);

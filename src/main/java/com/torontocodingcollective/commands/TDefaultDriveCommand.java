@@ -11,19 +11,18 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 /**
  * Default Drive Command for Game Controllers
  * <p>
- * Implements the following basic controls for the driver. 
+ * Implements the following basic controls for the driver.
  * <ls>
- * <li>Tank, Arcade or Single Stick drive 
- * <li>Back Button to cancel a command 
- * <li>Start Button to reset the gyro and encoders 
- * <li>POV to rotate to angle 
+ * <li>Tank, Arcade or Single Stick drive
+ * <li>Back Button to cancel a command
+ * <li>Start Button to reset the gyro and encoders
+ * <li>POV to rotate to angle
  * </ls>
  */
 public class TDefaultDriveCommand extends TSafeCommand {
 
-    private final static String COMMAND_NAME = 
-            TDefaultDriveCommand.class.getSimpleName();
-    
+    private final static String       COMMAND_NAME = TDefaultDriveCommand.class.getSimpleName();
+
     private final TOi                 oi;
     private final TDriveSubsystem     driveSubsystem;
     private final TGyroDriveSubsystem gyroDriveSubsystem;
@@ -31,30 +30,33 @@ public class TDefaultDriveCommand extends TSafeCommand {
     public TDefaultDriveCommand(TOi oi, TDriveSubsystem driveSubsystem) {
 
         super(TConst.NO_COMMAND_TIMEOUT, oi);
-        
+
         requires(driveSubsystem);
 
         this.driveSubsystem = driveSubsystem;
-        this.oi = oi;
+        this.oi             = oi;
 
         if (driveSubsystem instanceof TGyroDriveSubsystem) {
             gyroDriveSubsystem = (TGyroDriveSubsystem) driveSubsystem;
-        } else {
+        }
+        else {
             gyroDriveSubsystem = null;
         }
     }
 
     @Override
-    protected String getCommandName() { return COMMAND_NAME; }
-    
-    @Override
-    protected String getParmDesc() { 
-        return super.getParmDesc(); 
+    protected String getCommandName() {
+        return COMMAND_NAME;
     }
-    
+
+    @Override
+    protected String getParmDesc() {
+        return super.getParmDesc();
+    }
+
     @Override
     protected void initialize() {
-        
+
         // Only print the command start message
         // if this command was not subclassed
         if (getCommandName().equals(COMMAND_NAME)) {
@@ -82,7 +84,8 @@ public class TDefaultDriveCommand extends TSafeCommand {
         // drive motors
         if (oi.getSpeedPidEnabled()) {
             driveSubsystem.enableSpeedPids();
-        } else {
+        }
+        else {
             driveSubsystem.disableSpeedPids();
         }
 

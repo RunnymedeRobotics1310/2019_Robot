@@ -38,4 +38,8 @@ public class TPigeonImu extends TGyro {
         super.setGyroAngle(0);
     }
 
+    @Override
+    public void close() throws Exception {
+        // gyro.close();
+    }
 }

@@ -18,7 +18,7 @@ public class TDioCounterEncoder extends TEncoder {
      * <p>
      * 
      * @param pwmChannel
-     *            The DIO channel. 0-9 are on-board, 10-25 are on the MXP port
+     * The DIO channel. 0-9 are on-board, 10-25 are on the MXP port
      */
     public TDioCounterEncoder(int pwmChannel) {
         super(false);

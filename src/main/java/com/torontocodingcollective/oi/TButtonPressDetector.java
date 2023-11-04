@@ -30,15 +30,15 @@ public class TButtonPressDetector {
      * {@link #TButtonPressDetector(TGameController, TTrigger)}
      * 
      * @param gameController
-     *            object
+     * object
      * @param button
-     *            to use for the button press detector
+     * to use for the button press detector
      */
     public TButtonPressDetector(TGameController gameController, TButton button) {
-        this.gameController = gameController;
-        this.button = button;
-        this.stick = null;
-        this.trigger = null;
+        this.gameController      = gameController;
+        this.button              = button;
+        this.stick               = null;
+        this.trigger             = null;
         this.previousButtonState = getCurrentButtonState();
     }
 
@@ -47,15 +47,15 @@ public class TButtonPressDetector {
      * GameController Stick (push) <br>
      * 
      * @param gameController
-     *            object
+     * object
      * @param stick
-     *            (push) to use for the button press detector
+     * (push) to use for the button press detector
      */
     public TButtonPressDetector(TGameController gameController, TStick stick) {
-        this.gameController = gameController;
-        this.button = null;
-        this.stick = stick;
-        this.trigger = null;
+        this.gameController      = gameController;
+        this.button              = null;
+        this.stick               = stick;
+        this.trigger             = null;
         this.previousButtonState = getCurrentButtonState();
     }
 
@@ -69,15 +69,15 @@ public class TButtonPressDetector {
      * be pressed .3 and released below that value.
      * 
      * @param gameController
-     *            object
+     * object
      * @param trigger
-     *            to use for the button press detector
+     * to use for the button press detector
      */
     public TButtonPressDetector(TGameController gameController, TTrigger trigger) {
-        this.gameController = gameController;
-        this.button = null;
-        this.stick = null;
-        this.trigger = trigger;
+        this.gameController      = gameController;
+        this.button              = null;
+        this.stick               = null;
+        this.trigger             = trigger;
         this.previousButtonState = getCurrentButtonState();
     }
 
@@ -88,7 +88,7 @@ public class TButtonPressDetector {
      * subsequent calls will always return {@code false}
      * 
      * @return {@code true} if a press was detected since the last call or
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean get() {
 
@@ -98,7 +98,8 @@ public class TButtonPressDetector {
         // just update the button state
         if (previousButtonState) {
             previousButtonState = currentButtonState;
-        } else {
+        }
+        else {
 
             // If the button was not previously pressed, then
             // return true if there is a new button press.

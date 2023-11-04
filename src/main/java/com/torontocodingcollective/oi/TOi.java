@@ -25,7 +25,7 @@ public abstract class TOi {
      * Typically this is the Back button on the Driver controller
      * 
      * @return {@code true} if the cancel button is currently pressed {@code false}
-     *         otherwise
+     * otherwise
      */
     public abstract boolean getCancelCommand();
 
@@ -33,10 +33,10 @@ public abstract class TOi {
      * Get the stick position for the specified stick
      * 
      * @param stick
-     *            the {@link TStick#LEFT} or {@link TStick#RIGHT} stick for the
-     *            driver
+     * the {@link TStick#LEFT} or {@link TStick#RIGHT} stick for the
+     * driver
      * @return {@link TStickPosition} for the left drive stick or {@code null} if
-     *         only the right stick is used for driving
+     * only the right stick is used for driving
      */
     public abstract TStickPosition getDriveStickPosition(TStick stick);
 
@@ -46,7 +46,7 @@ public abstract class TOi {
      * Typically this is the Start button on the Driver controller
      * 
      * @return {@code true} if the Reset button is currently pressed {@code false}
-     *         otherwise
+     * otherwise
      */
     public abstract boolean getReset();
 
