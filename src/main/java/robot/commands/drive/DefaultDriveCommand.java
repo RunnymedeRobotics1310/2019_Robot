@@ -1,103 +1,132 @@
 package robot.commands.drive;
 
-import com.torontocodingcollective.commands.TDefaultDriveCommand;
-import com.torontocodingcollective.commands.TDifferentialDrive;
-import com.torontocodingcollective.oi.TStick;
-import com.torontocodingcollective.oi.TStickPosition;
-import com.torontocodingcollective.speedcontroller.TSpeeds;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import robot.Constants.DriveConstants.DriveMode;
+import robot.oi.GameController;
+import robot.oi.LoggingCommandBase;
+import robot.subsystems.DriveSubsystem;
 
-import robot.Robot;
-import robot.oi.OI;
-import robot.subsystems.CanDriveSubsystem;
+public class DefaultDriveCommand extends LoggingCommandBase {
 
-/**
- * Default drive command for a drive base
- */
-public class DefaultDriveCommand extends TDefaultDriveCommand {
+    private final DriveSubsystem             driveSubsystem;
+    private final XboxController             driverController;
+    private final SendableChooser<DriveMode> driveModeChooser;
 
-    private static final String COMMAND_NAME      = DefaultDriveCommand.class.getSimpleName();
+    /**
+     * Creates a new ExampleCommand.
+     *
+     * @param driveSubsystem The subsystem used by this command.
+     */
+    public DefaultDriveCommand(GameController driverController, SendableChooser<DriveMode> driveModeChooser,
+        DriveSubsystem driveSubsystem) {
 
-    OI                          oi                = Robot.oi;
-    CanDriveSubsystem           driveSubsystem    = Robot.driveSubsystem;
+        this.driverController = driverController;
+        this.driveModeChooser = driveModeChooser;
+        this.driveSubsystem   = driveSubsystem;
 
-    TDifferentialDrive          differentialDrive = new TDifferentialDrive();
-
-    public DefaultDriveCommand() {
-        // The drive logic will be handled by the TDefaultDriveCommand
-        // which also contains the requires(driveSubsystem) statement
-        super(Robot.oi, Robot.driveSubsystem);
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(driveSubsystem);
     }
 
+    // Called when the command is initially scheduled.
     @Override
-    protected String getCommandName() {
-        return COMMAND_NAME;
+    public void initialize() {
+        logCommandStart();
     }
 
+    // Called every time the scheduler runs while the command is scheduled.
     @Override
-    protected String getParmDesc() {
-        return super.getParmDesc();
-    }
+    public void execute() {
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
+        DriveMode driveMode = driveModeChooser.getSelected();
 
-        // Print the command parameters if this is the current
-        // called command (it was not sub-classed)
-        if (getCommandName().equals(COMMAND_NAME)) {
-            logMessage(getParmDesc() + " starting");
-        }
+        boolean   boost     = driverController.getRightBumper();
 
-        super.initialize();
-    }
+        switch (driveMode) {
 
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    protected void execute() {
+        case SINGLE_STICK_ARCADE:
+            setMotorSpeedsArcade(driverController.getLeftY(), driverController.getRightX(), boost);
+            break;
 
-        // Check the driver controller buttons
-        super.execute();
-
-        if (Robot.oi.getLiftDriveForward()) {
-            Robot.driveSubsystem.setSpeed(-0.05, -0.05);
-            return;
-        }
-
-        // Drive according to the type of drive selected in the
-        // operator input.
-        TStickPosition leftStickPosition  = oi.getDriveStickPosition(TStick.LEFT);
-        TStickPosition rightStickPosition = oi.getDriveStickPosition(TStick.RIGHT);
-
-        TStick         singleStickSide    = oi.getSelectedSingleStickSide();
-
-        TSpeeds        motorSpeeds;
-
-        switch (oi.getSelectedDriveType()) {
-
-        case SINGLE_STICK:
-            TStickPosition singleStickPosition = rightStickPosition;
-            if (singleStickSide == TStick.LEFT) {
-                singleStickPosition = leftStickPosition;
-            }
-            motorSpeeds = differentialDrive.arcadeDrive(singleStickPosition);
+        case DUAL_STICK_ARCADE:
+            setMotorSpeedsArcade(driverController.getLeftY(), driverController.getLeftX(), boost);
             break;
 
         case TANK:
-            motorSpeeds = differentialDrive.tankDrive(leftStickPosition, rightStickPosition);
-            break;
-
-        case ARCADE:
         default:
-            motorSpeeds = differentialDrive.arcadeDrive(leftStickPosition, rightStickPosition);
+
+            if (boost) {
+                driveSubsystem.setMotorSpeeds(driverController.getLeftY(), driverController.getRightY());
+            }
+            else {
+                // If not in boost mode, then divide the motors speeds in half
+                driveSubsystem.setMotorSpeeds(driverController.getLeftY() / 2.0, driverController.getRightY() / 2.0);
+            }
             break;
         }
 
-        driveSubsystem.setSpeed(motorSpeeds);
     }
 
+    // Returns true when the command should end.
     @Override
-    protected boolean isFinished() {
-        // The default command does not end
+    public boolean isFinished() {
+        // The default drive command never ends, but can be interrupted by other commands.
         return false;
     }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        logCommandEnd(interrupted);
+    }
+
+    private void setMotorSpeedsArcade(double speed, double turn, boolean boost) {
+
+        double maxSpeed = 1.0;
+
+        if (!boost) {
+            speed    /= 2.0;
+            turn     /= 2.0;
+            maxSpeed /= 2.0;
+        }
+
+        // The basic algorithm for arcade is to add the turn and the speed
+
+        double leftSpeed  = speed + turn;
+        double rightSpeed = speed - turn;
+
+        // If the speed + turn exceeds the max speed, then keep the differential
+        // and reduce the speed of the other motor appropriately
+
+        if (Math.abs(leftSpeed) > maxSpeed || Math.abs(rightSpeed) > maxSpeed) {
+
+            if (Math.abs(leftSpeed) > maxSpeed) {
+
+                if (leftSpeed > 0) {
+                    leftSpeed = maxSpeed;
+                }
+                else {
+                    leftSpeed = -maxSpeed;
+                }
+                rightSpeed = leftSpeed - turn;
+
+            }
+            else {
+
+                if (rightSpeed > 0) {
+                    rightSpeed = maxSpeed;
+                }
+                else {
+                    rightSpeed = -maxSpeed;
+                }
+
+                leftSpeed = rightSpeed + turn;
+            }
+        }
+
+        driveSubsystem.setMotorSpeeds(leftSpeed, rightSpeed);
+    }
+
+
 }

@@ -2,6 +2,7 @@ package robot.oi;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import robot.subsystems.DriveSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,16 +25,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class OI extends SubsystemBase {
 
-    private GameController driverController   = new GameController(0);
+    public GameController driverController   = new GameController(0);
 
-    private GameController operatorController = new GameController(1);
+    public GameController operatorController = new GameController(1);
 
-    private boolean        compressorToggle   = true;
+    private boolean       compressorToggle   = true;
 
-    private boolean        armManualDriveMode = true;
-    private double         armLevelSetPoint   = 0;
+    private boolean       armManualDriveMode = true;
+    private double        armLevelSetPoint   = 0;
 
-    private boolean        liftModeEnabled;
+    private boolean       liftModeEnabled;
 
     /*
      * *************************************************
@@ -323,5 +324,10 @@ public class OI extends SubsystemBase {
         SmartDashboard.putNumber("Arm Level", armLevelSetPoint);
         SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
         SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
+    }
+
+    public void configureButtonBindings(DriveSubsystem drivesubsystem) {
+        // TODO Auto-generated method stub
+
     }
 }

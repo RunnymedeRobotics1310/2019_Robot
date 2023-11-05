@@ -1,54 +1,33 @@
 package robot.subsystems;
 
-import com.torontocodingcollective.subsystem.TSubsystem;
-
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.commands.pneumatics.DefaultPneumaticsCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  *
  */
-public class PneumaticsSubsystem extends TSubsystem {
+public class PneumaticsSubsystem extends SubsystemBase {
 
     // uncomment the compressor to enable pneumatics control
-    Compressor compressor = new Compressor();
+    Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
-    @Override
-    public void init() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
+    public PneumaticsSubsystem() {
+        enableCompressor();
     };
 
     public void disableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(false);
-        }
+        compressor.disable();
     }
 
     public void enableCompressor() {
-        if (compressor != null) {
-            compressor.setClosedLoopControl(true);
-        }
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultPneumaticsCommand());
+        compressor.enableDigital();
     }
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
-    public void updatePeriodic() {
-
-        if (compressor != null) {
-            SmartDashboard.putBoolean("Compressor", compressor.enabled());
-            SmartDashboard.putBoolean("Compressor Enabled", compressor.getClosedLoopControl());
-        }
-        else {
-            SmartDashboard.putBoolean("Compressor", false);
-            SmartDashboard.putBoolean("Compressor Enabled", false);
-        }
+    public void periodic() {
+        SmartDashboard.putString("Compressor Enabled", compressor.getConfigType().toString());
     }
 }

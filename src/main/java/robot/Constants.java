@@ -73,5 +73,27 @@ public final class Constants {
         public static final boolean RIGHT_INTAKE_MOTOR_ISINVERTED    = false;
     }
 
+    public static final class HatchConstants {
+
+        public static final int     SLIDE_MOTOR_CAN_ADDRESS           = 7;
+        public static final boolean SLIDE_MOTOR_ISINVERTED            = true;
+
+        public static final boolean SLIDE_ENCODER_ISINVERTED          = true;
+        public static final int     SLIDE_LEFT_LIMIT_ENCODER_COUNT    = 1950;
+        public static final int     SLIDE_RIGHT_LIMIT_ENCODER_COUNT   = -2050;
+
+        public static final int     SLIDE_LEFT_LIMIT_SWITCH_DIO_PORT  = 2;
+        public static final boolean SLIDE_LEFT_LIMIT_DEFAULT_STATE    = true;
+
+        public static final int     SLIDE_RIGHT_LIMIT_SWITCH_DIO_PORT = 1;
+        public static final boolean SLIDE_RIGHT_LIMIT_DEFAULT_STATE   = true;
+
+        public static final int     HATCH_PICKUP_SOLENOID             = 0;
+        public static final int     HATCH_PUNCH_SOLENOID_RIGHT        = 1;
+        public static final int     HATCH_PUNCH_SOLENOID_LEFT         = 2;
+
+
+    }
+
 
 }

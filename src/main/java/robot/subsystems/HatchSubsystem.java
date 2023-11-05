@@ -1,17 +1,17 @@
 package robot.subsystems;
 
-import com.torontocodingcollective.sensors.encoder.TEncoder;
-import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch;
-import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState;
-import com.torontocodingcollective.speedcontroller.TCanSpeedController;
-import com.torontocodingcollective.speedcontroller.TSpeedController;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robot.RobotConst;
+import robot.Constants.HatchConstants;
 import robot.RobotMap;
-import robot.commands.hatch.DefaultHatchCommand;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing
@@ -19,113 +19,140 @@ import robot.commands.hatch.DefaultHatchCommand;
  */
 public class HatchSubsystem extends SubsystemBase {
 
-    TSpeedController slideMotor         = new TCanSpeedController(
-        RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_TYPE, RobotMap.HATCH_SLIDE_CAN_SPEED_CONTROLLER_ADDRESS,
-        RobotMap.HATCH_SLIDE_CAN_MOTOR_ISINVERTED);
-    TEncoder         slideEncoder       = slideMotor.getEncoder();
-    TLimitSwitch     leftSlideLimit     = new TLimitSwitch(RobotMap.HATCH_LEFT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch     rightSlideLimit    = new TLimitSwitch(RobotMap.HATCH_RIGHT_LIMIT_SWITCH_DIO_PORT, DefaultState.TRUE);
-    Solenoid         pickupSolenoid     = new Solenoid(RobotMap.HATCH_PICKUP_SOLENOID);                                   // Testing
-    Solenoid         rightPunchSolenoid = new Solenoid(RobotMap.HATCH_PUNCH_SOLENOID_RIGHT);
-    Solenoid         leftPunchSolenoid  = new Solenoid(RobotMap.HATCH_PUNCH_SOLENOID_LEFT);
+    private static final boolean EXTEND_HATCH_PICKUP = true;
+    private static final boolean EJECT_HATCH         = true;
 
-    boolean          extendHatch        = true;
-    boolean          ejectHatch         = true;
+    TalonSRX                     slideMotor          = new TalonSRX(
+        HatchConstants.SLIDE_MOTOR_CAN_ADDRESS);
 
-    @Override
-    public void init() {
-        slideEncoder.setInverted(true);
-        pickupSolenoid.set(!extendHatch);
-        rightPunchSolenoid.set(!ejectHatch);
-    }
+    LimitSwitch                  slideLeftLimit      = new LimitSwitch(
+        new DigitalInput(HatchConstants.SLIDE_LEFT_LIMIT_SWITCH_DIO_PORT),
+        HatchConstants.SLIDE_LEFT_LIMIT_DEFAULT_STATE);
 
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultHatchCommand());
+    LimitSwitch                  slideRightLimit     = new LimitSwitch(
+        new DigitalInput(HatchConstants.SLIDE_RIGHT_LIMIT_SWITCH_DIO_PORT),
+        HatchConstants.SLIDE_RIGHT_LIMIT_DEFAULT_STATE);
+
+    Solenoid                     pickupSolenoid      = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.HATCH_PICKUP_SOLENOID);
+    Solenoid                     rightPunchSolenoid  = new Solenoid(PneumaticsModuleType.CTREPCM,
+        RobotMap.HATCH_PUNCH_SOLENOID_RIGHT);
+    Solenoid                     leftPunchSolenoid   = new Solenoid(PneumaticsModuleType.CTREPCM,
+        RobotMap.HATCH_PUNCH_SOLENOID_LEFT);
+
+    double                       slideMotorSpeed     = 0;
+    int                          slideEncoderOffset  = 0;
+
+    public HatchSubsystem() {
+
+        slideMotor.setNeutralMode(NeutralMode.Brake);
+        slideMotor.setInverted(HatchConstants.SLIDE_MOTOR_ISINVERTED);
+
+        // Assume that the slide starts in the center
+        slideMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        slideEncoderOffset = (int) Math.round(slideMotor.getSelectedSensorPosition());
+
+        pickupSolenoid.set(!EXTEND_HATCH_PICKUP);
+        rightPunchSolenoid.set(!EJECT_HATCH);
+        leftPunchSolenoid.set(!EJECT_HATCH);
     }
 
     public void setSlideSpeed(double slideSpeed) {
-        slideSpeed = slideSpeed;
+
+        slideMotorSpeed = slideSpeed;
+
         if (slideSpeed > 0 && (!leftSlideLimitDetected())) {
-            slideMotor.set(slideSpeed);
+            slideMotor.set(ControlMode.PercentOutput, slideSpeed);
         }
         else if (slideSpeed < 0 && (!rightSlideLimitDetected())) {
-            slideMotor.set(slideSpeed);
+            slideMotor.set(ControlMode.PercentOutput, slideSpeed);
         }
         else {
-            slideMotor.set(0);
+            slideMotor.set(ControlMode.PercentOutput, 0);
         }
     }
 
     public boolean isCentered() {
-        if (Math.abs(getSlideMotorEncoderCount()) < 200) {
+        if (Math.abs(getSlideEncoder()) < 200) {
             return true;
         }
         return false;
     }
 
     public void resetEncoder() {
-        slideEncoder.reset();
+        slideEncoderOffset = (int) Math.round(slideMotor.getSelectedSensorPosition());
     }
 
     public void extendPunchMech() {
-        rightPunchSolenoid.set(ejectHatch);
-        leftPunchSolenoid.set(ejectHatch);
+        rightPunchSolenoid.set(EJECT_HATCH);
+        leftPunchSolenoid.set(EJECT_HATCH);
     }
 
     public void extendPunchMechRight() {
-        rightPunchSolenoid.set(ejectHatch);
+        rightPunchSolenoid.set(EJECT_HATCH);
     }
 
     public void extendPunchMechLeft() {
-        leftPunchSolenoid.set(ejectHatch);
+        leftPunchSolenoid.set(EJECT_HATCH);
     }
 
     public void retractPunchMech() {
-        rightPunchSolenoid.set(!ejectHatch);
-        leftPunchSolenoid.set(!ejectHatch);
+        rightPunchSolenoid.set(!EJECT_HATCH);
+        leftPunchSolenoid.set(!EJECT_HATCH);
     }
 
     public void extendHatchMech() {
-        pickupSolenoid.set(extendHatch);
+        pickupSolenoid.set(EXTEND_HATCH_PICKUP);
     }
 
     public void retractHatchMech() {
-        pickupSolenoid.set(!extendHatch);
+        pickupSolenoid.set(!EXTEND_HATCH_PICKUP);
     }
 
     public boolean leftSlideLimitDetected() {
-        return leftSlideLimit.atLimit();
+        return slideLeftLimit.atLimit();
     }
 
     public boolean rightSlideLimitDetected() {
-        return rightSlideLimit.atLimit();
+        return slideRightLimit.atLimit();
     }
 
-    public int getSlideMotorEncoderCount() {
-        return slideEncoder.get();
+    public void setSlideEncoder(int value) {
+        slideEncoderOffset = 0;
+        slideEncoderOffset = -getSlideEncoder() + value;
     }
 
+    public int getSlideEncoder() {
+
+        int encoderCounts = (int) Math.round(slideMotor.getSelectedSensorPosition());
+
+        if (HatchConstants.SLIDE_ENCODER_ISINVERTED) {
+            encoderCounts *= -1;
+        }
+
+        return encoderCounts + slideEncoderOffset;
+    }
+
+    @Override
     public void periodic() {
 
-        if (leftSlideLimit.atLimit()) {
-            slideEncoder.set(RobotConst.LEFT_HATCH_LIMIT_ENCODER_COUNT);
-            if (slideMotor.get() > 0) {
-                slideMotor.set(0);
+        if (slideLeftLimit.atLimit()) {
+            setSlideEncoder(HatchConstants.SLIDE_LEFT_LIMIT_ENCODER_COUNT);
+            if (slideMotorSpeed > 0) {
+                setSlideSpeed(0);
             }
         }
 
-        if (rightSlideLimit.atLimit()) {
-            slideEncoder.set(RobotConst.RIGHT_HATCH_LIMIT_ENCODER_COUNT);
-            if (slideMotor.get() < 0) {
-                slideMotor.set(0);
+        if (slideRightLimit.atLimit()) {
+            setSlideEncoder(HatchConstants.SLIDE_RIGHT_LIMIT_ENCODER_COUNT);
+            if (slideMotorSpeed < 0) {
+                setSlideSpeed(0);
             }
         }
-        SmartDashboard.putNumber("Slide Motor", slideMotor.get());
-        SmartDashboard.putNumber("Slide Encoder Count", getSlideMotorEncoderCount());
+        SmartDashboard.putNumber("Slide Motor", slideMotorSpeed);
+        SmartDashboard.putNumber("Slide Encoder Count", getSlideEncoder());
         SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
         SmartDashboard.putBoolean("Punch Solenoid 2 Extended", rightPunchSolenoid.get());
-        SmartDashboard.putBoolean("Left Slide Limit", leftSlideLimit.atLimit());
-        SmartDashboard.putBoolean("right Slide Limit", rightSlideLimit.atLimit());
-
+        SmartDashboard.putBoolean("Left Slide Limit", slideLeftLimit.atLimit());
+        SmartDashboard.putBoolean("right Slide Limit", slideRightLimit.atLimit());
     }
 }
