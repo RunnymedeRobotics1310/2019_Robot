@@ -1,7 +1,5 @@
 package robot.oi;
 
-import com.torontocodingcollective.oi.TStick;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -32,15 +30,10 @@ public class OI extends SubsystemBase {
 
     private boolean        compressorToggle   = true;
 
-    private DriveSelector  driveSelector      = new DriveSelector();
+    private boolean        armManualDriveMode = true;
+    private double         armLevelSetPoint   = 0;
 
-//	private TButtonPressDetector armUpDetector = new TButtonPressDetector(driverController, TButton.RIGHT_BUMPER);
-//	private TButtonPressDetector armDownDetector = new TButtonPressDetector(driverController, TButton.LEFT_BUMPER);
-
-    private boolean armManualDriveMode = true;
-    private double  armLevelSetPoint   = 0;
-
-    private boolean liftModeEnabled;
+    private boolean        liftModeEnabled;
 
     /*
      * *************************************************
@@ -69,26 +62,6 @@ public class OI extends SubsystemBase {
 
     public boolean getHatchModeEnabled() {
         return operatorController.getStartButton();
-    }
-
-    /**
-     * Get the selected drive type
-     *
-     * @return {@link DriveControlType} selected on the SmartDashboard. The default
-     * drive type is {@link DriveControlType#ARCADE}
-     */
-    public DriveControlType getSelectedDriveType() {
-        return driveSelector.getDriveControlType();
-    }
-
-    /**
-     * Get the selected single stick side
-     *
-     * @return {@link TStick} selected on the SmartDashboard. The default single
-     * stick drive is {@link TStick#RIGHT}
-     */
-    public TStick getSelectedSingleStickSide() {
-        return driveSelector.getSingleStickSide();
     }
 
     /*
