@@ -1,76 +1,58 @@
 package robot.subsystems;
 
-import com.torontocodingcollective.sensors.encoder.TEncoder;
-import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch;
-import com.torontocodingcollective.sensors.limitSwitch.TLimitSwitch.DefaultState;
-import com.torontocodingcollective.speedcontroller.TCanSpeedController;
-import com.torontocodingcollective.subsystem.TSubsystem;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import robot.RobotMap;
-import robot.commands.lift.DefaultLiftCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import robot.Constants.LiftConstants;
 
 /**
- * The Lift Subsystem would hello
+ * The Subsystem would hello
  */
-public class LiftSubsystem extends TSubsystem {
+public class LiftSubsystem extends SubsystemBase {
 
-    TCanSpeedController frontLiftMotor      = new TCanSpeedController(
-        RobotMap.LIFT_FRONT_CAN_SPEED_CONTROLLER_TYPE,
-        RobotMap.LIFT_FRONT_CAN_SPEED_CONTROLLER_ADDRESS,
-        RobotMap.LIFT_FRONT_CAN_MOTOR_ISINVERTED);
+    CANSparkMax     frontMotor      = new CANSparkMax(LiftConstants.FRONT_MOTOR_CAN_ADDRESS, MotorType.kBrushless);
+    CANSparkMax     rearMotor       = new CANSparkMax(LiftConstants.REAR_MOTOR_CAN_ADDRESS, MotorType.kBrushless);
 
-    TCanSpeedController rearLiftMotor       = new TCanSpeedController(
-        RobotMap.LIFT_REAR_CAN_SPEED_CONTROLLER_TYPE,
-        RobotMap.LIFT_REAR_CAN_SPEED_CONTROLLER_ADDRESS,
-        RobotMap.LIFT_REAR_CAN_MOTOR_ISINVERTED);
+    VictorSPX       driveMotor      = new VictorSPX(LiftConstants.DRIVE_MOTOR_CAN_ADDRESS);
 
-    TCanSpeedController liftDriveMotor      = new TCanSpeedController(
-        RobotMap.LIFT_DRIVE_CAN_SPEED_CONTROLLER_TYPE,
-        RobotMap.LIFT_DRIVE_CAN_SPEED_CONTROLLER_ADDRESS,
-        RobotMap.LIFT_DRIVE_CAN_MOTOR_ISINVERTED);
+    RelativeEncoder frontEncoder    = frontMotor.getEncoder();
+    RelativeEncoder rearEncoder     = rearMotor.getEncoder();
 
-    TEncoder            frontLiftEncoder    = frontLiftMotor.getEncoder();
-    TEncoder            rearLiftEncoder     = rearLiftMotor.getEncoder();
+    LimitSwitch     frontUpperLimit = new LimitSwitch(new DigitalInput(LiftConstants.FRONT_UPPER_LIMIT_DIO_PORT), true);
+    LimitSwitch     frontLowerLimit = new LimitSwitch(new DigitalInput(LiftConstants.FRONT_LOWER_LIMIT_DIO_PORT), true);
+    LimitSwitch     rearUpperLimit  = new LimitSwitch(new DigitalInput(LiftConstants.REAR_UPPER_LIMIT_DIO_PORT), true);
+    LimitSwitch     rearLowerLimit  = new LimitSwitch(new DigitalInput(LiftConstants.REAR_LOWER_LIMIT_DIO_PORT), true);
+    LimitSwitch     platformDetect  = new LimitSwitch(new DigitalInput(LiftConstants.PLATFORM_DETECT_DIO_PORT), true);
+    LimitSwitch     centreDetect    = new LimitSwitch(new DigitalInput(LiftConstants.CENTER_DETECT_DIO_PORT), true);
 
-    TLimitSwitch        frontLiftUpperLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch        frontLiftLowerLimit = new TLimitSwitch(RobotMap.LIFT_FRONT_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch        rearLiftUpperLimit  = new TLimitSwitch(RobotMap.LIFT_REAR_UPPER_LIMIT_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch        rearLiftLowerLimit  = new TLimitSwitch(RobotMap.LIFT_REAR_LOWER_LIMIT_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch        platformDetect      = new TLimitSwitch(RobotMap.LIFT_PLATFORM_DETECT_DIO_PORT, DefaultState.TRUE);
-    TLimitSwitch        centreDetect        = new TLimitSwitch(RobotMap.LIFT_CENTRE_DETECT_DIO_PORT, DefaultState.TRUE);
+    public LiftSubsystem() {
 
-    @Override
-    public void init() {
-    };
+        frontMotor.setInverted(LiftConstants.FRONT_MOTOR_ISINVERTED);
+        rearMotor.setInverted(LiftConstants.REAR_MOTOR_ISINVERTED);
 
-    @Override
-    protected void initDefaultCommand() {
-        setDefaultCommand(new DefaultLiftCommand());
+        driveMotor.setInverted(LiftConstants.DRIVE_MOTOR_ISINVERTED);
     }
 
-    public TEncoder getFrontLiftEncoder() {
-        return frontLiftEncoder;
+    public boolean getFrontUpperLimit() {
+        return frontUpperLimit.atLimit();
     }
 
-    public TEncoder getRearLiftEncoder() {
-        return rearLiftEncoder;
+    public boolean getFrontlowerLimit() {
+        return frontLowerLimit.atLimit();
     }
 
-    public boolean getFrontLiftUpperLimit() {
-        return frontLiftUpperLimit.atLimit();
+    public boolean getRearUpperLimit() {
+        return rearUpperLimit.atLimit();
     }
 
-    public boolean getFrontLiftlowerLimit() {
-        return frontLiftLowerLimit.atLimit();
-    }
-
-    public boolean getRearLiftUpperLimit() {
-        return rearLiftUpperLimit.atLimit();
-    }
-
-    public boolean getRearLiftlowerLimit() {
-        return rearLiftLowerLimit.atLimit();
+    public boolean getRearlowerLimit() {
+        return rearLowerLimit.atLimit();
     }
 
     public boolean getPlatformDetect() {
@@ -83,25 +65,25 @@ public class LiftSubsystem extends TSubsystem {
 
     public void setFrontMotorSpeed(double speed) {
 
-        // A negative speed drives the lifters down
+        // A negative speed drives the ers down
         if (speed < 0) {
-            if (frontLiftLowerLimit.atLimit()) {
-                frontLiftMotor.set(0);
+            if (frontLowerLimit.atLimit()) {
+                frontMotor.set(0);
             }
             else {
-                frontLiftMotor.set(speed);
+                frontMotor.set(speed);
             }
         }
         else if (speed > 0) {
-            if (frontLiftUpperLimit.atLimit()) {
-                frontLiftMotor.set(0);
+            if (frontUpperLimit.atLimit()) {
+                frontMotor.set(0);
             }
             else {
-                frontLiftMotor.set(speed);
+                frontMotor.set(speed);
             }
         }
         else {
-            frontLiftMotor.set(0);
+            frontMotor.set(0);
         }
     }
 
@@ -109,51 +91,42 @@ public class LiftSubsystem extends TSubsystem {
 
         // Ignore speeds < .01
 
-        // A negative speed drives the lifters down
+        // A negative speed drives the ers down
         if (speed < 0) {
-            if (rearLiftLowerLimit.atLimit()) {
-                rearLiftMotor.set(0);
+            if (rearLowerLimit.atLimit()) {
+                rearMotor.set(0);
             }
             else {
-                rearLiftMotor.set(speed);
+                rearMotor.set(speed);
             }
         }
         else if (speed > 0) {
-            if (rearLiftUpperLimit.atLimit()) {
-                rearLiftMotor.set(0);
+            if (rearUpperLimit.atLimit()) {
+                rearMotor.set(0);
             }
             else {
-                rearLiftMotor.set(speed);
+                rearMotor.set(speed);
             }
         }
         else {
-            rearLiftMotor.set(0);
+            rearMotor.set(0);
         }
     }
 
     public void setDriveMotorSpeed(double speed) {
-        // Ignore speeds < .01
-        if (speed > 0) {
-            liftDriveMotor.set(speed);
-        }
-        else if (speed < 0) {
-            liftDriveMotor.set(speed);
-        }
-        else {
-            liftDriveMotor.set(0);
-        }
+        driveMotor.set(ControlMode.PercentOutput, speed);
     }
 
     // Periodically update the dashboard and any PIDs or sensors
     @Override
-    public void updatePeriodic() {
+    public void periodic() {
 
-        if (frontLiftUpperLimit.atLimit()) {
-            frontLiftEncoder.reset();
+        if (frontUpperLimit.atLimit()) {
+            frontEncoder.setPosition(0);
         }
 
-        if (rearLiftUpperLimit.atLimit()) {
-            rearLiftEncoder.reset();
+        if (rearUpperLimit.atLimit()) {
+            rearEncoder.setPosition(0);
         }
 
         // Monitor for limits
@@ -162,17 +135,17 @@ public class LiftSubsystem extends TSubsystem {
 
         // Put data on the SmartDashboard
 
-        SmartDashboard.putNumber("Front Lift Motor", frontLiftMotor.get());
-        SmartDashboard.putNumber("Rear  Lift Motor", rearLiftMotor.get());
-        SmartDashboard.putNumber("Lift Drive Motor", liftDriveMotor.get());
+        SmartDashboard.putNumber("Lift Front Motor", frontMotor.get());
+        SmartDashboard.putNumber("Lift Rear Motor", rearMotor.get());
+        SmartDashboard.putNumber("Lift Drive Motor", driveMotor.getMotorOutputPercent());
 
-        SmartDashboard.putNumber("Front Lift Motor Encoder Count", frontLiftEncoder.get());
-        SmartDashboard.putNumber("Rear  Lift Motor Encoder Count", rearLiftEncoder.get());
+        SmartDashboard.putNumber("Lift Front Motor Encoder Count", frontEncoder.getPosition());
+        SmartDashboard.putNumber("Lift Rear Motor Encoder Count", rearEncoder.getPosition());
 
-        SmartDashboard.putBoolean("Front Up", frontLiftUpperLimit.atLimit());
-        SmartDashboard.putBoolean("Front Down", frontLiftLowerLimit.atLimit());
-        SmartDashboard.putBoolean("Rear Up", rearLiftUpperLimit.atLimit());
-        SmartDashboard.putBoolean("Rear Down", rearLiftLowerLimit.atLimit());
+        SmartDashboard.putBoolean("Front Up", frontUpperLimit.atLimit());
+        SmartDashboard.putBoolean("Front Down", frontLowerLimit.atLimit());
+        SmartDashboard.putBoolean("Rear Up", rearUpperLimit.atLimit());
+        SmartDashboard.putBoolean("Rear Down", rearLowerLimit.atLimit());
 
         SmartDashboard.putBoolean("Platform Detected", platformDetect.atLimit());
         SmartDashboard.putBoolean("Centre Detected", centreDetect.atLimit());

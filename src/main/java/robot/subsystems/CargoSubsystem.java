@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robot.Constants.ArmConstants;
 import robot.Constants.IntakeConstants;
-import robot.RobotConst;
 import robot.RobotContainer;
-import robot.RobotMap;
 
 /**
  * Subsystem for arm mechanism.
@@ -29,18 +27,18 @@ public class CargoSubsystem extends SubsystemBase {
     RelativeEncoder armEncoder             = armMotor.getEncoder();
 
     LimitSwitch     armDownLimit           = new LimitSwitch(
-        new DigitalInput(RobotMap.ARM_DOWN_LIMIT_SWITCH),
+        new DigitalInput(ArmConstants.ARM_DOWN_LIMIT_DIO_PORT),
         ArmConstants.ARM_DOWN_LIMIT_DEFAULT_STATE);
 
     LimitSwitch     armUpLimit             = new LimitSwitch(
-        new DigitalInput(RobotMap.ARM_UP_LIMIT_SWITCH),
+        new DigitalInput(ArmConstants.ARM_UP_LIMIT_DIO_PORT),
         ArmConstants.ARM_UP_LIMIT_DEFAULT_STATE);
 
     VictorSPX       leftIntakeMotor        = new VictorSPX(IntakeConstants.LEFT_INTAKE_MOTOR_CAN_ADDRESS);
     VictorSPX       rightIntakeMotor       = new VictorSPX(IntakeConstants.RIGHT_INTAKE_MOTOR_CAN_ADDRESS);
 
     LimitSwitch     cargoDetectLimitSwitch = new LimitSwitch(
-        new DigitalInput(RobotMap.CARGO_DETECT_LIMIT_DIO_PORT),
+        new DigitalInput(IntakeConstants.CARGO_DETECT_LIMIT_DIO_PORT),
         IntakeConstants.CARGO_DETECT_LIMIT_DEFAULT_STATE);
 
     public CargoSubsystem() {
@@ -69,15 +67,15 @@ public class CargoSubsystem extends SubsystemBase {
 
         int encoderCounts = getEncoderCounts();
 
-        for (int i = 0; i < RobotConst.ARM_LEVELS.length; i++) {
-            if (encoderCounts < RobotConst.ARM_LEVELS[i] - RobotConst.ARM_TOLERANCE) {
+        for (int i = 0; i < ArmConstants.ARM_LEVELS.length; i++) {
+            if (encoderCounts < ArmConstants.ARM_LEVELS[i] - ArmConstants.ARM_TOLERANCE) {
                 return i - 0.5;
             }
-            if (encoderCounts < RobotConst.ARM_LEVELS[i] + RobotConst.ARM_TOLERANCE) {
+            if (encoderCounts < ArmConstants.ARM_LEVELS[i] + ArmConstants.ARM_TOLERANCE) {
                 return i;
             }
         }
-        return RobotConst.ARM_LEVELS.length - 1 + 0.5;
+        return ArmConstants.ARM_LEVELS.length - 1 + 0.5;
     }
 
     public void setArmSpeed(double armSpeed) {
@@ -119,8 +117,8 @@ public class CargoSubsystem extends SubsystemBase {
     }
 
     public void startIntake() {
-        leftIntakeMotor.set(ControlMode.PercentOutput, RobotConst.INTAKE_SPEED);
-        rightIntakeMotor.set(ControlMode.PercentOutput, -RobotConst.INTAKE_SPEED);
+        leftIntakeMotor.set(ControlMode.PercentOutput, IntakeConstants.INTAKE_SPEED);
+        rightIntakeMotor.set(ControlMode.PercentOutput, -IntakeConstants.INTAKE_SPEED);
     }
 
     public void stopIntake() {

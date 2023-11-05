@@ -48,29 +48,31 @@ public final class Constants {
 
     public static final class ArmConstants {
 
-        public static final int     ARM_MOTOR_CAN_ADDRESS        = 12;
-        public static final boolean ARM_MOTOR_ISINVERTED         = true;
+        public static final double[] ARM_LEVELS                   = { 0, 480, 860, 1450, 1950, 2200 };
+        public static final double   ARM_TOLERANCE                = 20;
 
-        public static final int     ARM_DOWN_LIMIT_DIO_PORT      = 9;
-        public static final boolean ARM_DOWN_LIMIT_DEFAULT_STATE = true;
+        public static final int      ARM_MOTOR_CAN_ADDRESS        = 12;
+        public static final boolean  ARM_MOTOR_ISINVERTED         = true;
 
-        public static final int     ARM_UP_LIMIT_DIO_PORT        = 11;
-        public static final boolean ARM_UP_LIMIT_DEFAULT_STATE   = true;
+        public static final int      ARM_DOWN_LIMIT_DIO_PORT      = 9;
+        public static final boolean  ARM_DOWN_LIMIT_DEFAULT_STATE = true;
+
+        public static final int      ARM_UP_LIMIT_DIO_PORT        = 11;
+        public static final boolean  ARM_UP_LIMIT_DEFAULT_STATE   = true;
     }
 
     public static final class IntakeConstants {
 
-        public static final int     ARM_MOTOR_CAN_ADDRESS            = 12;
-        public static final boolean ARM_MOTOR_ISINVERTED             = true;
-
-        public static final int     CARGO_DETECT_LIMIT_DIO_PORT      = 0;
-        public static final boolean CARGO_DETECT_LIMIT_DEFAULT_STATE = true;
+        public static final double  INTAKE_SPEED                     = 0.5;
 
         public static final int     LEFT_INTAKE_MOTOR_CAN_ADDRESS    = 16;
         public static final boolean LEFT_INTAKE_MOTOR_ISINVERTED     = false;
 
         public static final int     RIGHT_INTAKE_MOTOR_CAN_ADDRESS   = 15;
         public static final boolean RIGHT_INTAKE_MOTOR_ISINVERTED    = false;
+
+        public static final int     CARGO_DETECT_LIMIT_DIO_PORT      = 0;
+        public static final boolean CARGO_DETECT_LIMIT_DEFAULT_STATE = true;
     }
 
     public static final class HatchConstants {
@@ -91,9 +93,27 @@ public final class Constants {
         public static final int     HATCH_PICKUP_SOLENOID             = 0;
         public static final int     HATCH_PUNCH_SOLENOID_RIGHT        = 1;
         public static final int     HATCH_PUNCH_SOLENOID_LEFT         = 2;
-
-
     }
 
+    public static final class LiftConstants {
+
+        public static final int     FRONT_MOTOR_CAN_ADDRESS    = 13;
+        public static final boolean FRONT_MOTOR_ISINVERTED     = false;
+
+        public static final int     REAR_MOTOR_CAN_ADDRESS     = 14;
+        public static final boolean REAR_MOTOR_ISINVERTED      = false;
+
+        public static final int     DRIVE_MOTOR_CAN_ADDRESS    = 8;
+        public static final boolean DRIVE_MOTOR_ISINVERTED     = false;
+
+        public static final int     FRONT_UPPER_LIMIT_DIO_PORT = 3;
+        public static final int     FRONT_LOWER_LIMIT_DIO_PORT = 7;
+
+        public static final int     REAR_UPPER_LIMIT_DIO_PORT  = 6;
+        public static final int     REAR_LOWER_LIMIT_DIO_PORT  = 5;
+
+        public static final int     PLATFORM_DETECT_DIO_PORT   = 4;
+        public static final int     CENTER_DETECT_DIO_PORT     = 10;
+    }
 
 }

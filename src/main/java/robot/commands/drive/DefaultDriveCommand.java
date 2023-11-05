@@ -3,8 +3,8 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import robot.Constants.DriveConstants.DriveMode;
+import robot.commands.LoggingCommandBase;
 import robot.oi.GameController;
-import robot.oi.LoggingCommandBase;
 import robot.subsystems.DriveSubsystem;
 
 public class DefaultDriveCommand extends LoggingCommandBase {
