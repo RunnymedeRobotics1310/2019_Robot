@@ -63,6 +63,14 @@ public class LiftSubsystem extends SubsystemBase {
         return centreDetect.atLimit();
     }
 
+    public int getFrontEncoder() {
+        return (int) Math.round(frontEncoder.getPosition());
+    }
+
+    public int getRearEncoder() {
+        return (int) Math.round(rearEncoder.getPosition());
+    }
+
     public void setFrontMotorSpeed(double speed) {
 
         // A negative speed drives the ers down
@@ -150,7 +158,4 @@ public class LiftSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Platform Detected", platformDetect.atLimit());
         SmartDashboard.putBoolean("Centre Detected", centreDetect.atLimit());
     }
-
-
-
 }

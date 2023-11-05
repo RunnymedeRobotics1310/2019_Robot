@@ -1,126 +1,145 @@
-
 package robot.commands.lift;
 
-import com.torontocodingcollective.TConst;
-import com.torontocodingcollective.commands.TSafeCommand;
-
-import edu.wpi.first.wpilibj.command.Scheduler;
-import robot.Robot;
-import robot.commands.cargo.CargoArmLevelCommand;
-import robot.commands.hatch.HatchCentreCommand;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import robot.commands.LoggingCommandBase;
+import robot.commands.hatch.HatchCenterCommand;
+import robot.oi.OI;
+import robot.subsystems.DriveSubsystem;
+import robot.subsystems.HatchSubsystem;
+import robot.subsystems.LiftSubsystem;
 
 /**
  *
  */
-public class L2HopUp extends TSafeCommand {
+public class L2HopUp extends LoggingCommandBase {
 
-    private static final String COMMAND_NAME = L2HopUp.class.getSimpleName();
+    private final OI             operatorInput;
+
+    private final LiftSubsystem  liftSubsystem;
+    private final DriveSubsystem driveSubsystem;
+    private final HatchSubsystem hatchSubsystem;
 
     enum State {
         REAR_UP, DRIVE_TO_PLATFORM, SHUFFLE, DRIVE_ON, RAISE_FRONT, FINISH_FORWARD, FINISH
     };
 
-    private State state          = State.REAR_UP;
+    private State              state                       = State.REAR_UP;
 
-    double        driveStartTime = 0;
+    private long               stateStartTime              = 0;
 
-    public L2HopUp() {
+    public static final double BUMPER_AT_L2_ENCODER_COUNTS = -1500;
 
-        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+    public L2HopUp(OI operatorInput, LiftSubsystem liftSubsystem, DriveSubsystem driveSubsystem,
+        HatchSubsystem hatchSubsystem) {
 
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.liftSubsystem);
-        requires(Robot.driveSubsystem);
-    }
+        this.operatorInput  = operatorInput;
 
-    @Override
-    protected String getCommandName() {
-        return COMMAND_NAME;
-    }
+        this.liftSubsystem  = liftSubsystem;
+        this.driveSubsystem = driveSubsystem;
+        this.hatchSubsystem = hatchSubsystem;
 
-    @Override
-    protected String getParmDesc() {
-        return super.getParmDesc();
+        addRequirements(liftSubsystem, driveSubsystem);
     }
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-        // Print the command parameters if this is the current
-        // called command (it was not sub-classed)
-        if (getCommandName().equals(COMMAND_NAME)) {
-            logMessage(getParmDesc() + " starting");
-        }
+    public void initialize() {
 
-        // Move the arm to level 2
-        Robot.oi.setArmLevel(2);
-        Scheduler.getInstance().add(new CargoArmLevelCommand());
-        Scheduler.getInstance().add(new HatchCentreCommand());
+        logCommandStart();
+
+        // Move the arm to level 2 - note, setting the operator value will launch the command to
+        // move the arm.
+        operatorInput.setArmLevel(2);
+        CommandScheduler.getInstance().schedule(new HatchCenterCommand(hatchSubsystem));
     }
 
     // Called repeatedly when this Command is scheduled to run
-
-    public static final double BUMPER_AT_L2_ENCODER_COUNTS = -1500;
-
     @Override
-    protected void execute() {
+    public void execute() {
 
         switch (state) {
+
         case REAR_UP:
-            Robot.liftSubsystem.setFrontMotorSpeed(0);
-            Robot.liftSubsystem.setRearMotorSpeed(-.95);
-            if (Robot.liftSubsystem.getRearLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS) {
-                Robot.liftSubsystem.setFrontMotorSpeed(0);
-                Robot.liftSubsystem.setRearMotorSpeed(0);
+
+            // Put the back of the robot in the air
+            liftSubsystem.setFrontMotorSpeed(0);
+            liftSubsystem.setRearMotorSpeed(-.95);
+
+            if (liftSubsystem.getRearEncoder() <= BUMPER_AT_L2_ENCODER_COUNTS) {
+
+                liftSubsystem.setFrontMotorSpeed(0);
+                liftSubsystem.setRearMotorSpeed(0);
+
                 state          = State.DRIVE_TO_PLATFORM;
-                driveStartTime = timeSinceInitialized();
+                stateStartTime = System.currentTimeMillis();
             }
-            Scheduler.getInstance().add(new HatchCentreCommand());
+
             break;
 
         case DRIVE_TO_PLATFORM:
-            Robot.driveSubsystem.setSpeed(-.15, -.15);
-            if (timeSinceInitialized() > driveStartTime + 0.7) {
-                state = State.SHUFFLE;
+
+            // Back up onto the platform for .7 seconds
+            driveSubsystem.setMotorSpeeds(-.15, -.15);
+
+            if (System.currentTimeMillis() > stateStartTime + 700) {
+                state          = State.SHUFFLE;
+                stateStartTime = System.currentTimeMillis();
             }
+
             break;
 
         case SHUFFLE:
-            Robot.liftSubsystem.setRearMotorSpeed(1.0);
-            Robot.liftSubsystem.setFrontMotorSpeed(-.95);
-            Robot.liftSubsystem.setDriveMotorSpeed(1.0);
-            Robot.driveSubsystem.setSpeed(-0.07, -0.07);
-            if (Robot.liftSubsystem.getFrontLiftEncoder().get() <= BUMPER_AT_L2_ENCODER_COUNTS - 200) {
+
+            // put the rear wheels down on the platform and lift the front
+            // while backing up.
+            liftSubsystem.setRearMotorSpeed(1.0);
+            liftSubsystem.setFrontMotorSpeed(-.95);
+            liftSubsystem.setDriveMotorSpeed(1.0);
+
+            driveSubsystem.setMotorSpeeds(-0.07, -0.07);
+
+            // Once the front is up, continue to drive on.
+            if (liftSubsystem.getFrontEncoder() <= BUMPER_AT_L2_ENCODER_COUNTS - 200) {
                 state          = State.DRIVE_ON;
-                driveStartTime = timeSinceInitialized();
+                stateStartTime = System.currentTimeMillis();
             }
             break;
 
         case DRIVE_ON:
-            Robot.liftSubsystem.setFrontMotorSpeed(0);
-            Robot.liftSubsystem.setRearMotorSpeed(0);
-            Robot.liftSubsystem.setDriveMotorSpeed(0);
-            Robot.driveSubsystem.setSpeed(-0.2, -0.2);
-            if (timeSinceInitialized() > driveStartTime + 1.7) {
-                state = State.RAISE_FRONT;
-                Robot.liftSubsystem.setRearMotorSpeed(0);
+
+            // Drive on for 1.7 seconds and then raise the front wheels
+            liftSubsystem.setFrontMotorSpeed(0);
+            liftSubsystem.setRearMotorSpeed(0);
+            liftSubsystem.setDriveMotorSpeed(0);
+
+            driveSubsystem.setMotorSpeeds(-0.2, -0.2);
+
+            // Stop after 1.7 seconds and assume the robot is up.
+            if (System.currentTimeMillis() > stateStartTime + 1700) {
+                state          = State.RAISE_FRONT;
+                stateStartTime = System.currentTimeMillis();
             }
             break;
 
         case RAISE_FRONT:
-            Robot.liftSubsystem.setFrontMotorSpeed(1.0);
-            Robot.liftSubsystem.setDriveMotorSpeed(0);
-            Robot.driveSubsystem.setSpeed(-0.2, -0.2);
-            if (timeSinceInitialized() > driveStartTime + 1) {
+
+            liftSubsystem.setFrontMotorSpeed(1.0);
+            liftSubsystem.setDriveMotorSpeed(0);
+
+            driveSubsystem.setMotorSpeeds(-0.2, -0.2);
+
+            if (System.currentTimeMillis() > stateStartTime + 1000) {
                 state          = State.FINISH_FORWARD;
-                driveStartTime = timeSinceInitialized();
-                Robot.liftSubsystem.setDriveMotorSpeed(0.0);
+                stateStartTime = System.currentTimeMillis();
             }
             break;
 
         case FINISH_FORWARD:
-            Robot.driveSubsystem.setSpeed(-0.2, -0.2);
-            if (timeSinceInitialized() > driveStartTime + 2) {
+
+            // Back onto the platform until the timeout
+            driveSubsystem.setMotorSpeeds(-0.2, -0.2);
+
+            if (System.currentTimeMillis() > stateStartTime + 2000) {
                 state = State.FINISH;
             }
             break;
@@ -134,23 +153,24 @@ public class L2HopUp extends TSafeCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    protected boolean isFinished() {
-
-        if (super.isFinished()) {
-            return true;
-        }
+    public boolean isFinished() {
 
         if (state == State.FINISH) {
             return true;
         }
+
         return false;
     }
 
     @Override
-    protected void end() {
-        Robot.liftSubsystem.setRearMotorSpeed(0);
-        Robot.liftSubsystem.setFrontMotorSpeed(0);
-        Robot.liftSubsystem.setDriveMotorSpeed(0);
-        Robot.driveSubsystem.setSpeed(0, 0);
+    public void end(boolean interrupted) {
+
+        logCommandEnd(interrupted);
+
+        liftSubsystem.setRearMotorSpeed(0);
+        liftSubsystem.setFrontMotorSpeed(0);
+        liftSubsystem.setDriveMotorSpeed(0);
+
+        driveSubsystem.setMotorSpeeds(0, 0);
     }
 }

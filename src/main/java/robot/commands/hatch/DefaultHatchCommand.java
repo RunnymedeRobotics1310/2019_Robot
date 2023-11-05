@@ -53,7 +53,7 @@ public class DefaultHatchCommand extends TSafeCommand {
         }
 
         if (Robot.oi.getHatchSlideCentre()) {
-            Scheduler.getInstance().add(new HatchCentreCommand());
+            Scheduler.getInstance().add(new HatchCenterCommand());
             return;
         }
 

@@ -1,101 +1,95 @@
 package robot.commands.lift;
 
-import com.torontocodingcollective.TConst;
-
-import edu.wpi.first.wpilibj.command.Scheduler;
-import robot.Robot;
 import robot.commands.LoggingCommandBase;
+import robot.oi.OI;
+import robot.subsystems.LiftSubsystem;
 
 /**
  *
  */
 public class DefaultLiftCommand extends LoggingCommandBase {
 
-    private static final String COMMAND_NAME = DefaultLiftCommand.class.getSimpleName();
+    private final OI            operatorInput;
+    private final LiftSubsystem liftSubsystem;
 
-    public DefaultLiftCommand() {
 
-        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
+    public DefaultLiftCommand(OI operatorInput, LiftSubsystem liftSubsystem) {
 
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.liftSubsystem);
-    }
+        this.operatorInput = operatorInput;
+        this.liftSubsystem = liftSubsystem;
 
-    @Override
-    protected String getCommandName() {
-        return COMMAND_NAME;
-    }
-
-    @Override
-    protected String getParmDesc() {
-        return super.getParmDesc();
+        addRequirements(liftSubsystem);
     }
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-        // Print the command parameters if this is the current
-        // called command (it was not sub-classed)
-        if (getCommandName().equals(COMMAND_NAME)) {
-            logMessage(getParmDesc() + " starting");
-        }
+    public void initialize() {
+        logCommandStart();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
-        if (Robot.oi.startLevel3()) {
-            Scheduler.getInstance().add(new L3Command());
-        }
+    public void execute() {
 
-        if (Robot.oi.startLevel2()) {
-            Scheduler.getInstance().add(new L2HopUp());
-        }
+        /*
+         * Set the lift motor speeds
+         */
+        if (operatorInput.syncedExtendLift()) {
 
-        if (Robot.oi.syncedExtendLift()) {
-            double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
-                - Robot.liftSubsystem.getRearLiftEncoder().get();
-            Robot.liftSubsystem.setFrontMotorSpeed(-0.9 - encoderMismatch * .001);
-            Robot.liftSubsystem.setRearMotorSpeed(-0.9);
+            double encoderMismatch = liftSubsystem.getFrontEncoder()
+                - liftSubsystem.getRearEncoder();
+
+            liftSubsystem.setFrontMotorSpeed(-0.9 - encoderMismatch * .001);
+            liftSubsystem.setRearMotorSpeed(-0.9);
         }
-        else if (Robot.oi.syncedRetractLift()) {
-            double encoderMismatch = Robot.liftSubsystem.getFrontLiftEncoder().get()
-                - Robot.liftSubsystem.getRearLiftEncoder().get();
-            Robot.liftSubsystem.setFrontMotorSpeed(0.5 - encoderMismatch * .001);
-            Robot.liftSubsystem.setRearMotorSpeed(0.5);
+        else if (operatorInput.syncedRetractLift()) {
+
+            double encoderMismatch = liftSubsystem.getFrontEncoder()
+                - liftSubsystem.getRearEncoder();
+
+            liftSubsystem.setFrontMotorSpeed(0.5 - encoderMismatch * .001);
+            liftSubsystem.setRearMotorSpeed(0.5);
         }
         else {
-            if (Robot.oi.getRetractFrontLift()) {
-                Robot.liftSubsystem.setFrontMotorSpeed(0.8);
+
+            // Front lift (manual)
+            if (operatorInput.getRetractFrontLift()) {
+                liftSubsystem.setFrontMotorSpeed(0.8);
             }
-            else if (Robot.oi.getExtendFrontLift() > 0) {
-                Robot.liftSubsystem.setFrontMotorSpeed(-Robot.oi.getExtendFrontLift());
-            }
-            else {
-                Robot.liftSubsystem.setFrontMotorSpeed(0);
-            }
-            if (Robot.oi.getRetractRearLift()) {
-                Robot.liftSubsystem.setRearMotorSpeed(0.8);
-            }
-            else if (Robot.oi.getExtendRearLift() > 0) {
-                Robot.liftSubsystem.setRearMotorSpeed(-Robot.oi.getExtendRearLift());
+            else if (operatorInput.getExtendFrontLift() > 0) {
+                liftSubsystem.setFrontMotorSpeed(-operatorInput.getExtendFrontLift());
             }
             else {
-                Robot.liftSubsystem.setRearMotorSpeed(0);
+                liftSubsystem.setFrontMotorSpeed(0);
+            }
+
+            // Rear lift (manual)
+            if (operatorInput.getRetractRearLift()) {
+                liftSubsystem.setRearMotorSpeed(0.8);
+            }
+            else if (operatorInput.getExtendRearLift() > 0) {
+                liftSubsystem.setRearMotorSpeed(-operatorInput.getExtendRearLift());
+            }
+            else {
+                liftSubsystem.setRearMotorSpeed(0);
             }
         }
-        if (Robot.oi.getLiftDriveForward()) {
-            Robot.liftSubsystem.setDriveMotorSpeed(0.5);
+
+        /*
+         * Set the drive motor speeds
+         */
+        if (operatorInput.getLiftDriveForward()) {
+            liftSubsystem.setDriveMotorSpeed(0.5);
         }
         else {
-            Robot.liftSubsystem.setDriveMotorSpeed(0);
+            liftSubsystem.setDriveMotorSpeed(0);
         }
 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 

@@ -28,10 +28,10 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     public static final DriveSubsystem       driveSubsystem      = new DriveSubsystem();
-    public static final PneumaticsSubsystem  pneumaticsSubsystem = new PneumaticsSubsystem();
-    public static final LiftSubsystem        liftSubsystem       = new LiftSubsystem();
-    public static final HatchSubsystem       hatchSubsystem      = new HatchSubsystem();
     public static final CargoSubsystem       cargoSubsystem      = new CargoSubsystem();
+    public static final HatchSubsystem       hatchSubsystem      = new HatchSubsystem();
+    public static final LiftSubsystem        liftSubsystem       = new LiftSubsystem();
+    public static final PneumaticsSubsystem  pneumaticsSubsystem = new PneumaticsSubsystem();
 
     // All dashboard choosers are defined here...
     private final SendableChooser<DriveMode> driveModeChooser    = new SendableChooser<>();
@@ -51,7 +51,8 @@ public class RobotContainer {
         initDashboardChoosers();
 
         // Configure the button bindings
-        oi.configureButtonBindings(driveSubsystem);
+        oi.configureButtonBindings(driveSubsystem, cargoSubsystem, hatchSubsystem, liftSubsystem,
+            pneumaticsSubsystem);
     }
 
     private void initDashboardChoosers() {

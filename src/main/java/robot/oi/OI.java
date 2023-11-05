@@ -2,7 +2,14 @@ package robot.oi;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import robot.commands.lift.L2HopUp;
+import robot.commands.lift.L3Command;
+import robot.subsystems.CargoSubsystem;
 import robot.subsystems.DriveSubsystem;
+import robot.subsystems.HatchSubsystem;
+import robot.subsystems.LiftSubsystem;
+import robot.subsystems.PneumaticsSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -326,8 +333,15 @@ public class OI extends SubsystemBase {
         SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
     }
 
-    public void configureButtonBindings(DriveSubsystem drivesubsystem) {
-        // TODO Auto-generated method stub
+    public void configureButtonBindings(DriveSubsystem driveSubsystem, CargoSubsystem cargoSubsystem,
+        HatchSubsystem hatchSubsystem, LiftSubsystem liftSubsystem, PneumaticsSubsystem pneumaticsSubsystem) {
+
+        new Trigger(() -> startLevel3())
+            .onTrue(new L3Command(this, liftSubsystem, driveSubsystem, hatchSubsystem));
+
+        new Trigger(() -> startLevel2())
+            .onTrue(new L2HopUp(this, liftSubsystem, driveSubsystem, hatchSubsystem));
+
 
     }
 }
