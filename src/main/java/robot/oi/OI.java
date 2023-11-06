@@ -159,7 +159,7 @@ public class OI extends SubsystemBase {
      * Arm / Cargo Subsystem buttons
      * /*
      *************************************************/
-    public boolean getArmDriveMode() {
+    public boolean getArmManualDriveMode() {
         return armManualDriveMode;
     }
 
@@ -334,7 +334,7 @@ public class OI extends SubsystemBase {
         SmartDashboard.putString("Driver Controller", driverController.toString());
         SmartDashboard.putString("Operator Controller", operatorController.toString());
         SmartDashboard.putNumber("Arm Level", armLevelSetPoint);
-        SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmDriveMode());
+        SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmManualDriveMode());
         SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
     }
 
