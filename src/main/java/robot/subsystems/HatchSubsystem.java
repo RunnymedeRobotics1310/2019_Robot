@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robot.Constants.HatchConstants;
-import robot.RobotMap;
 
 /**
  * Subsystem for the hatch mechanism. Involves the belt slider and pneumatic placement/grabbing
@@ -33,11 +32,12 @@ public class HatchSubsystem extends SubsystemBase {
         new DigitalInput(HatchConstants.SLIDE_RIGHT_LIMIT_SWITCH_DIO_PORT),
         HatchConstants.SLIDE_RIGHT_LIMIT_DEFAULT_STATE);
 
-    Solenoid                     pickupSolenoid      = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.HATCH_PICKUP_SOLENOID);
+    Solenoid                     pickupSolenoid      = new Solenoid(PneumaticsModuleType.CTREPCM,
+        HatchConstants.HATCH_PICKUP_SOLENOID);
     Solenoid                     rightPunchSolenoid  = new Solenoid(PneumaticsModuleType.CTREPCM,
-        RobotMap.HATCH_PUNCH_SOLENOID_RIGHT);
+        HatchConstants.HATCH_PUNCH_SOLENOID_RIGHT);
     Solenoid                     leftPunchSolenoid   = new Solenoid(PneumaticsModuleType.CTREPCM,
-        RobotMap.HATCH_PUNCH_SOLENOID_LEFT);
+        HatchConstants.HATCH_PUNCH_SOLENOID_LEFT);
 
     double                       slideMotorSpeed     = 0;
     int                          slideEncoderOffset  = 0;
