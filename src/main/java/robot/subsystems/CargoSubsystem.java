@@ -169,6 +169,35 @@ public class CargoSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Arm Up", armUpLimit.atLimit());
         SmartDashboard.putNumber("Arm Encoder", armEncoder.getPosition());
         SmartDashboard.putNumber("Current Arm Level", getCurrentLevel());
+        SmartDashboard.putNumber("Intake speed", rightIntakeMotor.getMotorOutputPercent());
     }
 
+    public void stop() {
+
+        // Stop all of the motors
+        setArmSpeed(0);
+        stopIntake();
+    }
+
+    @Override
+    public String toString() {
+
+        // Create an appropriate text readable string describing the state of the subsystem
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getClass().getSimpleName());
+        if (armDownLimitDetected()) {
+            sb.append(" ARM DOWN");
+        }
+
+        if (armUpLimitDetected()) {
+            sb.append(" ARM UP");
+        }
+
+        sb.append(" arm level ").append(getCurrentLevel()).append("(").append(armEncoder.getPosition()).append(')')
+            .append(" speed ").append(armMotor.get())
+            .append(" intake ").append(rightIntakeMotor.getMotorOutputPercent());
+
+        return sb.toString();
+    }
 }

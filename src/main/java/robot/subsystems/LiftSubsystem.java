@@ -59,7 +59,7 @@ public class LiftSubsystem extends SubsystemBase {
         return platformDetect.atLimit();
     }
 
-    public boolean getCentreDetect() {
+    public boolean getCenterDetect() {
         return centreDetect.atLimit();
     }
 
@@ -158,4 +158,55 @@ public class LiftSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Platform Detected", platformDetect.atLimit());
         SmartDashboard.putBoolean("Centre Detected", centreDetect.atLimit());
     }
+
+    public void stop() {
+
+        // Stop all of the motors
+        setFrontMotorSpeed(0);
+        setRearMotorSpeed(0);
+        setDriveMotorSpeed(0);
+    }
+
+    @Override
+    public String toString() {
+
+        // Create an appropriate text readable string describing the state of the subsystem
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getClass().getSimpleName());
+
+        sb.append(" Front");
+        if (getFrontUpperLimit()) {
+            sb.append(" UP");
+        }
+        if (getFrontUpperLimit()) {
+            sb.append(" DOWN");
+        }
+        sb.append(" speed ").append(frontMotor.get());
+        sb.append(" pos ").append(frontEncoder.getPosition());
+
+        sb.append(": Rear");
+        if (getRearUpperLimit()) {
+            sb.append(" UP");
+        }
+        if (getRearUpperLimit()) {
+            sb.append(" DOWN");
+        }
+        sb.append(" speed ").append(rearMotor.get());
+        sb.append(" pos ").append(rearEncoder.getPosition());
+
+        sb.append(": Drive");
+        sb.append(" speed ").append(driveMotor.getMotorOutputPercent());
+
+        if (getPlatformDetect()) {
+            sb.append(" PLATFORM DETECTED");
+        }
+
+        if (getCenterDetect()) {
+            sb.append(" CENTER DETECTED");
+        }
+
+        return sb.toString();
+    }
+
 }

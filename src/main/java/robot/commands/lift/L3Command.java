@@ -113,7 +113,7 @@ public class L3Command extends LoggingCommandBase {
 
             driveSubsystem.setMotorSpeeds(-0.2, -0.2);
 
-            if (liftSubsystem.getCentreDetect()) {
+            if (liftSubsystem.getCenterDetect()) {
                 state = State.RAISE_FRONT;
             }
             break;

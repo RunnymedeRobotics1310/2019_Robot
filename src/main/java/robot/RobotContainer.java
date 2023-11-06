@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import robot.Constants.DriveConstants.DriveMode;
 import robot.commands.drive.DefaultDriveCommand;
+import robot.commands.lift.DefaultLiftCommand;
+import robot.commands.pneumatics.DefaultPneumaticsCommand;
 import robot.oi.OI;
 import robot.subsystems.CargoSubsystem;
 import robot.subsystems.DriveSubsystem;
@@ -43,9 +45,13 @@ public class RobotContainer {
 
         // Initialize all Subsystem default commands.
         driveSubsystem.setDefaultCommand(
-            new DefaultDriveCommand(
-                oi.driverController, driveModeChooser,
-                driveSubsystem));
+            new DefaultDriveCommand(oi.driverController, driveModeChooser, driveSubsystem));
+
+        liftSubsystem.setDefaultCommand(
+            new DefaultLiftCommand(oi, liftSubsystem));
+
+        pneumaticsSubsystem.setDefaultCommand(
+            new DefaultPneumaticsCommand(oi, pneumaticsSubsystem));
 
         // Initialize the dashboard choosers
         initDashboardChoosers();

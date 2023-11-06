@@ -3,6 +3,11 @@ package robot.oi;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import robot.Constants.Side;
+import robot.commands.CancelCommand;
+import robot.commands.hatch.HatchCenterCommand;
+import robot.commands.hatch.HatchEjectBusCommand;
+import robot.commands.hatch.HatchEjectRocketCommand;
 import robot.commands.lift.L2HopUp;
 import robot.commands.lift.L3Command;
 import robot.subsystems.CargoSubsystem;
@@ -336,6 +341,30 @@ public class OI extends SubsystemBase {
     public void configureButtonBindings(DriveSubsystem driveSubsystem, CargoSubsystem cargoSubsystem,
         HatchSubsystem hatchSubsystem, LiftSubsystem liftSubsystem, PneumaticsSubsystem pneumaticsSubsystem) {
 
+        /*
+         * Cancel command
+         */
+        new Trigger(() -> getCancelCommand())
+            .onTrue(new CancelCommand(this, driveSubsystem, cargoSubsystem, hatchSubsystem, liftSubsystem));
+
+        /*
+         * Hatch Commands
+         */
+        new Trigger(() -> getHatchSlideCentre())
+            .onTrue(new HatchCenterCommand(hatchSubsystem));
+
+        new Trigger(() -> getHatchRocketEject())
+            .onTrue(new HatchEjectRocketCommand(hatchSubsystem));
+
+        new Trigger(() -> getHatchEjectLeft())
+            .onTrue(new HatchEjectBusCommand(Side.LEFT, hatchSubsystem));
+
+        new Trigger(() -> getHatchEjectRight())
+            .onTrue(new HatchEjectBusCommand(Side.LEFT, hatchSubsystem));
+
+        /*
+         * Climb commands
+         */
         new Trigger(() -> startLevel3())
             .onTrue(new L3Command(this, liftSubsystem, driveSubsystem, hatchSubsystem));
 

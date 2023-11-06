@@ -155,4 +155,44 @@ public class HatchSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("Left Slide Limit", slideLeftLimit.atLimit());
         SmartDashboard.putBoolean("right Slide Limit", slideRightLimit.atLimit());
     }
+
+    public void stop() {
+
+        // Stop all of the motors
+        setSlideSpeed(0);
+    }
+
+    @Override
+    public String toString() {
+
+        // Create an appropriate text readable string describing the state of the subsystem
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getClass().getSimpleName());
+        sb.append(" slide");
+        if (leftSlideLimitDetected()) {
+            sb.append(" LEFT");
+        }
+        if (rightSlideLimitDetected()) {
+            sb.append(" RIGHT");
+        }
+        sb.append(" speed ").append(slideMotorSpeed).append(" pos ").append(getSlideEncoder());
+
+        if (pickupSolenoid.get()) {
+            sb.append(" PICKUP EXTENDED");
+        }
+
+        if (rightPunchSolenoid.get() || leftPunchSolenoid.get()) {
+            sb.append(" PUNCH");
+            if (leftPunchSolenoid.get()) {
+                sb.append(" L");
+            }
+            if (rightPunchSolenoid.get()) {
+                sb.append(" R");
+            }
+        }
+
+        return sb.toString();
+    }
+
 }

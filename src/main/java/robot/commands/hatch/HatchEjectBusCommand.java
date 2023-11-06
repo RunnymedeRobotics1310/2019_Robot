@@ -1,67 +1,52 @@
 package robot.commands.hatch;
 
-import com.torontocodingcollective.TConst;
-import com.torontocodingcollective.commands.TSafeCommand;
+import robot.Constants.Side;
+import robot.commands.LoggingCommandBase;
+import robot.subsystems.HatchSubsystem;
 
-import robot.Robot;
-import robot.RobotConst.Side;
+public class HatchEjectBusCommand extends LoggingCommandBase {
 
-public class HatchEjectBusCommand extends TSafeCommand {
+    private final HatchSubsystem hatchSubsystem;
 
-    private static final String COMMAND_NAME = DefaultHatchCommand.class.getSimpleName();
+    private Side                 firstSide;
 
-    private Side                firstSide;
+    public HatchEjectBusCommand(Side firstSide, HatchSubsystem hatchSubsystem) {
 
-    public HatchEjectBusCommand(Side side) {
+        this.firstSide      = firstSide;
+        this.hatchSubsystem = hatchSubsystem;
 
-        super(TConst.NO_COMMAND_TIMEOUT, Robot.oi);
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.hatchSubsystem);
-
-        firstSide = side;
-    }
-
-    @Override
-    protected String getCommandName() {
-        return COMMAND_NAME;
-    }
-
-    @Override
-    protected String getParmDesc() {
-        return super.getParmDesc();
+        addRequirements(hatchSubsystem);
     }
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-        // Print the command parameters if this is the current
-        // called command (it was not sub-classed)
-        if (getCommandName().equals(COMMAND_NAME)) {
-            logMessage(getParmDesc() + " starting");
-        }
+    public void initialize() {
+
+        logCommandStart("First Punch Side " + firstSide.toString());
 
         switch (firstSide) {
         case LEFT:
-            Robot.hatchSubsystem.extendPunchMechLeft();
+            hatchSubsystem.extendPunchMechLeft();
             break;
         case RIGHT:
-            Robot.hatchSubsystem.extendPunchMechRight();
+            hatchSubsystem.extendPunchMechRight();
             break;
         }
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
+    public void execute() {
 
-        if (timeSinceInitialized() > 0.055) {
+        if (isTimeoutExceeded(.55)) {
 
             switch (firstSide) {
             case LEFT:
-                Robot.hatchSubsystem.extendPunchMechRight();
+                hatchSubsystem.extendPunchMechRight();
                 break;
             case RIGHT:
-                Robot.hatchSubsystem.extendPunchMechLeft();
+                hatchSubsystem.extendPunchMechLeft();
                 break;
             }
         }
@@ -70,16 +55,20 @@ public class HatchEjectBusCommand extends TSafeCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    protected boolean isFinished() {
-        if (timeSinceInitialized() > 0.5) {
+    public boolean isFinished() {
+
+        if (isTimeoutExceeded(1.0)) {
             return true;
         }
         return false;
     }
 
     @Override
-    protected void end() {
-        Robot.hatchSubsystem.retractPunchMech();
+    public void end(boolean interrupted) {
+
+        logCommandEnd(interrupted);
+
+        hatchSubsystem.retractPunchMech();
     }
 
 }
