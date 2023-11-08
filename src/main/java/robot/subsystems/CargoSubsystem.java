@@ -45,6 +45,10 @@ public class CargoSubsystem extends SubsystemBase {
 
         armMotor.setIdleMode(IdleMode.kBrake);
         armMotor.setInverted(ArmConstants.ARM_MOTOR_ISINVERTED);
+
+        // 64 counts per revolution
+        armEncoder.setPositionConversionFactor(64);
+
         resetToStartingPos();
 
         leftIntakeMotor.setNeutralMode(NeutralMode.Brake);

@@ -45,11 +45,11 @@ public class DefaultDriveCommand extends LoggingCommandBase {
 
         switch (driveMode) {
 
-        case SINGLE_STICK_ARCADE:
+        case DUAL_STICK_ARCADE:
             setMotorSpeedsArcade(driverController.getLeftY(), driverController.getRightX(), boost);
             break;
 
-        case DUAL_STICK_ARCADE:
+        case SINGLE_STICK_ARCADE:
             setMotorSpeedsArcade(driverController.getLeftY(), driverController.getLeftX(), boost);
             break;
 

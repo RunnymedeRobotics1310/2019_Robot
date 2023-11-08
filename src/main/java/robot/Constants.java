@@ -57,7 +57,7 @@ public final class Constants {
         public static final int      ARM_DOWN_LIMIT_DIO_PORT      = 9;
         public static final boolean  ARM_DOWN_LIMIT_DEFAULT_STATE = true;
 
-        public static final int      ARM_UP_LIMIT_DIO_PORT        = 11;
+        public static final int      ARM_UP_LIMIT_DIO_PORT        = 8;
         public static final boolean  ARM_UP_LIMIT_DEFAULT_STATE   = true;
     }
 

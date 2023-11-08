@@ -148,12 +148,15 @@ public class HatchSubsystem extends SubsystemBase {
                 setSlideSpeed(0);
             }
         }
+
         SmartDashboard.putNumber("Slide Motor", slideMotorSpeed);
         SmartDashboard.putNumber("Slide Encoder Count", getSlideEncoder());
-        SmartDashboard.putBoolean("Top left Solenoid Extended", pickupSolenoid.get());
-        SmartDashboard.putBoolean("Punch Solenoid 2 Extended", rightPunchSolenoid.get());
         SmartDashboard.putBoolean("Left Slide Limit", slideLeftLimit.atLimit());
-        SmartDashboard.putBoolean("right Slide Limit", slideRightLimit.atLimit());
+        SmartDashboard.putBoolean("Right Slide Limit", slideRightLimit.atLimit());
+
+        SmartDashboard.putBoolean("Hatch Extended", pickupSolenoid.get());
+        SmartDashboard.putBoolean("Right Punch", rightPunchSolenoid.get());
+        SmartDashboard.putBoolean("Left Punch", rightPunchSolenoid.get());
     }
 
     public void stop() {

@@ -53,12 +53,8 @@ public class OI extends SubsystemBase {
      * Initializers and General Controls
      * /*
      *************************************************/
-    public void init() {
-        compressorToggle = true;
-    }
-
     public boolean getCancelCommand() {
-        return driverController.getBackButton();
+        return driverController.getStartButton();
     }
 
     public boolean getCompressorEnabled() {
@@ -66,11 +62,11 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getReset() {
-        return driverController.getStartButton();
+        return driverController.getBackButton();
     }
 
     public boolean getLiftModeEnabled() {
-        return operatorController.getStartButton();
+        return operatorController.getBackButton();
     }
 
     public boolean getHatchModeEnabled() {

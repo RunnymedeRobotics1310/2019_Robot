@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import robot.Constants.DriveConstants.DriveMode;
+import robot.commands.cargo.DefaultCargoCommand;
 import robot.commands.drive.DefaultDriveCommand;
+import robot.commands.hatch.DefaultHatchCommand;
 import robot.commands.lift.DefaultLiftCommand;
 import robot.commands.pneumatics.DefaultPneumaticsCommand;
 import robot.oi.OI;
@@ -47,6 +49,12 @@ public class RobotContainer {
         driveSubsystem.setDefaultCommand(
             new DefaultDriveCommand(oi.driverController, driveModeChooser, driveSubsystem));
 
+        cargoSubsystem.setDefaultCommand(
+            new DefaultCargoCommand(oi, cargoSubsystem));
+
+        hatchSubsystem.setDefaultCommand(
+            new DefaultHatchCommand(oi, hatchSubsystem));
+
         liftSubsystem.setDefaultCommand(
             new DefaultLiftCommand(oi, liftSubsystem));
 
@@ -63,10 +71,10 @@ public class RobotContainer {
 
     private void initDashboardChoosers() {
 
-        driveModeChooser.setDefaultOption("Tank", DriveMode.TANK);
+        driveModeChooser.setDefaultOption("Dual Stick Arcade", DriveMode.DUAL_STICK_ARCADE);
         SmartDashboard.putData("Drive Mode", driveModeChooser);
-        driveModeChooser.addOption("Dual Stick Arcade", DriveMode.DUAL_STICK_ARCADE);
         driveModeChooser.addOption("Single Stick Arcade", DriveMode.SINGLE_STICK_ARCADE);
+        driveModeChooser.addOption("Tank", DriveMode.TANK);
     }
 
     /**
