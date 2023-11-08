@@ -37,10 +37,6 @@ public class DefaultHatchCommand extends LoggingCommandBase {
         hatchSubsystem.setSlideSpeed(
             (operatorInput.getHatchSlideLeft() / 3) - (operatorInput.getHatchSlideRight() / 3));
 
-        if (operatorInput.getReset()) {
-            hatchSubsystem.resetEncoder();
-        }
-
         // Updates and sets the Solenoids for the hatch mech
         if (operatorInput.getHatchMechExtend()) {
             hatchSubsystem.extendHatchMech();

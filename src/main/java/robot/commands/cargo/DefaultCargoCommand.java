@@ -39,10 +39,6 @@ public class DefaultCargoCommand extends LoggingCommandBase {
             }
         }
 
-        if (operatorInput.getReset()) {
-            cargoSubsystem.resetEncoder();
-        }
-
         if (operatorInput.getArmUp() > 0) {
             cargoSubsystem.setArmSpeed(operatorInput.getArmUp() / 2.0);
             operatorInput.setArmLevel(cargoSubsystem.getCurrentLevel());

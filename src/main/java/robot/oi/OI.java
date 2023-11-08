@@ -46,7 +46,8 @@ public class OI extends SubsystemBase {
     private boolean       armManualDriveMode = true;
     private double        armLevelSetPoint   = 0;
 
-    private boolean       liftModeEnabled;
+    private boolean       hatchModeEnabled   = true;
+    private boolean       liftModeEnabled    = false;
 
     /*
      * *************************************************
@@ -61,16 +62,12 @@ public class OI extends SubsystemBase {
         return compressorToggle;
     }
 
-    public boolean getReset() {
-        return driverController.getBackButton();
-    }
-
     public boolean getLiftModeEnabled() {
-        return operatorController.getBackButton();
+        return operatorController.getStartButton();
     }
 
     public boolean getHatchModeEnabled() {
-        return operatorController.getStartButton();
+        return operatorController.getBackButton();
     }
 
     /*
@@ -79,7 +76,7 @@ public class OI extends SubsystemBase {
      * /*
      *************************************************/
     public boolean getHatchEjectRight() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getBButton();
         }
         else {
@@ -88,7 +85,7 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getHatchEjectLeft() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getXButton();
         }
         else {
@@ -97,7 +94,7 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getHatchRocketEject() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getRightBumper();
         }
         else {
@@ -106,7 +103,7 @@ public class OI extends SubsystemBase {
     }
 
     public double getHatchSlideLeft() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getLeftTriggerAxis();
         }
         else {
@@ -115,7 +112,7 @@ public class OI extends SubsystemBase {
     }
 
     public double getHatchSlideRight() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getRightTriggerAxis();
         }
         else {
@@ -124,7 +121,7 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getHatchSlideCentre() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getLeftBumper();
         }
         else {
@@ -133,7 +130,7 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getHatchMechExtend() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getYButton();
         }
         else {
@@ -142,7 +139,7 @@ public class OI extends SubsystemBase {
     }
 
     public boolean getHatchMechRetract() {
-        if (!liftModeEnabled) {
+        if (hatchModeEnabled) {
             return operatorController.getAButton();
         }
         else {
@@ -172,15 +169,19 @@ public class OI extends SubsystemBase {
     }
 
     public boolean cargoIntake() {
-        if (operatorController.getLeftY() > 0.3) {
-            return true;
+        if (hatchModeEnabled) {
+            if (operatorController.getLeftY() > 0.3) {
+                return true;
+            }
         }
         return driverController.getXButton();
     }
 
     public boolean cargoEject() {
-        if (operatorController.getLeftY() < -0.3) {
-            return true;
+        if (hatchModeEnabled) {
+            if (operatorController.getLeftY() < -0.3) {
+                return true;
+            }
         }
         return driverController.getYButton();
     }
@@ -254,14 +255,14 @@ public class OI extends SubsystemBase {
 
     public boolean startLevel3() {
         if (liftModeEnabled) {
-            return operatorController.getStartButton();
+            return operatorController.getLeftStickButton();
         }
         return false;
     }
 
     public boolean startLevel2() {
         if (liftModeEnabled) {
-            return operatorController.getLeftStickButton();
+            return operatorController.getRightStickButton();
         }
         return false;
     }
@@ -313,11 +314,12 @@ public class OI extends SubsystemBase {
 
         // Update the Lift Mode
         if (getLiftModeEnabled()) {
-            // Scheduler.getInstance().add(new HatchCentreCommand());
-            liftModeEnabled = true;
+            liftModeEnabled  = true;
+            hatchModeEnabled = false;
         }
         if (getHatchModeEnabled()) {
-            liftModeEnabled = false;
+            liftModeEnabled  = false;
+            hatchModeEnabled = true;
         }
 
         // Update all Toggles
@@ -331,7 +333,8 @@ public class OI extends SubsystemBase {
         SmartDashboard.putString("Operator Controller", operatorController.toString());
         SmartDashboard.putNumber("Arm Level", armLevelSetPoint);
         SmartDashboard.putBoolean("Arm Manual Drive Mode", getArmManualDriveMode());
-        SmartDashboard.putBoolean("LiftModeEnabled", liftModeEnabled);
+        SmartDashboard.putBoolean("Lift Mode", liftModeEnabled);
+        SmartDashboard.putBoolean("Hatch Mode", hatchModeEnabled);
     }
 
     public void configureButtonBindings(DriveSubsystem driveSubsystem, CargoSubsystem cargoSubsystem,
