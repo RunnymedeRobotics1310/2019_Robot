@@ -1,9 +1,9 @@
 package robot.commands.hatch;
 
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.subsystems.HatchSubsystem;
 
-public class HatchEjectRocketCommand extends LoggingCommandBase {
+public class HatchEjectRocketCommand extends LoggingCommand {
 
     private final HatchSubsystem hatchSubsystem;
 

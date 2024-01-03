@@ -1,14 +1,14 @@
 package robot.commands.cargo;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.OI;
 import robot.subsystems.CargoSubsystem;
 
 /**
  *
  */
-public class DefaultCargoCommand extends LoggingCommandBase {
+public class DefaultCargoCommand extends LoggingCommand {
 
     private final OI             operatorInput;
     private final CargoSubsystem cargoSubsystem;

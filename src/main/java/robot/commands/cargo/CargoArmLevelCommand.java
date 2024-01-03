@@ -1,14 +1,14 @@
 package robot.commands.cargo;
 
 import robot.RobotConst;
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.OI;
 import robot.subsystems.CargoSubsystem;
 
 /**
  *
  */
-public class CargoArmLevelCommand extends LoggingCommandBase {
+public class CargoArmLevelCommand extends LoggingCommand {
 
     private final OI             operatorInput;
     private final CargoSubsystem cargoSubsystem;

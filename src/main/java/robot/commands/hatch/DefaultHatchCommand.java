@@ -1,13 +1,13 @@
 package robot.commands.hatch;
 
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.OI;
 import robot.subsystems.HatchSubsystem;
 
 /**
  * The default hatch command TODO: commenting
  */
-public class DefaultHatchCommand extends LoggingCommandBase {
+public class DefaultHatchCommand extends LoggingCommand {
 
     private final OI             operatorInput;
     private final HatchSubsystem hatchSubsystem;

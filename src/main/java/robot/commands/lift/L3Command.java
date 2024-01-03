@@ -1,7 +1,7 @@
 package robot.commands.lift;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.commands.hatch.HatchCenterCommand;
 import robot.oi.OI;
 import robot.subsystems.DriveSubsystem;
@@ -11,7 +11,7 @@ import robot.subsystems.LiftSubsystem;
 /**
  *
  */
-public class L3Command extends LoggingCommandBase {
+public class L3Command extends LoggingCommand {
 
     private final OI             operatorInput;
 

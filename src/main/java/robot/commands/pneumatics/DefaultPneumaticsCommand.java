@@ -1,13 +1,13 @@
 package robot.commands.pneumatics;
 
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.OI;
 import robot.subsystems.PneumaticsSubsystem;
 
 /**
  *
  */
-public class DefaultPneumaticsCommand extends LoggingCommandBase {
+public class DefaultPneumaticsCommand extends LoggingCommand {
 
     private final OI                  operatorInput;
     private final PneumaticsSubsystem pneumaticsSubsystem;

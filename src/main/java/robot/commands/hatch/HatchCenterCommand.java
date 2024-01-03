@@ -1,12 +1,12 @@
 package robot.commands.hatch;
 
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.subsystems.HatchSubsystem;
 
 /**
  * HatchCenter command returns the hatch to the center
  */
-public class HatchCenterCommand extends LoggingCommandBase {
+public class HatchCenterCommand extends LoggingCommand {
 
     private final HatchSubsystem hatchSubsystem;
 

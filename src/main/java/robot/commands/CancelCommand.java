@@ -10,7 +10,7 @@ import robot.subsystems.LiftSubsystem;
  * This command is used to safely stop the robot in its current position, and to cancel any running
  * commands
  */
-public class CancelCommand extends LoggingCommandBase {
+public class CancelCommand extends LoggingCommand {
 
     private final OI             operatorInput;
     private final DriveSubsystem driveSubsystem;

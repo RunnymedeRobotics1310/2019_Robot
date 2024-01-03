@@ -1,13 +1,13 @@
 package robot.commands.lift;
 
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.OI;
 import robot.subsystems.LiftSubsystem;
 
 /**
  *
  */
-public class DefaultLiftCommand extends LoggingCommandBase {
+public class DefaultLiftCommand extends LoggingCommand {
 
     private final OI            operatorInput;
     private final LiftSubsystem liftSubsystem;

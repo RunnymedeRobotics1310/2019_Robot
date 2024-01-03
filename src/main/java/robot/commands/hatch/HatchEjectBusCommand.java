@@ -1,10 +1,10 @@
 package robot.commands.hatch;
 
 import robot.Constants.Side;
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.subsystems.HatchSubsystem;
 
-public class HatchEjectBusCommand extends LoggingCommandBase {
+public class HatchEjectBusCommand extends LoggingCommand {
 
     private final HatchSubsystem hatchSubsystem;
 

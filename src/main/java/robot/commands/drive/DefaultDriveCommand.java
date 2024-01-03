@@ -3,11 +3,11 @@ package robot.commands.drive;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import robot.Constants.DriveConstants.DriveMode;
-import robot.commands.LoggingCommandBase;
+import robot.commands.LoggingCommand;
 import robot.oi.GameController;
 import robot.subsystems.DriveSubsystem;
 
-public class DefaultDriveCommand extends LoggingCommandBase {
+public class DefaultDriveCommand extends LoggingCommand {
 
     private final DriveSubsystem             driveSubsystem;
     private final XboxController             driverController;
