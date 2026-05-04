@@ -229,15 +229,15 @@ public class OI extends SubsystemBase {
   }
 
   public boolean syncedExtendLift() {
-    if (liftModeEnabled) {
-      return operatorController.getPOV() == 0;
+    if (liftModeEnabled || true) {
+      return driverController.getPOV() == 0;
     }
     return false;
   }
 
   public boolean syncedRetractLift() {
-    if (liftModeEnabled) {
-      return operatorController.getPOV() == 180;
+    if (liftModeEnabled || true) {
+      return driverController.getPOV() == 180;
     }
     return false;
   }
@@ -281,10 +281,10 @@ public class OI extends SubsystemBase {
           break;
       }
     } else if (driverController.getRightBumper()) {
-      armLevelSetPoint = 4;
+      armLevelSetPoint = 1;
       armManualDriveMode = false;
     } else if (driverController.getLeftBumper()) {
-      armLevelSetPoint = 0;
+      armLevelSetPoint = 4;
       armManualDriveMode = false;
     } else if (driverController.getAButton() && false) {
       armLevelSetPoint = 1;
