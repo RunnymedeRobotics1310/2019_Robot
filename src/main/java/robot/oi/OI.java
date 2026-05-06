@@ -222,8 +222,8 @@ public class OI extends SubsystemBase {
   }
 
   public boolean getLiftDriveForward() {
-    if (liftModeEnabled) {
-      return operatorController.getAButton();
+    if (liftModeEnabled || true) {
+      return driverController.getXButton();
     }
     return false;
   }
